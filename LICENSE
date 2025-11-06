@@ -1,0 +1,105 @@
+MIT License
+
+Copyright (c) 2025 Moni Development Team
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+---
+
+## Third-Party Licenses
+
+This software includes or depends on the following third-party components:
+
+### PySide6 (Qt for Python)
+- License: LGPL v3 / Commercial
+- Copyright: The Qt Company Ltd.
+- https://www.qt.io/licensing/
+
+### psutil
+- License: BSD-3-Clause
+- Copyright: Giampaolo Rodola
+- https://github.com/giampaolo/psutil
+
+### pynvml
+- License: BSD-3-Clause
+- Copyright: NVIDIA Corporation
+- https://github.com/gpuopenanalytics/pynvml
+
+### FastAPI
+- License: MIT
+- Copyright: Sebastián Ramírez
+- https://github.com/tiangolo/fastapi
+
+### Stripe Python Library
+- License: MIT
+- Copyright: Stripe, Inc.
+- https://github.com/stripe/stripe-python
+
+### cryptography
+- License: Apache 2.0 / BSD
+- Copyright: Individual contributors
+- https://github.com/pyca/cryptography
+
+### pydantic
+- License: MIT
+- Copyright: Samuel Colvin
+- https://github.com/pydantic/pydantic
+
+### matplotlib
+- License: PSF-based
+- Copyright: Matplotlib Development Team
+- https://matplotlib.org/
+
+### scikit-learn
+- License: BSD-3-Clause
+- Copyright: scikit-learn developers
+- https://github.com/scikit-learn/scikit-learn
+
+### OpenCV Python
+- License: Apache 2.0
+- Copyright: OpenCV team
+- https://github.com/opencv/opencv-python
+
+### Prophet
+- License: MIT
+- Copyright: Facebook, Inc.
+- https://github.com/facebook/prophet
+
+---
+
+## Commercial Use
+
+This software is free for both personal and commercial use under the MIT License.
+
+For enterprise support, custom integrations, or commercial licensing inquiries,
+please contact: enterprise@moni-monitor.example.com
+
+---
+
+## Security Disclosure
+
+If you discover a security vulnerability, please follow our Security Policy:
+See SECURITY.md for responsible disclosure procedures.
+
+---
+
+## Trademark Notice
+
+"Moni System Monitor" and the Moni logo are trademarks of the Moni Development Team.
+Use of these trademarks is subject to our Trademark Policy.

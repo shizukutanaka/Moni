@@ -1,0 +1,236 @@
+{
+  "metadata": {
+    "language": "한국어",
+    "language_code": "ko",
+    "locale": "ko-KR",
+    "encoding": "UTF-8",
+    "author": "Moni System Monitor",
+    "version": "1.0.0",
+    "last_updated": "2025-10-27",
+    "rtl": false,
+    "text_direction": "ltr"
+  },
+  "translations": {
+    "app": {
+      "name": "Moni 시스템 모니터",
+      "description": "보안 및 최적화 기능을 갖춘 고급 시스템 모니터링",
+      "version": "버전"
+    },
+    "ui": {
+      "overlay": {
+        "title": "시스템 모니터",
+        "last_update": "마지막 업데이트",
+        "automation_status": "자동화",
+        "metrics": "메트릭",
+        "values": "값",
+        "initializing": "초기화 중...",
+        "loading": "로딩 중...",
+        "ready": "준비완료"
+      },
+      "dialogs": {
+        "configure_metrics": "메트릭 구성",
+        "select_metrics": "표시할 메트릭을 선택하세요. 드래그하여 순서 변경.",
+        "overlay_settings": "오버레이 설정",
+        "show_on_launch": "시작 시 오버레이 표시",
+        "always_on_top": "오버레이를 항상 위에 유지",
+        "opacity": "오버레이 투명도",
+        "refresh_interval": "새로고침 간격 (ms)",
+        "logging_automation": "로깅 자동화",
+        "enable_logging": "주기적 메트릭 로깅 활성화",
+        "interval": "간격 (ms)",
+        "log_file": "로그 파일",
+        "browse": "찾아보기...",
+        "select_log_file": "로그 파일 선택",
+        "threshold_alerts": "임계값 경고",
+        "enable_alerts": "경고 활성화",
+        "show_banner": "오버레이에 경고 배너 표시",
+        "cpu_threshold": "CPU 임계값 (%)",
+        "memory_threshold": "메모리 임계값 (%)",
+        "alert_cooldown": "경고 대기시간 (초)",
+        "alert_history": "경고 기록",
+        "no_alerts": "기록된 경고가 없습니다.",
+        "select_profile": "프로필 선택",
+        "choose_profile": "모니터링 프로필을 선택하세요:",
+        "select_profile_details": "세부정보를 보려면 프로필 선택",
+        "configure": "구성",
+        "settings": "오버레이 설정",
+        "automation": "자동화",
+        "enable_logging_button": "로깅 활성화",
+        "alerts": "경고",
+        "history": "기록",
+        "profiles": "프로필",
+        "trends": "동향",
+        "theme": "테마",
+        "open_logs": "로그 열기",
+        "log_folder": "로그 폴더",
+        "clear_alerts": "경고 지우기"
+      },
+      "metrics": {
+        "cpu_usage": "CPU 사용량",
+        "memory_usage": "메모리 사용량",
+        "gpu_usage": "GPU 사용량",
+        "disk_usage": "디스크 사용량",
+        "network_io": "네트워크 I/O",
+        "system_uptime": "시스템 가동시간",
+        "temperature": "온도",
+        "processes": "프로세스",
+        "cores": "코어"
+      },
+      "status": {
+        "monitoring": "모니터링",
+        "stable": "안정적",
+        "rising": "상승",
+        "falling": "하락",
+        "climbing": "오르막",
+        "easing": "완화",
+        "initializing": "초기화 중...",
+        "ready": "준비완료",
+        "error": "오류",
+        "warning": "경고",
+        "success": "성공"
+      },
+      "buttons": {
+        "ok": "확인",
+        "cancel": "취소",
+        "apply": "적용",
+        "save": "저장",
+        "close": "닫기",
+        "refresh": "새로고침",
+        "export": "내보내기",
+        "import": "가져오기",
+        "delete": "삭제",
+        "edit": "편집",
+        "add": "추가",
+        "remove": "제거",
+        "enable": "활성화",
+        "disable": "비활성화",
+        "start": "시작",
+        "stop": "중지",
+        "pause": "일시정지",
+        "resume": "재개"
+      },
+      "messages": {
+        "loading": "로딩 중...",
+        "saving": "저장 중...",
+        "processing": "처리 중...",
+        "completed": "완료됨",
+        "failed": "실패함",
+        "success": "성공",
+        "error": "오류",
+        "warning": "경고",
+        "info": "정보",
+        "confirm": "확인",
+        "yes": "예",
+        "no": "아니오"
+      }
+    },
+    "privacy": {
+      "guard": {
+        "scan_system": "시스템 스캔",
+        "privacy_report": "개인정보 보고서",
+        "network_monitoring": "네트워크 모니터링",
+        "total_connections": "총 연결 수",
+        "blocked_count": "차단됨",
+        "monitoring_processes": "모니터링 중인 프로세스",
+        "file_access": "파일 접근 모니터링",
+        "sensitive_files": "민감한 파일 접근",
+        "clipboard_monitoring": "클립보드 모니터링",
+        "sensitive_data_detected": "민감한 데이터 감지됨",
+        "detection_rate": "감지율",
+        "device_monitoring": "장치 모니터링",
+        "camera": "카메라",
+        "microphone": "마이크로폰",
+        "unused": "사용하지 않음",
+        "in_use": "사용 중",
+        "risk_level": "위험 수준",
+        "low": "낮음",
+        "medium": "중간",
+        "high": "높음",
+        "critical": "심각",
+        "scan_time": "스캔 시간",
+        "total_risk_score": "총 위험 점수",
+        "out_of": "점 만점"
+      }
+    },
+    "optimization": {
+      "system_optimizer": "시스템 최적화",
+      "full_optimization": "전체 최적화",
+      "memory": "메모리",
+      "disk": "디스크",
+      "network": "네트워크",
+      "startup": "시작",
+      "processes": "프로세스",
+      "temp_files": "임시 파일",
+      "dns_cache": "DNS 캐시",
+      "optimization_report": "최적화 보고서",
+      "memory_usage": "메모리 사용량",
+      "reduced": "감소됨",
+      "files_deleted": "파일 삭제됨",
+      "freed": "해제됨",
+      "cache_cleared": "캐시 지워짐"
+    },
+    "formats": {
+      "date": {
+        "short": "yy.MM.dd",
+        "medium": "yyyy년 MMM dd일",
+        "long": "yyyy년 MMMM dd일",
+        "full": "yyyy년 MMMM dd일 EEEE"
+      },
+      "time": {
+        "short": "a h:mm",
+        "medium": "a h:mm:ss",
+        "long": "a h:mm:ss z",
+        "full": "a h:mm:ss zzzz"
+      },
+      "number": {
+        "default": "#,##0.##",
+        "currency": "¤#,##0.00",
+        "percent": "#,##0%"
+      }
+    },
+    "search": {
+      "title": "검색",
+      "placeholder": "YouTube, 학술 논문, 웹 검색...",
+      "button": "검색",
+      "results": "결과",
+      "no_results": "결과를 찾을 수 없습니다",
+      "loading": "검색 중...",
+      "error": "검색 실패",
+      "type": {
+        "youtube": "YouTube 동영상",
+        "academic": "학술 논문",
+        "web": "웹 결과",
+        "news": "뉴스",
+        "images": "이미지"
+      },
+      "engine": {
+        "google": "Google",
+        "bing": "Bing",
+        "duckduckgo": "DuckDuckGo",
+        "brave": "Brave",
+        "youtube": "YouTube API",
+        "scholar": "Google Scholar",
+        "arxiv": "arXiv",
+        "semantic_scholar": "Semantic Scholar"
+      },
+      "filters": {
+        "date": "날짜",
+        "relevance": "관련성",
+        "rating": "평점",
+        "duration": "기간",
+        "category": "카테고리",
+        "language": "언어"
+      }
+    },
+    "settings": {
+      "title": "설정",
+      "language": "언어",
+      "region": "지역",
+      "safe_search": "안전 검색",
+      "max_results": "최대 결과",
+      "api_keys": "API 키",
+      "youtube_key": "YouTube API 키",
+      "scholar_key": "Scholar API 키"
+    }
+  }
+}

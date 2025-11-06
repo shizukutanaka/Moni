@@ -1,0 +1,236 @@
+{
+  "metadata": {
+    "language": "ไทย",
+    "language_code": "th",
+    "locale": "th-TH",
+    "encoding": "UTF-8",
+    "author": "Moni System Monitor",
+    "version": "1.0.0",
+    "last_updated": "2025-10-27",
+    "rtl": false,
+    "text_direction": "ltr"
+  },
+  "translations": {
+    "app": {
+      "name": "Moni ตัวตรวจสอบระบบ",
+      "description": "การตรวจสอบระบบขั้นสูงพร้อมคุณสมบัติด้านความปลอดภัยและการปรับประสิทธิภาพ",
+      "version": "เวอร์ชัน"
+    },
+    "ui": {
+      "overlay": {
+        "title": "ตัวตรวจสอบระบบ",
+        "last_update": "อัปเดตล่าสุด",
+        "automation_status": "การทำงานอัตโนมัติ",
+        "metrics": "เมตริก",
+        "values": "ค่า",
+        "initializing": "กำลังเริ่มต้น...",
+        "loading": "กำลังโหลด...",
+        "ready": "พร้อม"
+      },
+      "dialogs": {
+        "configure_metrics": "กำหนดค่าเมตริก",
+        "select_metrics": "เลือกเมตริกที่จะแสดง ลากเพื่อจัดเรียงใหม่",
+        "overlay_settings": "การตั้งค่าทับซ้อน",
+        "show_on_launch": "แสดงทับซ้อนเมื่อเริ่มต้น",
+        "always_on_top": "รักษาทับซ้อนให้อยู่ด้านบนเสมอ",
+        "opacity": "ความโปร่งใสของทับซ้อน",
+        "refresh_interval": "ช่วงการรีเฟรช (มิลลิวินาที)",
+        "logging_automation": "การบันทึกอัตโนมัติ",
+        "enable_logging": "เปิดใช้งานการบันทึกเมตริกเป็นระยะ",
+        "interval": "ช่วงเวลา (มิลลิวินาที)",
+        "log_file": "ไฟล์บันทึก",
+        "browse": "เรียกดู...",
+        "select_log_file": "เลือกไฟล์บันทึก",
+        "threshold_alerts": "การแจ้งเตือนเกณฑ์",
+        "enable_alerts": "เปิดใช้งานการแจ้งเตือน",
+        "show_banner": "แสดงแบนเนอร์แจ้งเตือนในทับซ้อน",
+        "cpu_threshold": "เกณฑ์ CPU (%)",
+        "memory_threshold": "เกณฑ์หน่วยความจำ (%)",
+        "alert_cooldown": "เวลาหยุดพักการแจ้งเตือน (วินาที)",
+        "alert_history": "ประวัติการแจ้งเตือน",
+        "no_alerts": "ไม่มีการแจ้งเตือนที่บันทึกไว้",
+        "select_profile": "เลือกโปรไฟล์",
+        "choose_profile": "เลือกโปรไฟล์การตรวจสอบ:",
+        "select_profile_details": "เลือกโปรไฟล์เพื่อดูรายละเอียด",
+        "configure": "กำหนดค่า",
+        "settings": "การตั้งค่าทับซ้อน",
+        "automation": "การทำงานอัตโนมัติ",
+        "enable_logging_button": "เปิดใช้งานการบันทึก",
+        "alerts": "การแจ้งเตือน",
+        "history": "ประวัติ",
+        "profiles": "โปรไฟล์",
+        "trends": "แนวโน้ม",
+        "theme": "ธีม",
+        "open_logs": "เปิดบันทึก",
+        "log_folder": "โฟลเดอร์บันทึก",
+        "clear_alerts": "ล้างการแจ้งเตือน"
+      },
+      "metrics": {
+        "cpu_usage": "การใช้ CPU",
+        "memory_usage": "การใช้หน่วยความจำ",
+        "gpu_usage": "การใช้ GPU",
+        "disk_usage": "การใช้ดิสก์",
+        "network_io": "เครือข่าย I/O",
+        "system_uptime": "เวลาทำงานของระบบ",
+        "temperature": "อุณหภูมิ",
+        "processes": "กระบวนการ",
+        "cores": "คอร์"
+      },
+      "status": {
+        "monitoring": "การตรวจสอบ",
+        "stable": "เสถียร",
+        "rising": "กำลังเพิ่มขึ้น",
+        "falling": "กำลังลดลง",
+        "climbing": "กำลังขึ้น",
+        "easing": "กำลังชะลอตัว",
+        "initializing": "กำลังเริ่มต้น...",
+        "ready": "พร้อม",
+        "error": "ข้อผิดพลาด",
+        "warning": "คำเตือน",
+        "success": "สำเร็จ"
+      },
+      "buttons": {
+        "ok": "ตกลง",
+        "cancel": "ยกเลิก",
+        "apply": "ใช้",
+        "save": "บันทึก",
+        "close": "ปิด",
+        "refresh": "รีเฟรช",
+        "export": "ส่งออก",
+        "import": "นำเข้า",
+        "delete": "ลบ",
+        "edit": "แก้ไข",
+        "add": "เพิ่ม",
+        "remove": "ลบ",
+        "enable": "เปิดใช้งาน",
+        "disable": "ปิดใช้งาน",
+        "start": "เริ่ม",
+        "stop": "หยุด",
+        "pause": "หยุดชั่วคราว",
+        "resume": "ดำเนินการต่อ"
+      },
+      "messages": {
+        "loading": "กำลังโหลด...",
+        "saving": "กำลังบันทึก...",
+        "processing": "กำลังประมวลผล...",
+        "completed": "เสร็จสมบูรณ์",
+        "failed": "ล้มเหลว",
+        "success": "สำเร็จ",
+        "error": "ข้อผิดพลาด",
+        "warning": "คำเตือน",
+        "info": "ข้อมูล",
+        "confirm": "ยืนยัน",
+        "yes": "ใช่",
+        "no": "ไม่"
+      }
+    },
+    "privacy": {
+      "guard": {
+        "scan_system": "สแกนระบบ",
+        "privacy_report": "รายงานความเป็นส่วนตัว",
+        "network_monitoring": "การตรวจสอบเครือข่าย",
+        "total_connections": "การเชื่อมต่อทั้งหมด",
+        "blocked_count": "ถูกบล็อก",
+        "monitoring_processes": "กระบวนการที่ตรวจสอบ",
+        "file_access": "การตรวจสอบการเข้าถึงไฟล์",
+        "sensitive_files": "การเข้าถึงไฟล์ที่ละเอียดอ่อน",
+        "clipboard_monitoring": "การตรวจสอบคลิปบอร์ด",
+        "sensitive_data_detected": "ตรวจพบข้อมูลที่ละเอียดอ่อน",
+        "detection_rate": "อัตราการตรวจจับ",
+        "device_monitoring": "การตรวจสอบอุปกรณ์",
+        "camera": "กล้อง",
+        "microphone": "ไมโครโฟน",
+        "unused": "ไม่ได้ใช้",
+        "in_use": "กำลังใช้งาน",
+        "risk_level": "ระดับความเสี่ยง",
+        "low": "ต่ำ",
+        "medium": "กลาง",
+        "high": "สูง",
+        "critical": "วิกฤต",
+        "scan_time": "เวลาการสแกน",
+        "total_risk_score": "คะแนนความเสี่ยงรวม",
+        "out_of": "จาก"
+      }
+    },
+    "optimization": {
+      "system_optimizer": "ตัวปรับประสิทธิภาพระบบ",
+      "full_optimization": "การปรับประสิทธิภาพเต็มรูปแบบ",
+      "memory": "หน่วยความจำ",
+      "disk": "ดิสก์",
+      "network": "เครือข่าย",
+      "startup": "การเริ่มต้น",
+      "processes": "กระบวนการ",
+      "temp_files": "ไฟล์ชั่วคราว",
+      "dns_cache": "แคช DNS",
+      "optimization_report": "รายงานการปรับประสิทธิภาพ",
+      "memory_usage": "การใช้หน่วยความจำ",
+      "reduced": "ลดลง",
+      "files_deleted": "ไฟล์ที่ถูกลบ",
+      "freed": "ได้รับการปลดปล่อย",
+      "cache_cleared": "แคชที่ถูกล้าง"
+    },
+    "formats": {
+      "date": {
+        "short": "dd/MM/yy",
+        "medium": "dd MMM yyyy",
+        "long": "dd MMMM yyyy",
+        "full": "EEEE dd MMMM yyyy"
+      },
+      "time": {
+        "short": "H:mm",
+        "medium": "H:mm:ss",
+        "long": "H:mm:ss z",
+        "full": "H:mm:ss zzzz"
+      },
+      "number": {
+        "default": "#,##0.##",
+        "currency": "¤#,##0.00",
+        "percent": "#,##0%"
+      }
+    },
+    "search": {
+      "title": "ค้นหา",
+      "placeholder": "ค้นหา YouTube เอกสารวิชาการ เว็บ...",
+      "button": "ค้นหา",
+      "results": "ผลลัพธ์",
+      "no_results": "ไม่พบผลลัพธ์",
+      "loading": "กำลังค้นหา...",
+      "error": "การค้นหาล้มเหลว",
+      "type": {
+        "youtube": "วิดีโอ YouTube",
+        "academic": "เอกสารวิชาการ",
+        "web": "ผลลัพธ์เว็บ",
+        "news": "ข่าว",
+        "images": "รูปภาพ"
+      },
+      "engine": {
+        "google": "Google",
+        "bing": "Bing",
+        "duckduckgo": "DuckDuckGo",
+        "brave": "Brave",
+        "youtube": "YouTube API",
+        "scholar": "Google Scholar",
+        "arxiv": "arXiv",
+        "semantic_scholar": "Semantic Scholar"
+      },
+      "filters": {
+        "date": "วันที่",
+        "relevance": "ความเกี่ยวข้อง",
+        "rating": "การให้คะแนน",
+        "duration": "ระยะเวลา",
+        "category": "หมวดหมู่",
+        "language": "ภาษา"
+      }
+    },
+    "settings": {
+      "title": "การตั้งค่า",
+      "language": "ภาษา",
+      "region": "ภูมิภาค",
+      "safe_search": "การค้นหาปลอดภัย",
+      "max_results": "ผลลัพธ์สูงสุด",
+      "api_keys": "คีย์ API",
+      "youtube_key": "คีย์ API YouTube",
+      "scholar_key": "คีย์ API Scholar"
+    }
+  }
+}

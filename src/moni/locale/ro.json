@@ -1,0 +1,236 @@
+{
+  "metadata": {
+    "language": "Română",
+    "language_code": "ro",
+    "locale": "ro-RO",
+    "encoding": "UTF-8",
+    "author": "Moni System Monitor",
+    "version": "1.0.0",
+    "last_updated": "2025-10-27",
+    "rtl": false,
+    "text_direction": "ltr"
+  },
+  "translations": {
+    "app": {
+      "name": "Moni Monitor Sistem",
+      "description": "Monitorizare avansată a sistemului cu funcții de securitate și optimizare",
+      "version": "Versiune"
+    },
+    "ui": {
+      "overlay": {
+        "title": "Monitor Sistem",
+        "last_update": "Ultima actualizare",
+        "automation_status": "Automatizare",
+        "metrics": "Metrici",
+        "values": "Valori",
+        "initializing": "Se inițializează...",
+        "loading": "Se încarcă...",
+        "ready": "Gata"
+      },
+      "dialogs": {
+        "configure_metrics": "Configurează Metrici",
+        "select_metrics": "Selectează metricile de afișat. Trage pentru reordonare.",
+        "overlay_settings": "Setări Suprapunere",
+        "show_on_launch": "Afișează suprapunere la pornire",
+        "always_on_top": "Menține suprapunere întotdeauna deasupra",
+        "opacity": "Opacitate suprapunere",
+        "refresh_interval": "Interval reîmprospătare (ms)",
+        "logging_automation": "Automatizare Jurnalizare",
+        "enable_logging": "Activează jurnalizarea periodică a metricilor",
+        "interval": "Interval (ms)",
+        "log_file": "Fișier jurnal",
+        "browse": "Răsfoiește...",
+        "select_log_file": "Selectează fișier jurnal",
+        "threshold_alerts": "Alerte Prag",
+        "enable_alerts": "Activează alerte",
+        "show_banner": "Afișează banner alertă în suprapunere",
+        "cpu_threshold": "Prag CPU (%)",
+        "memory_threshold": "Prag memorie (%)",
+        "alert_cooldown": "Timp răcire alertă (secunde)",
+        "alert_history": "Istoric Alerte",
+        "no_alerts": "Nu sunt alerte înregistrate.",
+        "select_profile": "Selectează Profil",
+        "choose_profile": "Alege un profil de monitorizare:",
+        "select_profile_details": "Selectează un profil pentru a vedea detaliile",
+        "configure": "Configurează",
+        "settings": "Setări Suprapunere",
+        "automation": "Automatizare",
+        "enable_logging_button": "Activează Jurnalizare",
+        "alerts": "Alerte",
+        "history": "Istoric",
+        "profiles": "Profiluri",
+        "trends": "Tendințe",
+        "theme": "Temă",
+        "open_logs": "Deschide Jurnale",
+        "log_folder": "Dosar Jurnale",
+        "clear_alerts": "Șterge Alerte"
+      },
+      "metrics": {
+        "cpu_usage": "Utilizare CPU",
+        "memory_usage": "Utilizare Memorie",
+        "gpu_usage": "Utilizare GPU",
+        "disk_usage": "Utilizare Disc",
+        "network_io": "Rețea I/O",
+        "system_uptime": "Timp Funcționare Sistem",
+        "temperature": "Temperatură",
+        "processes": "Procese",
+        "cores": "Nuclee"
+      },
+      "status": {
+        "monitoring": "Monitorizare",
+        "stable": "Stabil",
+        "rising": "În creștere",
+        "falling": "În scădere",
+        "climbing": "Urcând",
+        "easing": "Încetinind",
+        "initializing": "Se inițializează...",
+        "ready": "Gata",
+        "error": "Eroare",
+        "warning": "Avertisment",
+        "success": "Succes"
+      },
+      "buttons": {
+        "ok": "OK",
+        "cancel": "Anulare",
+        "apply": "Aplică",
+        "save": "Salvează",
+        "close": "Închide",
+        "refresh": "Reîmprospătează",
+        "export": "Exportă",
+        "import": "Importă",
+        "delete": "Șterge",
+        "edit": "Editează",
+        "add": "Adaugă",
+        "remove": "Elimină",
+        "enable": "Activează",
+        "disable": "Dezactivează",
+        "start": "Pornește",
+        "stop": "Oprește",
+        "pause": "Pauză",
+        "resume": "Reia"
+      },
+      "messages": {
+        "loading": "Se încarcă...",
+        "saving": "Se salvează...",
+        "processing": "Se procesează...",
+        "completed": "Finalizat",
+        "failed": "Eșuat",
+        "success": "Succes",
+        "error": "Eroare",
+        "warning": "Avertisment",
+        "info": "Informații",
+        "confirm": "Confirmă",
+        "yes": "Da",
+        "no": "Nu"
+      }
+    },
+    "privacy": {
+      "guard": {
+        "scan_system": "Scanează Sistem",
+        "privacy_report": "Raport Confidențialitate",
+        "network_monitoring": "Monitorizare Rețea",
+        "total_connections": "Total conexiuni",
+        "blocked_count": "Blocate",
+        "monitoring_processes": "Procese monitorizate",
+        "file_access": "Monitorizare Acces Fișiere",
+        "sensitive_files": "Acces fișiere sensibile",
+        "clipboard_monitoring": "Monitorizare Clipboard",
+        "sensitive_data_detected": "Date sensibile detectate",
+        "detection_rate": "Rata de detectare",
+        "device_monitoring": "Monitorizare Dispozitive",
+        "camera": "Cameră",
+        "microphone": "Microfon",
+        "unused": "Neutilizat",
+        "in_use": "În uz",
+        "risk_level": "Nivel Risc",
+        "low": "SCĂZUT",
+        "medium": "MEDIU",
+        "high": "RIDICAT",
+        "critical": "CRITIC",
+        "scan_time": "Timp scanare",
+        "total_risk_score": "Scor total risc",
+        "out_of": "din"
+      }
+    },
+    "optimization": {
+      "system_optimizer": "Optimizator Sistem",
+      "full_optimization": "Optimizare Completă",
+      "memory": "Memorie",
+      "disk": "Disc",
+      "network": "Rețea",
+      "startup": "Pornire",
+      "processes": "Procese",
+      "temp_files": "Fișiere temporare",
+      "dns_cache": "Cache DNS",
+      "optimization_report": "Raport Optimizare",
+      "memory_usage": "Utilizare memorie",
+      "reduced": "redus",
+      "files_deleted": "fișiere șterse",
+      "freed": "eliberat",
+      "cache_cleared": "Cache șters"
+    },
+    "formats": {
+      "date": {
+        "short": "dd.MM.yy",
+        "medium": "dd MMM yyyy",
+        "long": "dd MMMM yyyy",
+        "full": "EEEE, dd MMMM yyyy"
+      },
+      "time": {
+        "short": "H:mm",
+        "medium": "H:mm:ss",
+        "long": "H:mm:ss z",
+        "full": "H:mm:ss zzzz"
+      },
+      "number": {
+        "default": "#.##0,##",
+        "currency": "#.##0,00 ¤",
+        "percent": "#.##0%"
+      }
+    },
+    "search": {
+      "title": "Căutare",
+      "placeholder": "Caută YouTube, articole academice, web...",
+      "button": "Căutare",
+      "results": "Rezultate",
+      "no_results": "Nu s-au găsit rezultate",
+      "loading": "Se caută...",
+      "error": "Căutare eșuată",
+      "type": {
+        "youtube": "Videoclipuri YouTube",
+        "academic": "Articole Academice",
+        "web": "Rezultate Web",
+        "news": "Știri",
+        "images": "Imagini"
+      },
+      "engine": {
+        "google": "Google",
+        "bing": "Bing",
+        "duckduckgo": "DuckDuckGo",
+        "brave": "Brave",
+        "youtube": "YouTube API",
+        "scholar": "Google Scholar",
+        "arxiv": "arXiv",
+        "semantic_scholar": "Semantic Scholar"
+      },
+      "filters": {
+        "date": "Dată",
+        "relevance": "Relevanță",
+        "rating": "Evaluare",
+        "duration": "Durată",
+        "category": "Categorie",
+        "language": "Limbă"
+      }
+    },
+    "settings": {
+      "title": "Setări",
+      "language": "Limbă",
+      "region": "Regiune",
+      "safe_search": "Căutare Sigură",
+      "max_results": "Max. Rezultate",
+      "api_keys": "Chei API",
+      "youtube_key": "Cheie YouTube API",
+      "scholar_key": "Cheie Scholar API"
+    }
+  }
+}

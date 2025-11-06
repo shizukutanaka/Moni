@@ -1,0 +1,236 @@
+{
+  "metadata": {
+    "language": "עברית",
+    "language_code": "he",
+    "locale": "he-IL",
+    "encoding": "UTF-8",
+    "author": "Moni System Monitor",
+    "version": "1.0.0",
+    "last_updated": "2025-10-27",
+    "rtl": true,
+    "text_direction": "rtl"
+  },
+  "translations": {
+    "app": {
+      "name": "מוני צג מערכת",
+      "description": "ניטור מערכת מתקדם עם תכונות אבטחה ואופטימיזציה",
+      "version": "גרסה"
+    },
+    "ui": {
+      "overlay": {
+        "title": "צג מערכת",
+        "last_update": "עדכון אחרון",
+        "automation_status": "אוטומציה",
+        "metrics": "מדדים",
+        "values": "ערכים",
+        "initializing": "...מאתחל",
+        "loading": "...טוען",
+        "ready": "מוכן"
+      },
+      "dialogs": {
+        "configure_metrics": "הגדר מדדים",
+        "select_metrics": "בחר מדדים להצגה. גרור כדי לסדר מחדש.",
+        "overlay_settings": "הגדרות שכבת על",
+        "show_on_launch": "הצג שכבת על בהפעלה",
+        "always_on_top": "שמור שכבת על תמיד למעלה",
+        "opacity": "שקיפות שכבת על",
+        "refresh_interval": "מרווח רענון (מילישניות)",
+        "logging_automation": "אוטומציית רישום",
+        "enable_logging": "אפשר רישום מדדים תקופתי",
+        "interval": "מרווח (מילישניות)",
+        "log_file": "קובץ רישום",
+        "browse": "...עיין",
+        "select_log_file": "בחר קובץ רישום",
+        "threshold_alerts": "התראות סף",
+        "enable_alerts": "אפשר התראות",
+        "show_banner": "הצג באנר התראה בשכבת על",
+        "cpu_threshold": "סף מעבד (%)",
+        "memory_threshold": "סף זיכרון (%)",
+        "alert_cooldown": "זמן צינון התראה (שניות)",
+        "alert_history": "היסטוריית התראות",
+        "no_alerts": "לא נרשמו התראות.",
+        "select_profile": "בחר פרופיל",
+        "choose_profile": "בחר פרופיל ניטור:",
+        "select_profile_details": "בחר פרופיל לצפייה בפרטים",
+        "configure": "הגדר",
+        "settings": "הגדרות שכבת על",
+        "automation": "אוטומציה",
+        "enable_logging_button": "אפשר רישום",
+        "alerts": "התראות",
+        "history": "היסטוריה",
+        "profiles": "פרופילים",
+        "trends": "מגמות",
+        "theme": "ערכת נושא",
+        "open_logs": "פתח רישומים",
+        "log_folder": "תיקיית רישומים",
+        "clear_alerts": "נקה התראות"
+      },
+      "metrics": {
+        "cpu_usage": "שימוש במעבד",
+        "memory_usage": "שימוש בזיכרון",
+        "gpu_usage": "שימוש במעבד גרפי",
+        "disk_usage": "שימוש בדיסק",
+        "network_io": "קלט/פלט רשת",
+        "system_uptime": "זמן פעילות מערכת",
+        "temperature": "טמפרטורה",
+        "processes": "תהליכים",
+        "cores": "ליבות"
+      },
+      "status": {
+        "monitoring": "ניטור",
+        "stable": "יציב",
+        "rising": "עולה",
+        "falling": "יורד",
+        "climbing": "מטפס",
+        "easing": "מתמתן",
+        "initializing": "...מאתחל",
+        "ready": "מוכן",
+        "error": "שגיאה",
+        "warning": "אזהרה",
+        "success": "הצלחה"
+      },
+      "buttons": {
+        "ok": "אישור",
+        "cancel": "ביטול",
+        "apply": "החל",
+        "save": "שמור",
+        "close": "סגור",
+        "refresh": "רענן",
+        "export": "ייצא",
+        "import": "ייבא",
+        "delete": "מחק",
+        "edit": "ערוך",
+        "add": "הוסף",
+        "remove": "הסר",
+        "enable": "אפשר",
+        "disable": "השבת",
+        "start": "התחל",
+        "stop": "עצור",
+        "pause": "השהה",
+        "resume": "המשך"
+      },
+      "messages": {
+        "loading": "...טוען",
+        "saving": "...שומר",
+        "processing": "...מעבד",
+        "completed": "הושלם",
+        "failed": "נכשל",
+        "success": "הצלחה",
+        "error": "שגיאה",
+        "warning": "אזהרה",
+        "info": "מידע",
+        "confirm": "אשר",
+        "yes": "כן",
+        "no": "לא"
+      }
+    },
+    "privacy": {
+      "guard": {
+        "scan_system": "סרוק מערכת",
+        "privacy_report": "דוח פרטיות",
+        "network_monitoring": "ניטור רשת",
+        "total_connections": "סה״כ חיבורים",
+        "blocked_count": "חסומים",
+        "monitoring_processes": "תהליכים מנוטרים",
+        "file_access": "ניטור גישה לקבצים",
+        "sensitive_files": "גישה לקבצים רגישים",
+        "clipboard_monitoring": "ניטור לוח",
+        "sensitive_data_detected": "זוהו נתונים רגישים",
+        "detection_rate": "שיעור זיהוי",
+        "device_monitoring": "ניטור התקנים",
+        "camera": "מצלמה",
+        "microphone": "מיקרופון",
+        "unused": "לא בשימוש",
+        "in_use": "בשימוש",
+        "risk_level": "רמת סיכון",
+        "low": "נמוכה",
+        "medium": "בינונית",
+        "high": "גבוהה",
+        "critical": "קריטית",
+        "scan_time": "זמן סריקה",
+        "total_risk_score": "ניקוד סיכון כולל",
+        "out_of": "מתוך"
+      }
+    },
+    "optimization": {
+      "system_optimizer": "מאמץ מערכת",
+      "full_optimization": "אופטימיזציה מלאה",
+      "memory": "זיכרון",
+      "disk": "דיסק",
+      "network": "רשת",
+      "startup": "הפעלה",
+      "processes": "תהליכים",
+      "temp_files": "קבצים זמניים",
+      "dns_cache": "מטמון DNS",
+      "optimization_report": "דוח אופטימיזציה",
+      "memory_usage": "שימוש בזיכרון",
+      "reduced": "הופחת",
+      "files_deleted": "קבצים נמחקו",
+      "freed": "שוחרר",
+      "cache_cleared": "מטמון נוקה"
+    },
+    "formats": {
+      "date": {
+        "short": "dd/MM/yy",
+        "medium": "dd MMM yyyy",
+        "long": "dd MMMM yyyy",
+        "full": "EEEE، dd MMMM yyyy"
+      },
+      "time": {
+        "short": "H:mm",
+        "medium": "H:mm:ss",
+        "long": "H:mm:ss z",
+        "full": "H:mm:ss zzzz"
+      },
+      "number": {
+        "default": "#,##0.##",
+        "currency": "¤#,##0.00",
+        "percent": "#,##0%"
+      }
+    },
+    "search": {
+      "title": "חיפוש",
+      "placeholder": "חפש YouTube, מאמרים אקדמיים, אינטרנט...",
+      "button": "חיפוש",
+      "results": "תוצאות",
+      "no_results": "לא נמצאו תוצאות",
+      "loading": "...מחפש",
+      "error": "חיפוש נכשל",
+      "type": {
+        "youtube": "סרטוני YouTube",
+        "academic": "מאמרים אקדמיים",
+        "web": "תוצאות אינטרנט",
+        "news": "חדשות",
+        "images": "תמונות"
+      },
+      "engine": {
+        "google": "Google",
+        "bing": "Bing",
+        "duckduckgo": "DuckDuckGo",
+        "brave": "Brave",
+        "youtube": "YouTube API",
+        "scholar": "Google Scholar",
+        "arxiv": "arXiv",
+        "semantic_scholar": "Semantic Scholar"
+      },
+      "filters": {
+        "date": "תאריך",
+        "relevance": "רלוונטיות",
+        "rating": "דירוג",
+        "duration": "משך זמן",
+        "category": "קטגוריה",
+        "language": "שפה"
+      }
+    },
+    "settings": {
+      "title": "הגדרות",
+      "language": "שפה",
+      "region": "אזור",
+      "safe_search": "חיפוש בטוח",
+      "max_results": "תוצאות מקסימליות",
+      "api_keys": "מפתחות API",
+      "youtube_key": "מפתח YouTube API",
+      "scholar_key": "מפתח Scholar API"
+    }
+  }
+}

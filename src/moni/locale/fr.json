@@ -1,0 +1,236 @@
+{
+  "metadata": {
+    "language": "Français",
+    "language_code": "fr",
+    "locale": "fr-FR",
+    "encoding": "UTF-8",
+    "author": "Moni System Monitor",
+    "version": "1.0.0",
+    "last_updated": "2025-10-27",
+    "rtl": false,
+    "text_direction": "ltr"
+  },
+  "translations": {
+    "app": {
+      "name": "Moni Moniteur Système",
+      "description": "Surveillance système avancée avec fonctions de sécurité et d'optimisation",
+      "version": "Version"
+    },
+    "ui": {
+      "overlay": {
+        "title": "Moniteur Système",
+        "last_update": "Dernière mise à jour",
+        "automation_status": "Automatisation",
+        "metrics": "Métriques",
+        "values": "Valeurs",
+        "initializing": "Initialisation...",
+        "loading": "Chargement...",
+        "ready": "Prêt"
+      },
+      "dialogs": {
+        "configure_metrics": "Configurer les Métriques",
+        "select_metrics": "Sélectionner les métriques à afficher. Glisser pour réorganiser.",
+        "overlay_settings": "Paramètres de Superposition",
+        "show_on_launch": "Afficher la superposition au démarrage",
+        "always_on_top": "Garder la superposition toujours visible",
+        "opacity": "Opacité de la superposition",
+        "refresh_interval": "Intervalle de rafraîchissement (ms)",
+        "logging_automation": "Automatisation des Journaux",
+        "enable_logging": "Activer la journalisation périodique des métriques",
+        "interval": "Intervalle (ms)",
+        "log_file": "Fichier journal",
+        "browse": "Parcourir...",
+        "select_log_file": "Sélectionner le fichier journal",
+        "threshold_alerts": "Alertes de Seuil",
+        "enable_alerts": "Activer les alertes",
+        "show_banner": "Afficher la bannière d'alerte dans la superposition",
+        "cpu_threshold": "Seuil CPU (%)",
+        "memory_threshold": "Seuil mémoire (%)",
+        "alert_cooldown": "Temporisation des alertes (secondes)",
+        "alert_history": "Historique des Alertes",
+        "no_alerts": "Aucune alerte enregistrée.",
+        "select_profile": "Sélectionner le Profil",
+        "choose_profile": "Choisir un profil de surveillance :",
+        "select_profile_details": "Sélectionner un profil pour voir les détails",
+        "configure": "Configurer",
+        "settings": "Paramètres de Superposition",
+        "automation": "Automatisation",
+        "enable_logging_button": "Activer la Journalisation",
+        "alerts": "Alertes",
+        "history": "Historique",
+        "profiles": "Profils",
+        "trends": "Tendances",
+        "theme": "Thème",
+        "open_logs": "Ouvrir les Journaux",
+        "log_folder": "Dossier des Journaux",
+        "clear_alerts": "Effacer les Alertes"
+      },
+      "metrics": {
+        "cpu_usage": "Utilisation CPU",
+        "memory_usage": "Utilisation Mémoire",
+        "gpu_usage": "Utilisation GPU",
+        "disk_usage": "Utilisation Disque",
+        "network_io": "E/S Réseau",
+        "system_uptime": "Temps de Fonctionnement",
+        "temperature": "Température",
+        "processes": "Processus",
+        "cores": "Cœurs"
+      },
+      "status": {
+        "monitoring": "Surveillance",
+        "stable": "Stable",
+        "rising": "En hausse",
+        "falling": "En baisse",
+        "climbing": "En augmentation",
+        "easing": "En diminution",
+        "initializing": "Initialisation...",
+        "ready": "Prêt",
+        "error": "Erreur",
+        "warning": "Avertissement",
+        "success": "Succès"
+      },
+      "buttons": {
+        "ok": "OK",
+        "cancel": "Annuler",
+        "apply": "Appliquer",
+        "save": "Enregistrer",
+        "close": "Fermer",
+        "refresh": "Actualiser",
+        "export": "Exporter",
+        "import": "Importer",
+        "delete": "Supprimer",
+        "edit": "Modifier",
+        "add": "Ajouter",
+        "remove": "Retirer",
+        "enable": "Activer",
+        "disable": "Désactiver",
+        "start": "Démarrer",
+        "stop": "Arrêter",
+        "pause": "Pause",
+        "resume": "Reprendre"
+      },
+      "messages": {
+        "loading": "Chargement...",
+        "saving": "Enregistrement...",
+        "processing": "Traitement...",
+        "completed": "Terminé",
+        "failed": "Échoué",
+        "success": "Succès",
+        "error": "Erreur",
+        "warning": "Avertissement",
+        "info": "Information",
+        "confirm": "Confirmer",
+        "yes": "Oui",
+        "no": "Non"
+      }
+    },
+    "privacy": {
+      "guard": {
+        "scan_system": "Scanner le Système",
+        "privacy_report": "Rapport de Confidentialité",
+        "network_monitoring": "Surveillance Réseau",
+        "total_connections": "Connexions totales",
+        "blocked_count": "Bloquées",
+        "monitoring_processes": "Processus surveillés",
+        "file_access": "Surveillance d'Accès aux Fichiers",
+        "sensitive_files": "Accès aux fichiers sensibles",
+        "clipboard_monitoring": "Surveillance du Presse-papiers",
+        "sensitive_data_detected": "Données sensibles détectées",
+        "detection_rate": "Taux de détection",
+        "device_monitoring": "Surveillance des Périphériques",
+        "camera": "Caméra",
+        "microphone": "Microphone",
+        "unused": "Non utilisé",
+        "in_use": "En cours d'utilisation",
+        "risk_level": "Niveau de Risque",
+        "low": "FAIBLE",
+        "medium": "MOYEN",
+        "high": "ÉLEVÉ",
+        "critical": "CRITIQUE",
+        "scan_time": "Temps de scan",
+        "total_risk_score": "Score de risque total",
+        "out_of": "sur"
+      }
+    },
+    "optimization": {
+      "system_optimizer": "Optimiseur Système",
+      "full_optimization": "Optimisation Complète",
+      "memory": "Mémoire",
+      "disk": "Disque",
+      "network": "Réseau",
+      "startup": "Démarrage",
+      "processes": "Processus",
+      "temp_files": "Fichiers temporaires",
+      "dns_cache": "Cache DNS",
+      "optimization_report": "Rapport d'Optimisation",
+      "memory_usage": "Utilisation mémoire",
+      "reduced": "réduit",
+      "files_deleted": "fichiers supprimés",
+      "freed": "libéré",
+      "cache_cleared": "Cache effacé"
+    },
+    "formats": {
+      "date": {
+        "short": "d/M/yy",
+        "medium": "d MMM yyyy",
+        "long": "d MMMM yyyy",
+        "full": "EEEE d MMMM yyyy"
+      },
+      "time": {
+        "short": "H:mm",
+        "medium": "H:mm:ss",
+        "long": "H:mm:ss z",
+        "full": "H:mm:ss zzzz"
+      },
+      "number": {
+        "default": "# ##0,##",
+        "currency": "# ##0,00 ¤",
+        "percent": "# ##0%"
+      }
+    },
+    "search": {
+      "title": "Rechercher",
+      "placeholder": "Rechercher YouTube, articles académiques, web...",
+      "button": "Rechercher",
+      "results": "Résultats",
+      "no_results": "Aucun résultat trouvé",
+      "loading": "Recherche en cours...",
+      "error": "Échec de la recherche",
+      "type": {
+        "youtube": "Vidéos YouTube",
+        "academic": "Articles Académiques",
+        "web": "Résultats Web",
+        "news": "Actualités",
+        "images": "Images"
+      },
+      "engine": {
+        "google": "Google",
+        "bing": "Bing",
+        "duckduckgo": "DuckDuckGo",
+        "brave": "Brave",
+        "youtube": "API YouTube",
+        "scholar": "Google Scholar",
+        "arxiv": "arXiv",
+        "semantic_scholar": "Semantic Scholar"
+      },
+      "filters": {
+        "date": "Date",
+        "relevance": "Pertinence",
+        "rating": "Évaluation",
+        "duration": "Durée",
+        "category": "Catégorie",
+        "language": "Langue"
+      }
+    },
+    "settings": {
+      "title": "Paramètres",
+      "language": "Langue",
+      "region": "Région",
+      "safe_search": "Recherche Sûre",
+      "max_results": "Max. Résultats",
+      "api_keys": "Clés API",
+      "youtube_key": "Clé API YouTube",
+      "scholar_key": "Clé API Scholar"
+    }
+  }
+}

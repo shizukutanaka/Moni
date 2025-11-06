@@ -1,0 +1,236 @@
+{
+  "metadata": {
+    "language": "Türkçe",
+    "language_code": "tr",
+    "locale": "tr-TR",
+    "encoding": "UTF-8",
+    "author": "Moni System Monitor",
+    "version": "1.0.0",
+    "last_updated": "2025-10-27",
+    "rtl": false,
+    "text_direction": "ltr"
+  },
+  "translations": {
+    "app": {
+      "name": "Moni Sistem Monitörü",
+      "description": "Güvenlik ve optimizasyon özellikli gelişmiş sistem izleme",
+      "version": "Sürüm"
+    },
+    "ui": {
+      "overlay": {
+        "title": "Sistem Monitörü",
+        "last_update": "Son güncelleme",
+        "automation_status": "Otomasyon",
+        "metrics": "Metrikler",
+        "values": "Değerler",
+        "initializing": "Başlatılıyor...",
+        "loading": "Yükleniyor...",
+        "ready": "Hazır"
+      },
+      "dialogs": {
+        "configure_metrics": "Metrikleri Yapılandır",
+        "select_metrics": "Görüntülenecek metrikleri seçin. Sıralamak için sürükleyin.",
+        "overlay_settings": "Kaplama Ayarları",
+        "show_on_launch": "Başlangıçta kaplamayı göster",
+        "always_on_top": "Kaplamayı her zaman üstte tut",
+        "opacity": "Kaplama şeffaflığı",
+        "refresh_interval": "Yenileme aralığı (ms)",
+        "logging_automation": "Günlük Otomasyonu",
+        "enable_logging": "Periyodik metrik günlüğünü etkinleştir",
+        "interval": "Aralık (ms)",
+        "log_file": "Günlük dosyası",
+        "browse": "Gözat...",
+        "select_log_file": "Günlük dosyası seç",
+        "threshold_alerts": "Eşik Uyarıları",
+        "enable_alerts": "Uyarıları etkinleştir",
+        "show_banner": "Kaplama içinde uyarı bandını göster",
+        "cpu_threshold": "CPU eşiği (%)",
+        "memory_threshold": "Bellek eşiği (%)",
+        "alert_cooldown": "Uyarı bekleme süresi (saniye)",
+        "alert_history": "Uyarı Geçmişi",
+        "no_alerts": "Kayıtlı uyarı yok.",
+        "select_profile": "Profil Seç",
+        "choose_profile": "Bir izleme profili seçin:",
+        "select_profile_details": "Ayrıntıları görmek için profil seçin",
+        "configure": "Yapılandır",
+        "settings": "Kaplama Ayarları",
+        "automation": "Otomasyon",
+        "enable_logging_button": "Günlüğü Etkinleştir",
+        "alerts": "Uyarılar",
+        "history": "Geçmiş",
+        "profiles": "Profiller",
+        "trends": "Trendler",
+        "theme": "Tema",
+        "open_logs": "Günlükleri Aç",
+        "log_folder": "Günlük Klasörü",
+        "clear_alerts": "Uyarıları Temizle"
+      },
+      "metrics": {
+        "cpu_usage": "CPU Kullanımı",
+        "memory_usage": "Bellek Kullanımı",
+        "gpu_usage": "GPU Kullanımı",
+        "disk_usage": "Disk Kullanımı",
+        "network_io": "Ağ G/Ç",
+        "system_uptime": "Sistem Çalışma Süresi",
+        "temperature": "Sıcaklık",
+        "processes": "İşlemler",
+        "cores": "Çekirdekler"
+      },
+      "status": {
+        "monitoring": "İzleme",
+        "stable": "Kararlı",
+        "rising": "Yükselen",
+        "falling": "Düşen",
+        "climbing": "Tırmanan",
+        "easing": "Yavaşlayan",
+        "initializing": "Başlatılıyor...",
+        "ready": "Hazır",
+        "error": "Hata",
+        "warning": "Uyarı",
+        "success": "Başarılı"
+      },
+      "buttons": {
+        "ok": "Tamam",
+        "cancel": "İptal",
+        "apply": "Uygula",
+        "save": "Kaydet",
+        "close": "Kapat",
+        "refresh": "Yenile",
+        "export": "Dışa Aktar",
+        "import": "İçe Aktar",
+        "delete": "Sil",
+        "edit": "Düzenle",
+        "add": "Ekle",
+        "remove": "Kaldır",
+        "enable": "Etkinleştir",
+        "disable": "Devre Dışı Bırak",
+        "start": "Başlat",
+        "stop": "Durdur",
+        "pause": "Duraklat",
+        "resume": "Devam Et"
+      },
+      "messages": {
+        "loading": "Yükleniyor...",
+        "saving": "Kaydediliyor...",
+        "processing": "İşleniyor...",
+        "completed": "Tamamlandı",
+        "failed": "Başarısız",
+        "success": "Başarılı",
+        "error": "Hata",
+        "warning": "Uyarı",
+        "info": "Bilgi",
+        "confirm": "Onayla",
+        "yes": "Evet",
+        "no": "Hayır"
+      }
+    },
+    "privacy": {
+      "guard": {
+        "scan_system": "Sistemi Tara",
+        "privacy_report": "Gizlilik Raporu",
+        "network_monitoring": "Ağ İzleme",
+        "total_connections": "Toplam bağlantılar",
+        "blocked_count": "Engellendi",
+        "monitoring_processes": "İzlenen işlemler",
+        "file_access": "Dosya Erişim İzleme",
+        "sensitive_files": "Hassas dosya erişimi",
+        "clipboard_monitoring": "Pano İzleme",
+        "sensitive_data_detected": "Hassas veri algılandı",
+        "detection_rate": "Algılama oranı",
+        "device_monitoring": "Cihaz İzleme",
+        "camera": "Kamera",
+        "microphone": "Mikrofon",
+        "unused": "Kullanılmıyor",
+        "in_use": "Kullanımda",
+        "risk_level": "Risk Seviyesi",
+        "low": "DÜŞÜK",
+        "medium": "ORTA",
+        "high": "YÜKSEK",
+        "critical": "KRİTİK",
+        "scan_time": "Tarama süresi",
+        "total_risk_score": "Toplam risk puanı",
+        "out_of": "üzerinden"
+      }
+    },
+    "optimization": {
+      "system_optimizer": "Sistem Optimizatörü",
+      "full_optimization": "Tam Optimizasyon",
+      "memory": "Bellek",
+      "disk": "Disk",
+      "network": "Ağ",
+      "startup": "Başlangıç",
+      "processes": "İşlemler",
+      "temp_files": "Geçici dosyalar",
+      "dns_cache": "DNS önbelleği",
+      "optimization_report": "Optimizasyon Raporu",
+      "memory_usage": "Bellek kullanımı",
+      "reduced": "azaltıldı",
+      "files_deleted": "dosya silindi",
+      "freed": "serbest bırakıldı",
+      "cache_cleared": "Önbellek temizlendi"
+    },
+    "formats": {
+      "date": {
+        "short": "dd.MM.yy",
+        "medium": "dd MMM yyyy",
+        "long": "dd MMMM yyyy",
+        "full": "dd MMMM yyyy EEEE"
+      },
+      "time": {
+        "short": "H:mm",
+        "medium": "H:mm:ss",
+        "long": "H:mm:ss z",
+        "full": "H:mm:ss zzzz"
+      },
+      "number": {
+        "default": "#.##0,##",
+        "currency": "¤#.##0,00",
+        "percent": "#.##0%"
+      }
+    },
+    "search": {
+      "title": "Ara",
+      "placeholder": "YouTube, akademik makaleler, web ara...",
+      "button": "Ara",
+      "results": "Sonuçlar",
+      "no_results": "Sonuç bulunamadı",
+      "loading": "Aranıyor...",
+      "error": "Arama başarısız",
+      "type": {
+        "youtube": "YouTube Videoları",
+        "academic": "Akademik Makaleler",
+        "web": "Web Sonuçları",
+        "news": "Haberler",
+        "images": "Resimler"
+      },
+      "engine": {
+        "google": "Google",
+        "bing": "Bing",
+        "duckduckgo": "DuckDuckGo",
+        "brave": "Brave",
+        "youtube": "YouTube API",
+        "scholar": "Google Scholar",
+        "arxiv": "arXiv",
+        "semantic_scholar": "Semantic Scholar"
+      },
+      "filters": {
+        "date": "Tarih",
+        "relevance": "Alaka",
+        "rating": "Değerlendirme",
+        "duration": "Süre",
+        "category": "Kategori",
+        "language": "Dil"
+      }
+    },
+    "settings": {
+      "title": "Ayarlar",
+      "language": "Dil",
+      "region": "Bölge",
+      "safe_search": "Güvenli Arama",
+      "max_results": "Maks. Sonuçlar",
+      "api_keys": "API Anahtarları",
+      "youtube_key": "YouTube API Anahtarı",
+      "scholar_key": "Scholar API Anahtarı"
+    }
+  }
+}

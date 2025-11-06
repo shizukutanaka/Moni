@@ -1,0 +1,316 @@
+name: Dependency Security Audit
+
+on:
+  schedule:
+    # Run daily at 02:00 UTC
+    - cron: '0 2 * * *'
+  push:
+    branches: [ main, develop ]
+    paths:
+      - 'requirements.txt'
+      - 'requirements-dev.txt'
+      - 'pyproject.toml'
+  pull_request:
+    branches: [ main ]
+    paths:
+      - 'requirements.txt'
+      - 'requirements-dev.txt'
+      - 'pyproject.toml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  security-events: write
+  issues: write
+
+jobs:
+  dependency-audit:
+    name: Security Audit
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.10'
+
+    - name: Cache pip dependencies
+      uses: actions/cache@v3
+      with:
+        path: ~/.cache/pip
+        key: ${{ runner.os }}-pip-audit-${{ hashFiles('**/requirements.txt') }}
+        restore-keys: |
+          ${{ runner.os }}-pip-audit-
+
+    - name: Install audit tools
+      run: |
+        pip install --upgrade pip
+        pip install safety pip-audit bandit semgrep
+
+    - name: Install dependencies
+      run: |
+        pip install -r requirements.txt
+        pip install -r requirements-dev.txt
+
+    # Safety - Check known vulnerabilities in PyPI packages
+    - name: Run Safety check
+      id: safety
+      continue-on-error: true
+      run: |
+        safety check --json --output safety-report.json || true
+        safety check --output safety-report.txt || true
+
+    - name: Upload Safety report
+      if: always()
+      uses: actions/upload-artifact@v3
+      with:
+        name: safety-report
+        path: |
+          safety-report.json
+          safety-report.txt
+
+    # pip-audit - Official PyPA tool for vulnerability scanning
+    - name: Run pip-audit
+      id: pip-audit
+      continue-on-error: true
+      run: |
+        pip-audit --format json --output pip-audit-report.json || true
+        pip-audit --format cyclonedx-json --output sbom.json || true
+
+    - name: Upload pip-audit report
+      if: always()
+      uses: actions/upload-artifact@v3
+      with:
+        name: pip-audit-report
+        path: |
+          pip-audit-report.json
+          sbom.json
+
+    # Bandit - Security linter for Python code
+    - name: Run Bandit security scan
+      id: bandit
+      continue-on-error: true
+      run: |
+        bandit -r src/moni/ -f json -o bandit-report.json || true
+        bandit -r src/moni/ -f txt -o bandit-report.txt || true
+
+    - name: Upload Bandit report
+      if: always()
+      uses: actions/upload-artifact@v3
+      with:
+        name: bandit-report
+        path: |
+          bandit-report.json
+          bandit-report.txt
+
+    # Semgrep - Static analysis for security patterns
+    - name: Run Semgrep
+      id: semgrep
+      continue-on-error: true
+      run: |
+        semgrep scan --config=auto --json --output semgrep-report.json src/ || true
+        semgrep scan --config=auto --sarif --output semgrep-report.sarif src/ || true
+
+    - name: Upload Semgrep results to GitHub Security
+      if: always()
+      uses: github/codeql-action/upload-sarif@v2
+      with:
+        sarif_file: semgrep-report.sarif
+
+    - name: Upload Semgrep report
+      if: always()
+      uses: actions/upload-artifact@v3
+      with:
+        name: semgrep-report
+        path: semgrep-report.json
+
+    # Dependency Review - GitHub's native tool
+    - name: Dependency Review
+      if: github.event_name == 'pull_request'
+      uses: actions/dependency-review-action@v3
+      with:
+        fail-on-severity: moderate
+        deny-licenses: GPL-2.0, GPL-3.0
+
+    # Generate comprehensive security summary
+    - name: Generate security summary
+      if: always()
+      run: |
+        echo "# Dependency Security Audit Summary" > security-summary.md
+        echo "" >> security-summary.md
+        echo "**Date**: $(date -u '+%Y-%m-%d %H:%M:%S UTC')" >> security-summary.md
+        echo "" >> security-summary.md
+
+        echo "## Safety Check" >> security-summary.md
+        if [ -f safety-report.txt ]; then
+          echo '```' >> security-summary.md
+          cat safety-report.txt >> security-summary.md
+          echo '```' >> security-summary.md
+        else
+          echo "No vulnerabilities found" >> security-summary.md
+        fi
+        echo "" >> security-summary.md
+
+        echo "## Bandit Security Scan" >> security-summary.md
+        if [ -f bandit-report.txt ]; then
+          echo '```' >> security-summary.md
+          head -50 bandit-report.txt >> security-summary.md
+          echo '```' >> security-summary.md
+        else
+          echo "No issues found" >> security-summary.md
+        fi
+        echo "" >> security-summary.md
+
+        echo "## Recommendations" >> security-summary.md
+        echo "1. Review all HIGH and CRITICAL severity findings" >> security-summary.md
+        echo "2. Update vulnerable dependencies to latest secure versions" >> security-summary.md
+        echo "3. Consider adding version pinning for reproducible builds" >> security-summary.md
+        echo "4. Schedule regular dependency updates (monthly)" >> security-summary.md
+
+    - name: Upload security summary
+      if: always()
+      uses: actions/upload-artifact@v3
+      with:
+        name: security-summary
+        path: security-summary.md
+
+    # Create GitHub Issue for critical vulnerabilities
+    - name: Create issue for critical vulnerabilities
+      if: failure() && github.event_name == 'schedule'
+      uses: actions/github-script@v6
+      with:
+        script: |
+          const fs = require('fs');
+          let summary = 'Critical security vulnerabilities detected in dependencies.\\n\\n';
+
+          if (fs.existsSync('safety-report.txt')) {
+            summary += '## Safety Report\\n```\\n';
+            summary += fs.readFileSync('safety-report.txt', 'utf8');
+            summary += '\\n```\\n\\n';
+          }
+
+          summary += '**Action Required**: Please review and update vulnerable dependencies immediately.\\n';
+          summary += 'See artifact uploads for detailed reports.';
+
+          github.rest.issues.create({
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            title: '🔴 Critical Security Vulnerabilities Detected',
+            body: summary,
+            labels: ['security', 'dependencies', 'critical']
+          });
+
+  license-compliance:
+    name: License Compliance Check
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.10'
+
+    - name: Install license checker
+      run: |
+        pip install pip-licenses
+
+    - name: Generate license report
+      run: |
+        pip install -r requirements.txt
+        pip-licenses --format=json --output-file=licenses.json
+        pip-licenses --format=markdown --output-file=licenses.md
+        pip-licenses --format=csv --output-file=licenses.csv
+
+    - name: Check for incompatible licenses
+      run: |
+        # Check for GPL-2.0, GPL-3.0 which might conflict with MIT
+        if pip-licenses | grep -E 'GPL-2\.0|GPL-3\.0'; then
+          echo "::warning::GPL licenses detected - review compatibility"
+        fi
+
+    - name: Upload license reports
+      uses: actions/upload-artifact@v3
+      with:
+        name: license-reports
+        path: |
+          licenses.json
+          licenses.md
+          licenses.csv
+
+  dependency-graph:
+    name: Generate Dependency Graph
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.10'
+
+    - name: Install pipdeptree
+      run: |
+        pip install pipdeptree
+
+    - name: Generate dependency tree
+      run: |
+        pip install -r requirements.txt
+        pipdeptree --json > dependency-tree.json
+        pipdeptree --graph-output png > dependency-graph.png || true
+        pipdeptree > dependency-tree.txt
+
+    - name: Upload dependency graph
+      uses: actions/upload-artifact@v3
+      with:
+        name: dependency-graph
+        path: |
+          dependency-tree.json
+          dependency-tree.txt
+          dependency-graph.png
+
+  sbom-generation:
+    name: Generate SBOM (Software Bill of Materials)
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.10'
+
+    - name: Install SBOM tools
+      run: |
+        pip install cyclonedx-bom
+
+    - name: Generate CycloneDX SBOM
+      run: |
+        pip install -r requirements.txt
+        cyclonedx-py -i requirements.txt -o sbom-cyclonedx.json
+        cyclonedx-py -i requirements.txt -o sbom-cyclonedx.xml -f xml
+
+    - name: Upload SBOM
+      uses: actions/upload-artifact@v3
+      with:
+        name: sbom
+        path: |
+          sbom-cyclonedx.json
+          sbom-cyclonedx.xml
+
+    - name: Attach SBOM to release
+      if: github.event_name == 'release'
+      uses: softprops/action-gh-release@v1
+      with:
+        files: |
+          sbom-cyclonedx.json
+          sbom-cyclonedx.xml

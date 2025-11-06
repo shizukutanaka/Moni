@@ -1,0 +1,206 @@
+site_name: Moni System Monitor
+site_description: Production-grade system monitoring with enterprise security and real-time analytics
+site_author: Moni Development Team
+site_url: https://moni-monitor.example.com
+
+repo_name: moni/system-monitor
+repo_url: https://github.com/yourusername/moni
+edit_uri: edit/main/docs/
+
+copyright: Copyright &copy; 2025 Moni Development Team
+
+theme:
+  name: material
+  language: en
+  palette:
+    # Light mode
+    - scheme: default
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    # Dark mode
+    - scheme: slate
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+
+  font:
+    text: Roboto
+    code: Roboto Mono
+
+  features:
+    - navigation.instant
+    - navigation.tracking
+    - navigation.tabs
+    - navigation.tabs.sticky
+    - navigation.sections
+    - navigation.expand
+    - navigation.indexes
+    - navigation.top
+    - search.suggest
+    - search.highlight
+    - search.share
+    - toc.follow
+    - content.code.copy
+    - content.code.annotate
+    - content.tabs.link
+
+  icon:
+    repo: fontawesome/brands/github
+    logo: material/chart-line
+
+extra:
+  version:
+    provider: mike
+    default: stable
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/yourusername/moni
+    - icon: fontawesome/brands/docker
+      link: https://hub.docker.com/r/moni/system-monitor
+    - icon: fontawesome/brands/python
+      link: https://pypi.org/project/moni/
+  analytics:
+    provider: google
+    property: G-XXXXXXXXXX
+
+markdown_extensions:
+  # Python Markdown
+  - abbr
+  - admonition
+  - attr_list
+  - def_list
+  - footnotes
+  - md_in_html
+  - meta
+  - tables
+  - toc:
+      permalink: true
+      toc_depth: 3
+
+  # Python Markdown Extensions
+  - pymdownx.arithmatex:
+      generic: true
+  - pymdownx.betterem:
+      smart_enable: all
+  - pymdownx.caret
+  - pymdownx.details
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.keys
+  - pymdownx.mark
+  - pymdownx.smartsymbols
+  - pymdownx.snippets
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  - pymdownx.tilde
+
+plugins:
+  - search:
+      lang: en
+      separator: '[\s\-\.]+'
+  - minify:
+      minify_html: true
+  - git-revision-date-localized:
+      enable_creation_date: true
+      type: timeago
+  - mermaid2
+  - tags
+  - social
+
+nav:
+  - Home:
+    - index.md
+    - Getting Started: getting-started.md
+    - Installation: installation.md
+    - Quick Start: quickstart.md
+
+  - User Guide:
+    - guide/index.md
+    - Configuration: guide/configuration.md
+    - Profiles: guide/profiles.md
+    - Monitoring Metrics: guide/metrics.md
+    - Alerts: guide/alerts.md
+    - Data Export: guide/export.md
+    - Keyboard Shortcuts: guide/shortcuts.md
+
+  - Billing & Pricing:
+    - billing/index.md
+    - Pricing Tiers: billing/pricing.md
+    - Subscription Management: billing/subscriptions.md
+    - Usage Metering: billing/metering.md
+    - Feature Gates: billing/features.md
+    - Billing Portal: billing/portal.md
+
+  - Security:
+    - security/index.md
+    - Security Features: security/features.md
+    - Compliance: security/compliance.md
+    - Best Practices: security/best-practices.md
+    - Encryption: security/encryption.md
+    - Authentication: security/authentication.md
+    - Audit Logging: security/audit.md
+
+  - API Reference:
+    - api/index.md
+    - Billing API: api/billing.md
+    - Metrics API: api/metrics.md
+    - Configuration API: api/configuration.md
+    - Webhooks: api/webhooks.md
+    - OpenAPI Specification: api/billing-api-spec.yaml
+
+  - Deployment:
+    - deployment/index.md
+    - Docker: deployment/docker.md
+    - Kubernetes: deployment/kubernetes.md
+    - Systemd: deployment/systemd.md
+    - Production Checklist: deployment/checklist.md
+    - Monitoring: deployment/monitoring.md
+    - Scaling: deployment/scaling.md
+
+  - Integrations:
+    - integrations/index.md
+    - Stripe: integrations/stripe.md
+    - Prometheus: integrations/prometheus.md
+    - Grafana: integrations/grafana.md
+    - ClickUp: integrations/clickup.md
+    - Jira: integrations/jira.md
+    - Slack: integrations/slack.md
+    - GitHub: integrations/github.md
+
+  - Development:
+    - development/index.md
+    - Contributing: CONTRIBUTING.md
+    - Code of Conduct: CODE_OF_CONDUCT.md
+    - Architecture: development/architecture.md
+    - Testing: development/testing.md
+    - Code Quality: development/quality.md
+    - Release Process: development/releases.md
+
+  - Troubleshooting:
+    - troubleshooting/index.md
+    - Common Issues: troubleshooting/common-issues.md
+    - Performance: troubleshooting/performance.md
+    - GPU Issues: troubleshooting/gpu.md
+    - Permissions: troubleshooting/permissions.md
+    - FAQ: troubleshooting/faq.md
+
+  - Changelog: CHANGELOG.md
+  - License: LICENSE

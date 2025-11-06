@@ -1,0 +1,236 @@
+{
+  "metadata": {
+    "language": "Русский",
+    "language_code": "ru",
+    "locale": "ru-RU",
+    "encoding": "UTF-8",
+    "author": "Moni System Monitor",
+    "version": "1.0.0",
+    "last_updated": "2025-10-27",
+    "rtl": false,
+    "text_direction": "ltr"
+  },
+  "translations": {
+    "app": {
+      "name": "Moni Системный Монитор",
+      "description": "Расширенный мониторинг системы с функциями безопасности и оптимизации",
+      "version": "Версия"
+    },
+    "ui": {
+      "overlay": {
+        "title": "Системный Монитор",
+        "last_update": "Последнее обновление",
+        "automation_status": "Автоматизация",
+        "metrics": "Метрики",
+        "values": "Значения",
+        "initializing": "Инициализация...",
+        "loading": "Загрузка...",
+        "ready": "Готово"
+      },
+      "dialogs": {
+        "configure_metrics": "Настроить Метрики",
+        "select_metrics": "Выберите метрики для отображения. Перетащите для изменения порядка.",
+        "overlay_settings": "Настройки Наложения",
+        "show_on_launch": "Показывать наложение при запуске",
+        "always_on_top": "Держать наложение всегда сверху",
+        "opacity": "Прозрачность наложения",
+        "refresh_interval": "Интервал обновления (мс)",
+        "logging_automation": "Автоматизация Логирования",
+        "enable_logging": "Включить периодическое логирование метрик",
+        "interval": "Интервал (мс)",
+        "log_file": "Файл логирования",
+        "browse": "Обзор...",
+        "select_log_file": "Выбрать файл логирования",
+        "threshold_alerts": "Предупреждения по Порогам",
+        "enable_alerts": "Включить предупреждения",
+        "show_banner": "Показывать баннер предупреждения в наложении",
+        "cpu_threshold": "Порог CPU (%)",
+        "memory_threshold": "Порог памяти (%)",
+        "alert_cooldown": "Задержка предупреждений (секунды)",
+        "alert_history": "История Предупреждений",
+        "no_alerts": "Предупреждения не зарегистрированы.",
+        "select_profile": "Выбрать Профиль",
+        "choose_profile": "Выберите профиль мониторинга:",
+        "select_profile_details": "Выберите профиль для просмотра деталей",
+        "configure": "Настроить",
+        "settings": "Настройки Наложения",
+        "automation": "Автоматизация",
+        "enable_logging_button": "Включить Логирование",
+        "alerts": "Предупреждения",
+        "history": "История",
+        "profiles": "Профили",
+        "trends": "Тенденции",
+        "theme": "Тема",
+        "open_logs": "Открыть Логи",
+        "log_folder": "Папка Логов",
+        "clear_alerts": "Очистить Предупреждения"
+      },
+      "metrics": {
+        "cpu_usage": "Использование CPU",
+        "memory_usage": "Использование Памяти",
+        "gpu_usage": "Использование GPU",
+        "disk_usage": "Использование Диска",
+        "network_io": "Сетевой Ввод/Вывод",
+        "system_uptime": "Время Работы Системы",
+        "temperature": "Температура",
+        "processes": "Процессы",
+        "cores": "Ядра"
+      },
+      "status": {
+        "monitoring": "Мониторинг",
+        "stable": "Стабильно",
+        "rising": "Растет",
+        "falling": "Падает",
+        "climbing": "Повышается",
+        "easing": "Снижается",
+        "initializing": "Инициализация...",
+        "ready": "Готово",
+        "error": "Ошибка",
+        "warning": "Предупреждение",
+        "success": "Успешно"
+      },
+      "buttons": {
+        "ok": "ОК",
+        "cancel": "Отмена",
+        "apply": "Применить",
+        "save": "Сохранить",
+        "close": "Закрыть",
+        "refresh": "Обновить",
+        "export": "Экспорт",
+        "import": "Импорт",
+        "delete": "Удалить",
+        "edit": "Редактировать",
+        "add": "Добавить",
+        "remove": "Убрать",
+        "enable": "Включить",
+        "disable": "Отключить",
+        "start": "Запустить",
+        "stop": "Остановить",
+        "pause": "Пауза",
+        "resume": "Продолжить"
+      },
+      "messages": {
+        "loading": "Загрузка...",
+        "saving": "Сохранение...",
+        "processing": "Обработка...",
+        "completed": "Завершено",
+        "failed": "Неудачно",
+        "success": "Успешно",
+        "error": "Ошибка",
+        "warning": "Предупреждение",
+        "info": "Информация",
+        "confirm": "Подтвердить",
+        "yes": "Да",
+        "no": "Нет"
+      }
+    },
+    "privacy": {
+      "guard": {
+        "scan_system": "Сканировать Систему",
+        "privacy_report": "Отчет о Конфиденциальности",
+        "network_monitoring": "Мониторинг Сети",
+        "total_connections": "Всего соединений",
+        "blocked_count": "Заблокировано",
+        "monitoring_processes": "Мониторящиеся процессы",
+        "file_access": "Мониторинг Доступа к Файлам",
+        "sensitive_files": "Доступ к конфиденциальным файлам",
+        "clipboard_monitoring": "Мониторинг Буфера Обмена",
+        "sensitive_data_detected": "Обнаружены конфиденциальные данные",
+        "detection_rate": "Уровень обнаружения",
+        "device_monitoring": "Мониторинг Устройств",
+        "camera": "Камера",
+        "microphone": "Микрофон",
+        "unused": "Не используется",
+        "in_use": "Используется",
+        "risk_level": "Уровень Риска",
+        "low": "НИЗКИЙ",
+        "medium": "СРЕДНИЙ",
+        "high": "ВЫСОКИЙ",
+        "critical": "КРИТИЧЕСКИЙ",
+        "scan_time": "Время сканирования",
+        "total_risk_score": "Общий балл риска",
+        "out_of": "из"
+      }
+    },
+    "optimization": {
+      "system_optimizer": "Оптимизатор Системы",
+      "full_optimization": "Полная Оптимизация",
+      "memory": "Память",
+      "disk": "Диск",
+      "network": "Сеть",
+      "startup": "Запуск",
+      "processes": "Процессы",
+      "temp_files": "Временные файлы",
+      "dns_cache": "DNS кэш",
+      "optimization_report": "Отчет об Оптимизации",
+      "memory_usage": "Использование памяти",
+      "reduced": "снижено",
+      "files_deleted": "файлов удалено",
+      "freed": "освобождено",
+      "cache_cleared": "Кэш очищен"
+    },
+    "formats": {
+      "date": {
+        "short": "dd.MM.yy",
+        "medium": "dd MMM yyyy",
+        "long": "dd MMMM yyyy",
+        "full": "EEEE, dd MMMM yyyy"
+      },
+      "time": {
+        "short": "H:mm",
+        "medium": "H:mm:ss",
+        "long": "H:mm:ss z",
+        "full": "H:mm:ss zzzz"
+      },
+      "number": {
+        "default": "# ##0,##",
+        "currency": "# ##0,00 ¤",
+        "percent": "# ##0%"
+      }
+    },
+    "search": {
+      "title": "Поиск",
+      "placeholder": "Поиск YouTube, научные статьи, веб...",
+      "button": "Поиск",
+      "results": "Результаты",
+      "no_results": "Результаты не найдены",
+      "loading": "Поиск...",
+      "error": "Ошибка поиска",
+      "type": {
+        "youtube": "YouTube Видео",
+        "academic": "Научные Статьи",
+        "web": "Веб Результаты",
+        "news": "Новости",
+        "images": "Изображения"
+      },
+      "engine": {
+        "google": "Google",
+        "bing": "Bing",
+        "duckduckgo": "DuckDuckGo",
+        "brave": "Brave",
+        "youtube": "YouTube API",
+        "scholar": "Google Scholar",
+        "arxiv": "arXiv",
+        "semantic_scholar": "Semantic Scholar"
+      },
+      "filters": {
+        "date": "Дата",
+        "relevance": "Релевантность",
+        "rating": "Рейтинг",
+        "duration": "Длительность",
+        "category": "Категория",
+        "language": "Язык"
+      }
+    },
+    "settings": {
+      "title": "Настройки",
+      "language": "Язык",
+      "region": "Регион",
+      "safe_search": "Безопасный Поиск",
+      "max_results": "Макс. Результаты",
+      "api_keys": "API Ключи",
+      "youtube_key": "YouTube API Ключ",
+      "scholar_key": "Scholar API Ключ"
+    }
+  }
+}

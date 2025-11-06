@@ -1,0 +1,20 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python3:*)",
+      "Bash(for file in security.py security_audit.py security_enhancements.py security_manager.py enhanced_security.py)",
+      "Bash(for file in config.py config_manager.py config_cli.py unified_config.py secure_config.py)",
+      "Bash(for file in performance.py performance_optimizer.py performance_profiler.py system_optimizer.py cpu_optimizer.py memory_optimizer.py)",
+      "Bash(for file in i18n.py optimized_i18n.py enhanced_i18n.py internationalization.py translation_quality_manager.py auto_translation.py)",
+      "Bash(for file in quantum_optimizer.py quantum_security.py quantum_sensing.py time_travel.py space_computing.py dna_computing.py plasma_computing.py photonic_computing.py neuromorphic_computing.py nanotech_monitor.py)",
+      "Bash(for file in biometric_auth.py bci_integrator.py metaverse_ar.py)",
+      "Bash(for file in network_monitor.py process_manager.py memory_analyzer.py disk_health.py logging_system.py)",
+      "Bash(git init:*)",
+      "Bash(git config:*)",
+      "Bash(git remote add:*)",
+      "Bash(git add:*)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}

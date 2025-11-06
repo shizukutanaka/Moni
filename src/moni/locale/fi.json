@@ -1,0 +1,236 @@
+{
+  "metadata": {
+    "language": "Suomi",
+    "language_code": "fi",
+    "locale": "fi-FI",
+    "encoding": "UTF-8",
+    "author": "Moni System Monitor",
+    "version": "1.0.0",
+    "last_updated": "2025-10-27",
+    "rtl": false,
+    "text_direction": "ltr"
+  },
+  "translations": {
+    "app": {
+      "name": "Moni Järjestelmävalvonta",
+      "description": "Edistynyt järjestelmävalvonta turvallisuus- ja optimointitoiminnoilla",
+      "version": "Versio"
+    },
+    "ui": {
+      "overlay": {
+        "title": "Järjestelmävalvonta",
+        "last_update": "Viimeisin päivitys",
+        "automation_status": "Automaatio",
+        "metrics": "Mittarit",
+        "values": "Arvot",
+        "initializing": "Alustetaan...",
+        "loading": "Ladataan...",
+        "ready": "Valmis"
+      },
+      "dialogs": {
+        "configure_metrics": "Määritä Mittarit",
+        "select_metrics": "Valitse näytettävät mittarit. Vedä uudelleenjärjestääksesi.",
+        "overlay_settings": "Peittokuvan Asetukset",
+        "show_on_launch": "Näytä peittokuva käynnistyksessä",
+        "always_on_top": "Pidä peittokuva aina päällimmäisenä",
+        "opacity": "Peittokuvan läpinäkyvyys",
+        "refresh_interval": "Päivitysväli (ms)",
+        "logging_automation": "Lokien Automaatio",
+        "enable_logging": "Ota käyttöön määräajoin tapahtuva mittarien lokitus",
+        "interval": "Väli (ms)",
+        "log_file": "Lokitiedosto",
+        "browse": "Selaa...",
+        "select_log_file": "Valitse lokitiedosto",
+        "threshold_alerts": "Kynnysarvo Hälytykset",
+        "enable_alerts": "Ota hälytykset käyttöön",
+        "show_banner": "Näytä hälytysbanneri peittokuvassa",
+        "cpu_threshold": "CPU kynnysarvo (%)",
+        "memory_threshold": "Muisti kynnysarvo (%)",
+        "alert_cooldown": "Hälytyksen jäähdytysaika (sekuntia)",
+        "alert_history": "Hälytys Historia",
+        "no_alerts": "Ei rekisteröityjä hälytyksiä.",
+        "select_profile": "Valitse Profiili",
+        "choose_profile": "Valitse valvontaprofiili:",
+        "select_profile_details": "Valitse profiili nähdäksesi yksityiskohdat",
+        "configure": "Määritä",
+        "settings": "Peittokuvan Asetukset",
+        "automation": "Automaatio",
+        "enable_logging_button": "Ota Lokitus Käyttöön",
+        "alerts": "Hälytykset",
+        "history": "Historia",
+        "profiles": "Profiilit",
+        "trends": "Trendit",
+        "theme": "Teema",
+        "open_logs": "Avaa Lokit",
+        "log_folder": "Loki Kansio",
+        "clear_alerts": "Tyhjennä Hälytykset"
+      },
+      "metrics": {
+        "cpu_usage": "CPU Käyttö",
+        "memory_usage": "Muisti Käyttö",
+        "gpu_usage": "GPU Käyttö",
+        "disk_usage": "Levy Käyttö",
+        "network_io": "Verkko I/O",
+        "system_uptime": "Järjestelmä Käyttöaika",
+        "temperature": "Lämpötila",
+        "processes": "Prosessit",
+        "cores": "Ytimet"
+      },
+      "status": {
+        "monitoring": "Valvonta",
+        "stable": "Vakaa",
+        "rising": "Nouseva",
+        "falling": "Laskeva",
+        "climbing": "Kiipeävä",
+        "easing": "Hidastuva",
+        "initializing": "Alustetaan...",
+        "ready": "Valmis",
+        "error": "Virhe",
+        "warning": "Varoitus",
+        "success": "Onnistui"
+      },
+      "buttons": {
+        "ok": "OK",
+        "cancel": "Peruuta",
+        "apply": "Käytä",
+        "save": "Tallenna",
+        "close": "Sulje",
+        "refresh": "Päivitä",
+        "export": "Vie",
+        "import": "Tuo",
+        "delete": "Poista",
+        "edit": "Muokkaa",
+        "add": "Lisää",
+        "remove": "Poista",
+        "enable": "Ota käyttöön",
+        "disable": "Poista käytöstä",
+        "start": "Aloita",
+        "stop": "Pysäytä",
+        "pause": "Tauko",
+        "resume": "Jatka"
+      },
+      "messages": {
+        "loading": "Ladataan...",
+        "saving": "Tallennetaan...",
+        "processing": "Käsitellään...",
+        "completed": "Valmistunut",
+        "failed": "Epäonnistui",
+        "success": "Onnistui",
+        "error": "Virhe",
+        "warning": "Varoitus",
+        "info": "Tiedot",
+        "confirm": "Vahvista",
+        "yes": "Kyllä",
+        "no": "Ei"
+      }
+    },
+    "privacy": {
+      "guard": {
+        "scan_system": "Skannaa Järjestelmä",
+        "privacy_report": "Tietosuojaraportti",
+        "network_monitoring": "Verkko Valvonta",
+        "total_connections": "Yhteensä yhteyksiä",
+        "blocked_count": "Estetty",
+        "monitoring_processes": "Valvottavat prosessit",
+        "file_access": "Tiedosto Käyttö Valvonta",
+        "sensitive_files": "Pääsy arkaluonteisiin tiedostoihin",
+        "clipboard_monitoring": "Leikepöydän Valvonta",
+        "sensitive_data_detected": "Havaittu arkaluonteisia tietoja",
+        "detection_rate": "Havaitsemisaste",
+        "device_monitoring": "Laite Valvonta",
+        "camera": "Kamera",
+        "microphone": "Mikrofoni",
+        "unused": "Käyttämätön",
+        "in_use": "Käytössä",
+        "risk_level": "Riskitaso",
+        "low": "ALHAINEN",
+        "medium": "KESKIMÄÄRÄINEN",
+        "high": "KORKEA",
+        "critical": "KRITINEN",
+        "scan_time": "Skannausaika",
+        "total_risk_score": "Kokonaisriski pisteet",
+        "out_of": "/"
+      }
+    },
+    "optimization": {
+      "system_optimizer": "Järjestelmä Optimoija",
+      "full_optimization": "Täysi Optimointi",
+      "memory": "Muisti",
+      "disk": "Levy",
+      "network": "Verkko",
+      "startup": "Käynnistys",
+      "processes": "Prosessit",
+      "temp_files": "Väliaikaiset tiedostot",
+      "dns_cache": "DNS välimuisti",
+      "optimization_report": "Optimointiraportti",
+      "memory_usage": "Muistin käyttö",
+      "reduced": "vähennetty",
+      "files_deleted": "tiedostoa poistettu",
+      "freed": "vapautettu",
+      "cache_cleared": "Välimuisti tyhjennetty"
+    },
+    "formats": {
+      "date": {
+        "short": "dd.MM.yy",
+        "medium": "dd MMM yyyy",
+        "long": "dd MMMM yyyy",
+        "full": "EEEE dd MMMM yyyy"
+      },
+      "time": {
+        "short": "H:mm",
+        "medium": "H:mm:ss",
+        "long": "H:mm:ss z",
+        "full": "H:mm:ss zzzz"
+      },
+      "number": {
+        "default": "# ##0,##",
+        "currency": "# ##0,00 ¤",
+        "percent": "# ##0%"
+      }
+    },
+    "search": {
+      "title": "Haku",
+      "placeholder": "Haku YouTube, akateemiset artikkelit, web...",
+      "button": "Haku",
+      "results": "Tulokset",
+      "no_results": "Tuloksia ei löytynyt",
+      "loading": "Haetaan...",
+      "error": "Haku epäonnistui",
+      "type": {
+        "youtube": "YouTube Videot",
+        "academic": "Akateemiset Artikkelit",
+        "web": "Web Tulokset",
+        "news": "Uutiset",
+        "images": "Kuvat"
+      },
+      "engine": {
+        "google": "Google",
+        "bing": "Bing",
+        "duckduckgo": "DuckDuckGo",
+        "brave": "Brave",
+        "youtube": "YouTube API",
+        "scholar": "Google Scholar",
+        "arxiv": "arXiv",
+        "semantic_scholar": "Semantic Scholar"
+      },
+      "filters": {
+        "date": "Päivämäärä",
+        "relevance": "Osuvuus",
+        "rating": "Arvostelu",
+        "duration": "Kesto",
+        "category": "Kategoria",
+        "language": "Kieli"
+      }
+    },
+    "settings": {
+      "title": "Asetukset",
+      "language": "Kieli",
+      "region": "Alue",
+      "safe_search": "Turvallinen Haku",
+      "max_results": "Max. Tulokset",
+      "api_keys": "API Avaimet",
+      "youtube_key": "YouTube API Avain",
+      "scholar_key": "Scholar API Avain"
+    }
+  }
+}

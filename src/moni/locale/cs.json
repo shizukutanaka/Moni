@@ -1,0 +1,236 @@
+{
+  "metadata": {
+    "language": "Čeština",
+    "language_code": "cs",
+    "locale": "cs-CZ",
+    "encoding": "UTF-8",
+    "author": "Moni System Monitor",
+    "version": "1.0.0",
+    "last_updated": "2025-10-27",
+    "rtl": false,
+    "text_direction": "ltr"
+  },
+  "translations": {
+    "app": {
+      "name": "Moni Monitor Systému",
+      "description": "Pokročilé monitorování systému s bezpečnostními a optimalizačními funkcemi",
+      "version": "Verze"
+    },
+    "ui": {
+      "overlay": {
+        "title": "Monitor Systému",
+        "last_update": "Poslední aktualizace",
+        "automation_status": "Automatizace",
+        "metrics": "Metriky",
+        "values": "Hodnoty",
+        "initializing": "Inicializace...",
+        "loading": "Načítání...",
+        "ready": "Připraveno"
+      },
+      "dialogs": {
+        "configure_metrics": "Konfigurovat Metriky",
+        "select_metrics": "Vyberte metriky k zobrazení. Přetáhněte pro přeřazení.",
+        "overlay_settings": "Nastavení Překrytí",
+        "show_on_launch": "Zobrazit překrytí při spuštění",
+        "always_on_top": "Udržovat překrytí vždy nahoře",
+        "opacity": "Průhlednost překrytí",
+        "refresh_interval": "Interval obnovení (ms)",
+        "logging_automation": "Automatizace Logování",
+        "enable_logging": "Povolit periodické logování metrik",
+        "interval": "Interval (ms)",
+        "log_file": "Log soubor",
+        "browse": "Procházet...",
+        "select_log_file": "Vybrat log soubor",
+        "threshold_alerts": "Upozornění na Prahové Hodnoty",
+        "enable_alerts": "Povolit upozornění",
+        "show_banner": "Zobrazit banner upozornění v překrytí",
+        "cpu_threshold": "Prahová hodnota CPU (%)",
+        "memory_threshold": "Prahová hodnota paměti (%)",
+        "alert_cooldown": "Časové zpoždění upozornění (sekundy)",
+        "alert_history": "Historie Upozornění",
+        "no_alerts": "Nebyly zaznamenány žádné upozornění.",
+        "select_profile": "Vybrat Profil",
+        "choose_profile": "Zvolte monitorovací profil:",
+        "select_profile_details": "Vyberte profil pro zobrazení detailů",
+        "configure": "Konfigurovat",
+        "settings": "Nastavení Překrytí",
+        "automation": "Automatizace",
+        "enable_logging_button": "Povolit Logování",
+        "alerts": "Upozornění",
+        "history": "Historie",
+        "profiles": "Profily",
+        "trends": "Trendy",
+        "theme": "Téma",
+        "open_logs": "Otevřít Logy",
+        "log_folder": "Složka Logů",
+        "clear_alerts": "Vymazat Upozornění"
+      },
+      "metrics": {
+        "cpu_usage": "Využití CPU",
+        "memory_usage": "Využití Paměti",
+        "gpu_usage": "Využití GPU",
+        "disk_usage": "Využití Disku",
+        "network_io": "Síť I/O",
+        "system_uptime": "Doba Provozu Systému",
+        "temperature": "Teplota",
+        "processes": "Procesy",
+        "cores": "Jádra"
+      },
+      "status": {
+        "monitoring": "Monitorování",
+        "stable": "Stabilní",
+        "rising": "Stoupající",
+        "falling": "Klesající",
+        "climbing": "Šplhající",
+        "easing": "Snižující se",
+        "initializing": "Inicializace...",
+        "ready": "Připraveno",
+        "error": "Chyba",
+        "warning": "Upozornění",
+        "success": "Úspěch"
+      },
+      "buttons": {
+        "ok": "OK",
+        "cancel": "Zrušit",
+        "apply": "Použít",
+        "save": "Uložit",
+        "close": "Zavřít",
+        "refresh": "Obnovit",
+        "export": "Exportovat",
+        "import": "Importovat",
+        "delete": "Smazat",
+        "edit": "Upravit",
+        "add": "Přidat",
+        "remove": "Odebrat",
+        "enable": "Povolit",
+        "disable": "Zakázat",
+        "start": "Spustit",
+        "stop": "Zastavit",
+        "pause": "Pozastavit",
+        "resume": "Pokračovat"
+      },
+      "messages": {
+        "loading": "Načítání...",
+        "saving": "Ukládání...",
+        "processing": "Zpracovávání...",
+        "completed": "Dokončeno",
+        "failed": "Selhalo",
+        "success": "Úspěch",
+        "error": "Chyba",
+        "warning": "Upozornění",
+        "info": "Informace",
+        "confirm": "Potvrdit",
+        "yes": "Ano",
+        "no": "Ne"
+      }
+    },
+    "privacy": {
+      "guard": {
+        "scan_system": "Skenovat Systém",
+        "privacy_report": "Zpráva o Soukromí",
+        "network_monitoring": "Sledování Sítě",
+        "total_connections": "Celkový počet připojení",
+        "blocked_count": "Blokováno",
+        "monitoring_processes": "Monitorované procesy",
+        "file_access": "Sledování Přístupu k Souborům",
+        "sensitive_files": "Přístup k citlivým souborům",
+        "clipboard_monitoring": "Sledování Schránky",
+        "sensitive_data_detected": "Zjištěna citlivá data",
+        "detection_rate": "Míra detekce",
+        "device_monitoring": "Sledování Zařízení",
+        "camera": "Kamera",
+        "microphone": "Mikrofon",
+        "unused": "Nepoužívané",
+        "in_use": "V použití",
+        "risk_level": "Úroveň Rizika",
+        "low": "NÍZKÁ",
+        "medium": "STŘEDNÍ",
+        "high": "VYSOKÁ",
+        "critical": "KRITICKÁ",
+        "scan_time": "Čas skenování",
+        "total_risk_score": "Celkové skóre rizika",
+        "out_of": "z"
+      }
+    },
+    "optimization": {
+      "system_optimizer": "Optimalizátor Systému",
+      "full_optimization": "Plná Optimalizace",
+      "memory": "Paměť",
+      "disk": "Disk",
+      "network": "Síť",
+      "startup": "Spuštění",
+      "processes": "Procesy",
+      "temp_files": "Dočasné soubory",
+      "dns_cache": "DNS cache",
+      "optimization_report": "Zpráva o Optimalizaci",
+      "memory_usage": "Využití paměti",
+      "reduced": "sníženo",
+      "files_deleted": "soubory smazány",
+      "freed": "uvolněno",
+      "cache_cleared": "Cache vyčištěna"
+    },
+    "formats": {
+      "date": {
+        "short": "dd.MM.yy",
+        "medium": "dd. MMM yyyy",
+        "long": "dd. MMMM yyyy",
+        "full": "EEEE, dd. MMMM yyyy"
+      },
+      "time": {
+        "short": "H:mm",
+        "medium": "H:mm:ss",
+        "long": "H:mm:ss z",
+        "full": "H:mm:ss zzzz"
+      },
+      "number": {
+        "default": "# ##0,##",
+        "currency": "# ##0,00 ¤",
+        "percent": "# ##0%"
+      }
+    },
+    "search": {
+      "title": "Hledat",
+      "placeholder": "Hledat YouTube, akademické články, web...",
+      "button": "Hledat",
+      "results": "Výsledky",
+      "no_results": "Nebyly nalezeny žádné výsledky",
+      "loading": "Hledání...",
+      "error": "Vyhledávání selhalo",
+      "type": {
+        "youtube": "YouTube Videa",
+        "academic": "Akademické Články",
+        "web": "Webové Výsledky",
+        "news": "Zprávy",
+        "images": "Obrázky"
+      },
+      "engine": {
+        "google": "Google",
+        "bing": "Bing",
+        "duckduckgo": "DuckDuckGo",
+        "brave": "Brave",
+        "youtube": "YouTube API",
+        "scholar": "Google Scholar",
+        "arxiv": "arXiv",
+        "semantic_scholar": "Semantic Scholar"
+      },
+      "filters": {
+        "date": "Datum",
+        "relevance": "Relevance",
+        "rating": "Hodnocení",
+        "duration": "Trvání",
+        "category": "Kategorie",
+        "language": "Jazyk"
+      }
+    },
+    "settings": {
+      "title": "Nastavení",
+      "language": "Jazyk",
+      "region": "Region",
+      "safe_search": "Bezpečné Vyhledávání",
+      "max_results": "Max. Výsledky",
+      "api_keys": "API Klíče",
+      "youtube_key": "YouTube API Klíč",
+      "scholar_key": "Scholar API Klíč"
+    }
+  }
+}

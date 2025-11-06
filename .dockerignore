@@ -1,0 +1,115 @@
+# Docker ignore file for Moni System Monitor
+
+# Version control
+.git
+.gitignore
+.gitattributes
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Virtual environments
+venv/
+env/
+ENV/
+env.bak/
+venv.bak/
+.venv/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+*.tmp
+*.temp
+
+# Logs
+*.log
+logs/
+.logs/
+
+# Test coverage
+.coverage
+.pytest_cache/
+htmlcov/
+.tox/
+.nox/
+
+# Documentation
+docs/_build/
+docs/.doctrees/
+
+# Configuration (potentially sensitive)
+config.json
+*.env
+.env.*
+
+# Data directories
+data/
+exports/
+backups/
+
+# Temporary files
+tmp/
+temp/
+*.tmp
+
+# Docker
+Dockerfile.*
+docker-compose.*.yml
+.dockerignore
+
+# CI/CD
+.github/
+.gitlab-ci.yml
+.travis.yml
+.circleci/
+
+# Monitoring configs (will be mounted)
+monitoring/
+
+# Node modules (if any)
+node_modules/
+
+# Jupyter notebooks
+*.ipynb
+.ipynb_checkpoints/
+
+# Large files
+*.iso
+*.tar.gz
+*.zip
+*.rar
+
+# Security
+*.key
+*.pem
+*.crt
+*.p12
+secrets/

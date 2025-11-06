@@ -1,0 +1,627 @@
+openapi: 3.1.0
+info:
+  title: Moni Billing API
+  description: |
+    Production-grade billing API for Moni System Monitor with Stripe integration.
+
+    ## Features
+    - Subscription management (create, update, cancel)
+    - Usage-based metering
+    - Feature gating and quota enforcement
+    - Billing portal integration
+    - Webhook event processing
+
+    ## Authentication
+    All endpoints require API key authentication via `X-API-Key` header.
+
+  version: 2.0.0
+  contact:
+    name: Moni Support
+    email: support@moni-monitor.example.com
+    url: https://moni-monitor.example.com/support
+  license:
+    name: MIT
+    url: https://opensource.org/licenses/MIT
+
+servers:
+  - url: https://api.moni-monitor.example.com/v1
+    description: Production server
+  - url: https://staging-api.moni-monitor.example.com/v1
+    description: Staging server
+  - url: http://localhost:8080/v1
+    description: Local development server
+
+tags:
+  - name: subscriptions
+    description: Subscription lifecycle management
+  - name: checkout
+    description: Checkout session creation
+  - name: billing-portal
+    description: Customer billing portal access
+  - name: webhooks
+    description: Stripe webhook event handling
+  - name: metering
+    description: Usage-based metering and tracking
+  - name: feature-gates
+    description: Feature access and quota validation
+
+security:
+  - ApiKeyAuth: []
+
+paths:
+  /checkout:
+    post:
+      tags:
+        - checkout
+      summary: Create checkout session
+      description: Creates a Stripe checkout session for new subscriptions
+      operationId: createCheckoutSession
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CheckoutRequest'
+            examples:
+              professional:
+                summary: Professional tier checkout
+                value:
+                  tier: professional
+                  email: user@example.com
+                  success_url: https://example.com/success
+                  cancel_url: https://example.com/cancel
+      responses:
+        '200':
+          description: Checkout session created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CheckoutResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '500':
+          $ref: '#/components/responses/InternalError'
+
+  /subscription/{customer_id}:
+    get:
+      tags:
+        - subscriptions
+      summary: Get subscription details
+      description: Retrieves current subscription information for a customer
+      operationId: getSubscription
+      parameters:
+        - $ref: '#/components/parameters/CustomerIdParam'
+      responses:
+        '200':
+          description: Subscription details retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SubscriptionDetails'
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+  /subscription/{customer_id}/upgrade:
+    post:
+      tags:
+        - subscriptions
+      summary: Upgrade subscription
+      description: Upgrades customer to a higher tier with optional proration
+      operationId: upgradeSubscription
+      parameters:
+        - $ref: '#/components/parameters/CustomerIdParam'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpgradeRequest'
+      responses:
+        '200':
+          description: Subscription upgraded successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SubscriptionDetails'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+
+  /subscription/{customer_id}/downgrade:
+    post:
+      tags:
+        - subscriptions
+      summary: Downgrade subscription
+      description: Downgrades customer to a lower tier
+      operationId: downgradeSubscription
+      parameters:
+        - $ref: '#/components/parameters/CustomerIdParam'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DowngradeRequest'
+      responses:
+        '200':
+          description: Subscription downgraded successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SubscriptionDetails'
+
+  /subscription/{customer_id}/cancel:
+    post:
+      tags:
+        - subscriptions
+      summary: Cancel subscription
+      description: Cancels subscription at period end or immediately
+      operationId: cancelSubscription
+      parameters:
+        - $ref: '#/components/parameters/CustomerIdParam'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CancelRequest'
+      responses:
+        '200':
+          description: Subscription cancelled
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CancellationResponse'
+
+  /subscription/{customer_id}/pause:
+    post:
+      tags:
+        - subscriptions
+      summary: Pause subscription
+      description: Pauses subscription with optional resume date
+      operationId: pauseSubscription
+      parameters:
+        - $ref: '#/components/parameters/CustomerIdParam'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PauseRequest'
+      responses:
+        '200':
+          description: Subscription paused
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SubscriptionDetails'
+
+  /subscription/{customer_id}/resume:
+    post:
+      tags:
+        - subscriptions
+      summary: Resume subscription
+      description: Resumes a paused subscription
+      operationId: resumeSubscription
+      parameters:
+        - $ref: '#/components/parameters/CustomerIdParam'
+      responses:
+        '200':
+          description: Subscription resumed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SubscriptionDetails'
+
+  /subscription/{customer_id}/preview-change:
+    get:
+      tags:
+        - subscriptions
+      summary: Preview subscription change
+      description: Previews invoice for subscription tier change
+      operationId: previewSubscriptionChange
+      parameters:
+        - $ref: '#/components/parameters/CustomerIdParam'
+        - name: new_price_id
+          in: query
+          required: true
+          schema:
+            type: string
+          description: Stripe price ID for new tier
+      responses:
+        '200':
+          description: Preview invoice generated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InvoicePreview'
+
+  /portal:
+    post:
+      tags:
+        - billing-portal
+      summary: Create billing portal session
+      description: Creates Stripe billing portal session for self-service
+      operationId: createPortalSession
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PortalRequest'
+      responses:
+        '200':
+          description: Portal session created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PortalResponse'
+
+  /webhook:
+    post:
+      tags:
+        - webhooks
+      summary: Process Stripe webhook
+      description: Handles Stripe webhook events for subscription lifecycle
+      operationId: processWebhook
+      security: []  # Webhooks use signature validation instead
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              description: Stripe webhook event payload
+      responses:
+        '200':
+          description: Webhook processed successfully
+        '400':
+          description: Invalid webhook signature
+
+  /metering/record:
+    post:
+      tags:
+        - metering
+      summary: Record usage metric
+      description: Records usage for metered billing
+      operationId: recordUsage
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UsageRecord'
+      responses:
+        '200':
+          description: Usage recorded successfully
+
+  /metering/{customer_id}/usage:
+    get:
+      tags:
+        - metering
+      summary: Get usage metrics
+      description: Retrieves current usage metrics for customer
+      operationId: getUsageMetrics
+      parameters:
+        - $ref: '#/components/parameters/CustomerIdParam'
+      responses:
+        '200':
+          description: Usage metrics retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UsageMetrics'
+
+  /feature-gate/{customer_id}/check:
+    post:
+      tags:
+        - feature-gates
+      summary: Check feature access
+      description: Validates if customer has access to a feature
+      operationId: checkFeatureAccess
+      parameters:
+        - $ref: '#/components/parameters/CustomerIdParam'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FeatureCheckRequest'
+      responses:
+        '200':
+          description: Feature access result
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FeatureCheckResponse'
+
+components:
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: X-API-Key
+
+  parameters:
+    CustomerIdParam:
+      name: customer_id
+      in: path
+      required: true
+      schema:
+        type: string
+        pattern: '^cus_[a-zA-Z0-9]+$'
+      description: Stripe customer ID
+
+  schemas:
+    CheckoutRequest:
+      type: object
+      required:
+        - tier
+        - email
+      properties:
+        tier:
+          type: string
+          enum: [essential, professional, enterprise]
+          description: Subscription tier
+        email:
+          type: string
+          format: email
+          description: Customer email address
+        success_url:
+          type: string
+          format: uri
+          description: URL to redirect after successful checkout
+        cancel_url:
+          type: string
+          format: uri
+          description: URL to redirect if checkout is cancelled
+        trial_days:
+          type: integer
+          minimum: 0
+          maximum: 30
+          description: Number of trial days (0-30)
+
+    CheckoutResponse:
+      type: object
+      properties:
+        session_id:
+          type: string
+          description: Stripe checkout session ID
+        url:
+          type: string
+          format: uri
+          description: Checkout session URL
+
+    SubscriptionDetails:
+      type: object
+      properties:
+        customer_id:
+          type: string
+        subscription_id:
+          type: string
+        tier:
+          type: string
+          enum: [essential, professional, enterprise]
+        status:
+          type: string
+          enum: [active, paused, canceled, past_due, trialing]
+        current_period_start:
+          type: string
+          format: date-time
+        current_period_end:
+          type: string
+          format: date-time
+        cancel_at_period_end:
+          type: boolean
+        features:
+          $ref: '#/components/schemas/TierFeatures'
+
+    TierFeatures:
+      type: object
+      properties:
+        endpoints:
+          type: object
+          properties:
+            limit:
+              type: integer
+            current:
+              type: integer
+        retention_days:
+          type: integer
+        alerts_per_month:
+          type: integer
+        rbac_enabled:
+          type: boolean
+        compliance_exports:
+          type: boolean
+
+    UpgradeRequest:
+      type: object
+      required:
+        - price_id
+      properties:
+        price_id:
+          type: string
+          description: New Stripe price ID
+        prorate:
+          type: boolean
+          default: true
+          description: Apply proration
+
+    DowngradeRequest:
+      type: object
+      required:
+        - price_id
+      properties:
+        price_id:
+          type: string
+        at_period_end:
+          type: boolean
+          default: true
+          description: Apply change at period end
+
+    CancelRequest:
+      type: object
+      properties:
+        immediately:
+          type: boolean
+          default: false
+        reason:
+          type: string
+          description: Cancellation reason
+
+    CancellationResponse:
+      type: object
+      properties:
+        subscription_id:
+          type: string
+        status:
+          type: string
+        cancel_at:
+          type: string
+          format: date-time
+
+    PauseRequest:
+      type: object
+      properties:
+        resumes_at:
+          type: string
+          format: date-time
+          description: Optional resume date
+
+    PortalRequest:
+      type: object
+      required:
+        - customer_id
+      properties:
+        customer_id:
+          type: string
+        return_url:
+          type: string
+          format: uri
+
+    PortalResponse:
+      type: object
+      properties:
+        url:
+          type: string
+          format: uri
+          description: Billing portal URL
+
+    InvoicePreview:
+      type: object
+      properties:
+        amount_due:
+          type: integer
+          description: Amount in cents
+        currency:
+          type: string
+        proration_amount:
+          type: integer
+        subtotal:
+          type: integer
+        total:
+          type: integer
+
+    UsageRecord:
+      type: object
+      required:
+        - customer_id
+        - metric
+        - quantity
+      properties:
+        customer_id:
+          type: string
+        metric:
+          type: string
+          enum: [endpoints, api_calls, alerts]
+        quantity:
+          type: integer
+          minimum: 0
+        timestamp:
+          type: string
+          format: date-time
+
+    UsageMetrics:
+      type: object
+      properties:
+        customer_id:
+          type: string
+        period_start:
+          type: string
+          format: date-time
+        period_end:
+          type: string
+          format: date-time
+        metrics:
+          type: object
+          properties:
+            endpoints:
+              type: integer
+            api_calls:
+              type: integer
+            alerts:
+              type: integer
+
+    FeatureCheckRequest:
+      type: object
+      required:
+        - feature
+      properties:
+        feature:
+          type: string
+          enum: [rbac, compliance_exports, advanced_monitoring, multi_endpoint]
+
+    FeatureCheckResponse:
+      type: object
+      properties:
+        feature:
+          type: string
+        allowed:
+          type: boolean
+        reason:
+          type: string
+          description: Explanation if not allowed
+
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: object
+          properties:
+            code:
+              type: string
+            message:
+              type: string
+            details:
+              type: object
+
+  responses:
+    BadRequest:
+      description: Bad request - invalid parameters
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+
+    Unauthorized:
+      description: Unauthorized - invalid API key
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+
+    InternalError:
+      description: Internal server error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'

@@ -1,0 +1,235 @@
+# Moni System Monitor - LGTM Stack統合
+#
+# LGTM = Loki (ログ) + Grafana (可視化) + Tempo (トレース) + Mimir (メトリクス)
+#
+# 使用方法:
+#   docker-compose -f docker-compose-lgtm.yml up -d
+#
+# アクセス:
+#   - Grafana: http://localhost:3000 (admin/admin)
+#   - Loki: http://localhost:3100
+#   - Tempo: http://localhost:3200
+#   - Mimir: http://localhost:9009
+#   - OpenTelemetry Collector: http://localhost:4317 (gRPC), http://localhost:4318 (HTTP)
+
+version: "3.8"
+
+services:
+  # Loki - ログ集約
+  loki:
+    image: grafana/loki:2.9.0
+    container_name: moni-loki
+    ports:
+      - "3100:3100"
+    command: -config.file=/etc/loki/loki-config.yaml
+    volumes:
+      - ./configs/loki-config.yaml:/etc/loki/loki-config.yaml:ro
+      - loki-data:/loki
+    networks:
+      - moni-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "wget --no-verbose --tries=1 --spider http://localhost:3100/ready || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # Grafana - 可視化
+  grafana:
+    image: grafana/grafana:10.2.0
+    container_name: moni-grafana
+    ports:
+      - "3000:3000"
+    environment:
+      - GF_SECURITY_ADMIN_USER=admin
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+      - GF_USERS_ALLOW_SIGN_UP=false
+      - GF_SERVER_ROOT_URL=http://localhost:3000
+      - GF_INSTALL_PLUGINS=grafana-clock-panel,grafana-simple-json-datasource
+    volumes:
+      - grafana-data:/var/lib/grafana
+      - ./configs/grafana/datasources.yaml:/etc/grafana/provisioning/datasources/datasources.yaml:ro
+      - ./configs/grafana/dashboards.yaml:/etc/grafana/provisioning/dashboards/dashboards.yaml:ro
+      - ./configs/grafana/dashboards:/var/lib/grafana/dashboards:ro
+    networks:
+      - moni-network
+    restart: unless-stopped
+    depends_on:
+      - loki
+      - tempo
+      - mimir
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:3000/api/health || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # Tempo - 分散トレーシング
+  tempo:
+    image: grafana/tempo:2.3.0
+    container_name: moni-tempo
+    command: [ "-config.file=/etc/tempo/tempo-config.yaml" ]
+    ports:
+      - "3200:3200"   # Tempo HTTP
+      - "4317:4317"   # OTLP gRPC
+      - "4318:4318"   # OTLP HTTP
+      - "9411:9411"   # Zipkin
+      - "14268:14268" # Jaeger ingest
+    volumes:
+      - ./configs/tempo-config.yaml:/etc/tempo/tempo-config.yaml:ro
+      - tempo-data:/var/tempo
+    networks:
+      - moni-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "wget --no-verbose --tries=1 --spider http://localhost:3200/ready || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # Mimir - メトリクス長期保存
+  mimir:
+    image: grafana/mimir:2.10.0
+    container_name: moni-mimir
+    command: [ "-config.file=/etc/mimir/mimir-config.yaml" ]
+    ports:
+      - "9009:9009"
+    volumes:
+      - ./configs/mimir-config.yaml:/etc/mimir/mimir-config.yaml:ro
+      - mimir-data:/data
+    networks:
+      - moni-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "wget --no-verbose --tries=1 --spider http://localhost:9009/ready || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # OpenTelemetry Collector
+  otel-collector:
+    image: otel/opentelemetry-collector-contrib:0.91.0
+    container_name: moni-otel-collector
+    command: ["--config=/etc/otelcol/config.yaml"]
+    ports:
+      - "4317:4317"   # OTLP gRPC receiver
+      - "4318:4318"   # OTLP HTTP receiver
+      - "8888:8888"   # Prometheus metrics
+      - "8889:8889"   # Prometheus exporter
+      - "13133:13133" # health_check
+    volumes:
+      - ./configs/otel-collector-config.yaml:/etc/otelcol/config.yaml:ro
+    networks:
+      - moni-network
+    restart: unless-stopped
+    depends_on:
+      - loki
+      - tempo
+      - mimir
+    healthcheck:
+      test: ["CMD-SHELL", "wget --no-verbose --tries=1 --spider http://localhost:13133/ || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # Prometheus - メトリクス収集 (Mimir用フロントエンド)
+  prometheus:
+    image: prom/prometheus:v2.48.0
+    container_name: moni-prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--web.console.libraries=/etc/prometheus/console_libraries'
+      - '--web.console.templates=/etc/prometheus/consoles'
+      - '--web.enable-lifecycle'
+      - '--enable-feature=exemplar-storage'
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./configs/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+      - prometheus-data:/prometheus
+    networks:
+      - moni-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "wget --no-verbose --tries=1 --spider http://localhost:9090/-/healthy || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # Promtail - ログ収集エージェント
+  promtail:
+    image: grafana/promtail:2.9.0
+    container_name: moni-promtail
+    command: -config.file=/etc/promtail/promtail-config.yaml
+    ports:
+      - "9080:9080"
+    volumes:
+      - ./configs/promtail-config.yaml:/etc/promtail/promtail-config.yaml:ro
+      - /var/log:/var/log:ro
+      - /var/lib/docker/containers:/var/lib/docker/containers:ro
+    networks:
+      - moni-network
+    restart: unless-stopped
+    depends_on:
+      - loki
+
+  # OpenCost - Kubernetesコスト監視 (オプション)
+  opencost:
+    image: quay.io/kubecost1/kubecost-cost-model:latest
+    container_name: moni-opencost
+    ports:
+      - "9003:9003"
+    environment:
+      - PROMETHEUS_SERVER_ENDPOINT=http://prometheus:9090
+      - CLOUD_PROVIDER_API_KEY=${CLOUD_PROVIDER_API_KEY:-}
+      - LOG_LEVEL=info
+    networks:
+      - moni-network
+    restart: unless-stopped
+    depends_on:
+      - prometheus
+
+  # Moni Application
+  moni:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: moni-app
+    environment:
+      - MONI_OTEL_ENABLED=true
+      - MONI_OTEL_ENDPOINT=http://otel-collector:4317
+      - MONI_EBPF_ENABLED=false  # Docker内ではeBPF無効
+      - MONI_AIOPS_ENABLED=true
+      - MONI_FINOPS_ENABLED=true
+      - MONI_OPENCOST_URL=http://opencost:9003
+    volumes:
+      - ./configs:/app/configs:ro
+      - moni-data:/app/data
+    networks:
+      - moni-network
+    restart: unless-stopped
+    depends_on:
+      - otel-collector
+      - opencost
+
+networks:
+  moni-network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.20.0.0/16
+
+volumes:
+  loki-data:
+    driver: local
+  grafana-data:
+    driver: local
+  tempo-data:
+    driver: local
+  mimir-data:
+    driver: local
+  prometheus-data:
+    driver: local
+  moni-data:
+    driver: local

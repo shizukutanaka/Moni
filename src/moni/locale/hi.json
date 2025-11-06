@@ -1,0 +1,236 @@
+{
+  "metadata": {
+    "language": "हिन्दी",
+    "language_code": "hi",
+    "locale": "hi-IN",
+    "encoding": "UTF-8",
+    "author": "Moni System Monitor",
+    "version": "1.0.0",
+    "last_updated": "2025-10-27",
+    "rtl": false,
+    "text_direction": "ltr"
+  },
+  "translations": {
+    "app": {
+      "name": "मोनी सिस्टम मॉनिटर",
+      "description": "सुरक्षा और अनुकूलन सुविधाओं के साथ उन्नत सिस्टम निगरानी",
+      "version": "संस्करण"
+    },
+    "ui": {
+      "overlay": {
+        "title": "सिस्टम मॉनिटर",
+        "last_update": "अंतिम अपडेट",
+        "automation_status": "स्वचालन",
+        "metrics": "मेट्रिक्स",
+        "values": "मान",
+        "initializing": "शुरू हो रहा है...",
+        "loading": "लोड हो रहा है...",
+        "ready": "तैयार"
+      },
+      "dialogs": {
+        "configure_metrics": "मेट्रिक्स कॉन्फ़िगर करें",
+        "select_metrics": "प्रदर्शित करने के लिए मेट्रिक्स चुनें। पुनर्व्यवस्थित करने के लिए खींचें।",
+        "overlay_settings": "ओवरले सेटिंग्स",
+        "show_on_launch": "लॉन्च पर ओवरले दिखाएं",
+        "always_on_top": "ओवरले को हमेशा ऊपर रखें",
+        "opacity": "ओवरले पारदर्शिता",
+        "refresh_interval": "रीफ्रेश अंतराल (मिलीसेकंड)",
+        "logging_automation": "लॉगिंग स्वचालन",
+        "enable_logging": "नियतकालिक मेट्रिक लॉगिंग सक्षम करें",
+        "interval": "अंतराल (मिलीसेकंड)",
+        "log_file": "लॉग फाइल",
+        "browse": "ब्राउज़ करें...",
+        "select_log_file": "लॉग फाइल चुनें",
+        "threshold_alerts": "सीमा चेतावनियाँ",
+        "enable_alerts": "चेतावनियाँ सक्षम करें",
+        "show_banner": "ओवरले में चेतावनी बैनर दिखाएं",
+        "cpu_threshold": "CPU सीमा (%)",
+        "memory_threshold": "मेमोरी सीमा (%)",
+        "alert_cooldown": "चेतावनी कूलडाउन (सेकंड)",
+        "alert_history": "चेतावनी इतिहास",
+        "no_alerts": "कोई चेतावनियाँ दर्ज नहीं की गईं।",
+        "select_profile": "प्रोफ़ाइल चुनें",
+        "choose_profile": "निगरानी प्रोफ़ाइल चुनें:",
+        "select_profile_details": "विवरण देखने के लिए प्रोफ़ाइल चुनें",
+        "configure": "कॉन्फ़िगर करें",
+        "settings": "ओवरले सेटिंग्स",
+        "automation": "स्वचालन",
+        "enable_logging_button": "लॉगिंग सक्षम करें",
+        "alerts": "चेतावनियाँ",
+        "history": "इतिहास",
+        "profiles": "प्रोफ़ाइल",
+        "trends": "रुझान",
+        "theme": "थीम",
+        "open_logs": "लॉग खोलें",
+        "log_folder": "लॉग फोल्डर",
+        "clear_alerts": "चेतावनियाँ साफ़ करें"
+      },
+      "metrics": {
+        "cpu_usage": "CPU उपयोग",
+        "memory_usage": "मेमोरी उपयोग",
+        "gpu_usage": "GPU उपयोग",
+        "disk_usage": "डिस्क उपयोग",
+        "network_io": "नेटवर्क I/O",
+        "system_uptime": "सिस्टम अपटाइम",
+        "temperature": "तापमान",
+        "processes": "प्रक्रियाएँ",
+        "cores": "कोर"
+      },
+      "status": {
+        "monitoring": "निगरानी",
+        "stable": "स्थिर",
+        "rising": "बढ़ रहा है",
+        "falling": "घट रहा है",
+        "climbing": "चढ़ रहा है",
+        "easing": "कम हो रहा है",
+        "initializing": "शुरू हो रहा है...",
+        "ready": "तैयार",
+        "error": "त्रुटि",
+        "warning": "चेतावनी",
+        "success": "सफल"
+      },
+      "buttons": {
+        "ok": "OK",
+        "cancel": "रद्द करें",
+        "apply": "लागू करें",
+        "save": "सहेजें",
+        "close": "बंद करें",
+        "refresh": "रीफ्रेश करें",
+        "export": "निर्यात करें",
+        "import": "आयात करें",
+        "delete": "मिटाएं",
+        "edit": "संपादित करें",
+        "add": "जोड़ें",
+        "remove": "हटाएं",
+        "enable": "सक्षम करें",
+        "disable": "अक्षम करें",
+        "start": "शुरू करें",
+        "stop": "रोकें",
+        "pause": "विराम",
+        "resume": "फिर से शुरू करें"
+      },
+      "messages": {
+        "loading": "लोड हो रहा है...",
+        "saving": "सहेजा जा रहा है...",
+        "processing": "प्रसंस्करण...",
+        "completed": "पूर्ण",
+        "failed": "विफल",
+        "success": "सफल",
+        "error": "त्रुटि",
+        "warning": "चेतावनी",
+        "info": "जानकारी",
+        "confirm": "पुष्टि करें",
+        "yes": "हाँ",
+        "no": "नहीं"
+      }
+    },
+    "privacy": {
+      "guard": {
+        "scan_system": "सिस्टम स्कैन करें",
+        "privacy_report": "गोपनीयता रिपोर्ट",
+        "network_monitoring": "नेटवर्क निगरानी",
+        "total_connections": "कुल कनेक्शन",
+        "blocked_count": "अवरोधित",
+        "monitoring_processes": "निगरानी प्रक्रियाएँ",
+        "file_access": "फ़ाइल एक्सेस निगरानी",
+        "sensitive_files": "संवेदनशील फ़ाइल एक्सेस",
+        "clipboard_monitoring": "क्लिपबोर्ड निगरानी",
+        "sensitive_data_detected": "संवेदनशील डेटा का पता चला",
+        "detection_rate": "पता लगाने की दर",
+        "device_monitoring": "डिवाइस निगरानी",
+        "camera": "कैमरा",
+        "microphone": "माइक्रोफोन",
+        "unused": "अप्रयुक्त",
+        "in_use": "उपयोग में",
+        "risk_level": "जोखिम स्तर",
+        "low": "कम",
+        "medium": "मध्यम",
+        "high": "उच्च",
+        "critical": "गंभीर",
+        "scan_time": "स्कैन समय",
+        "total_risk_score": "कुल जोखिम स्कोर",
+        "out_of": "में से"
+      }
+    },
+    "optimization": {
+      "system_optimizer": "सिस्टम अनुकूलक",
+      "full_optimization": "पूर्ण अनुकूलन",
+      "memory": "मेमोरी",
+      "disk": "डिस्क",
+      "network": "नेटवर्क",
+      "startup": "शुरुआत",
+      "processes": "प्रक्रियाएँ",
+      "temp_files": "अस्थायी फाइलें",
+      "dns_cache": "DNS कैश",
+      "optimization_report": "अनुकूलन रिपोर्ट",
+      "memory_usage": "मेमोरी उपयोग",
+      "reduced": "कम किया गया",
+      "files_deleted": "फ़ाइलें हटाई गईं",
+      "freed": "मुक्त किया गया",
+      "cache_cleared": "कैश साफ़ किया गया"
+    },
+    "formats": {
+      "date": {
+        "short": "dd/MM/yy",
+        "medium": "dd MMM yyyy",
+        "long": "dd MMMM yyyy",
+        "full": "EEEE, dd MMMM yyyy"
+      },
+      "time": {
+        "short": "H:mm",
+        "medium": "H:mm:ss",
+        "long": "H:mm:ss z",
+        "full": "H:mm:ss zzzz"
+      },
+      "number": {
+        "default": "#,##0.##",
+        "currency": "¤#,##0.00",
+        "percent": "#,##0%"
+      }
+    },
+    "search": {
+      "title": "खोजें",
+      "placeholder": "YouTube, शैक्षणिक लेख, वेब खोजें...",
+      "button": "खोजें",
+      "results": "परिणाम",
+      "no_results": "कोई परिणाम नहीं मिला",
+      "loading": "खोज रहा है...",
+      "error": "खोज विफल",
+      "type": {
+        "youtube": "YouTube वीडियो",
+        "academic": "शैक्षणिक लेख",
+        "web": "वेब परिणाम",
+        "news": "समाचार",
+        "images": "चित्र"
+      },
+      "engine": {
+        "google": "Google",
+        "bing": "Bing",
+        "duckduckgo": "DuckDuckGo",
+        "brave": "Brave",
+        "youtube": "YouTube API",
+        "scholar": "Google Scholar",
+        "arxiv": "arXiv",
+        "semantic_scholar": "Semantic Scholar"
+      },
+      "filters": {
+        "date": "तारीख",
+        "relevance": "प्रासंगिकता",
+        "rating": "रेटिंग",
+        "duration": "अवधि",
+        "category": "श्रेणी",
+        "language": "भाषा"
+      }
+    },
+    "settings": {
+      "title": "सेटिंग्स",
+      "language": "भाषा",
+      "region": "क्षेत्र",
+      "safe_search": "सुरक्षित खोज",
+      "max_results": "अधिकतम परिणाम",
+      "api_keys": "API कुंजियाँ",
+      "youtube_key": "YouTube API कुंजी",
+      "scholar_key": "Scholar API कुंजी"
+    }
+  }
+}

@@ -1,0 +1,236 @@
+{
+  "metadata": {
+    "language": "Ελληνικά",
+    "language_code": "el",
+    "locale": "el-GR",
+    "encoding": "UTF-8",
+    "author": "Moni System Monitor",
+    "version": "1.0.0",
+    "last_updated": "2025-10-27",
+    "rtl": false,
+    "text_direction": "ltr"
+  },
+  "translations": {
+    "app": {
+      "name": "Moni Παρακολούθηση Συστήματος",
+      "description": "Προηγμένη παρακολούθηση συστήματος με χαρακτηριστικά ασφαλείας και βελτιστοποίησης",
+      "version": "Έκδοση"
+    },
+    "ui": {
+      "overlay": {
+        "title": "Παρακολούθηση Συστήματος",
+        "last_update": "Τελευταία ενημέρωση",
+        "automation_status": "Αυτοματοποίηση",
+        "metrics": "Μετρήσεις",
+        "values": "Τιμές",
+        "initializing": "Αρχικοποίηση...",
+        "loading": "Φόρτωση...",
+        "ready": "Έτοιμο"
+      },
+      "dialogs": {
+        "configure_metrics": "Διαμόρφωση Μετρήσεων",
+        "select_metrics": "Επιλέξτε μετρήσεις για εμφάνιση. Σύρετε για αναδιάταξη.",
+        "overlay_settings": "Ρυθμίσεις Επικάλυψης",
+        "show_on_launch": "Εμφάνιση επικάλυψης κατά την εκκίνηση",
+        "always_on_top": "Διατήρηση επικάλυψης πάντα στην κορυφή",
+        "opacity": "Διαφάνεια επικάλυψης",
+        "refresh_interval": "Διάστημα ανανέωσης (ms)",
+        "logging_automation": "Αυτοματοποίηση Καταγραφής",
+        "enable_logging": "Ενεργοποίηση περιοδικής καταγραφής μετρήσεων",
+        "interval": "Διάστημα (ms)",
+        "log_file": "Αρχείο καταγραφής",
+        "browse": "Αναζήτηση...",
+        "select_log_file": "Επιλέξτε αρχείο καταγραφής",
+        "threshold_alerts": "Ειδοποιήσεις Ορίου",
+        "enable_alerts": "Ενεργοποίηση ειδοποιήσεων",
+        "show_banner": "Εμφάνιση banner ειδοποίησης στην επικάλυψη",
+        "cpu_threshold": "Όριο CPU (%)",
+        "memory_threshold": "Όριο μνήμης (%)",
+        "alert_cooldown": "Χρόνος ψύξης ειδοποίησης (δευτερόλεπτα)",
+        "alert_history": "Ιστορικό Ειδοποιήσεων",
+        "no_alerts": "Δεν έχουν καταγραφεί ειδοποιήσεις.",
+        "select_profile": "Επιλέξτε Προφίλ",
+        "choose_profile": "Επιλέξτε προφίλ παρακολούθησης:",
+        "select_profile_details": "Επιλέξτε προφίλ για προβολή λεπτομερειών",
+        "configure": "Διαμόρφωση",
+        "settings": "Ρυθμίσεις Επικάλυψης",
+        "automation": "Αυτοματοποίηση",
+        "enable_logging_button": "Ενεργοποίηση Καταγραφής",
+        "alerts": "Ειδοποιήσεις",
+        "history": "Ιστορικό",
+        "profiles": "Προφίλ",
+        "trends": "Τάσεις",
+        "theme": "Θέμα",
+        "open_logs": "Άνοιγμα Καταγραφών",
+        "log_folder": "Φάκελος Καταγραφών",
+        "clear_alerts": "Εκκαθάριση Ειδοποιήσεων"
+      },
+      "metrics": {
+        "cpu_usage": "Χρήση CPU",
+        "memory_usage": "Χρήση Μνήμης",
+        "gpu_usage": "Χρήση GPU",
+        "disk_usage": "Χρήση Δίσκου",
+        "network_io": "Δίκτυο I/O",
+        "system_uptime": "Χρόνος Λειτουργίας Συστήματος",
+        "temperature": "Θερμοκρασία",
+        "processes": "Διεργασίες",
+        "cores": "Πυρήνες"
+      },
+      "status": {
+        "monitoring": "Παρακολούθηση",
+        "stable": "Σταθερό",
+        "rising": "Αυξανόμενο",
+        "falling": "Πτωτικό",
+        "climbing": "Ανιούσα",
+        "easing": "Μειούμενο",
+        "initializing": "Αρχικοποίηση...",
+        "ready": "Έτοιμο",
+        "error": "Σφάλμα",
+        "warning": "Προειδοποίηση",
+        "success": "Επιτυχία"
+      },
+      "buttons": {
+        "ok": "OK",
+        "cancel": "Ακύρωση",
+        "apply": "Εφαρμογή",
+        "save": "Αποθήκευση",
+        "close": "Κλείσιμο",
+        "refresh": "Ανανέωση",
+        "export": "Εξαγωγή",
+        "import": "Εισαγωγή",
+        "delete": "Διαγραφή",
+        "edit": "Επεξεργασία",
+        "add": "Προσθήκη",
+        "remove": "Αφαίρεση",
+        "enable": "Ενεργοποίηση",
+        "disable": "Απενεργοποίηση",
+        "start": "Εκκίνηση",
+        "stop": "Διακοπή",
+        "pause": "Παύση",
+        "resume": "Συνέχιση"
+      },
+      "messages": {
+        "loading": "Φόρτωση...",
+        "saving": "Αποθήκευση...",
+        "processing": "Επεξεργασία...",
+        "completed": "Ολοκληρώθηκε",
+        "failed": "Αποτυχία",
+        "success": "Επιτυχία",
+        "error": "Σφάλμα",
+        "warning": "Προειδοποίηση",
+        "info": "Πληροφορίες",
+        "confirm": "Επιβεβαίωση",
+        "yes": "Ναι",
+        "no": "Όχι"
+      }
+    },
+    "privacy": {
+      "guard": {
+        "scan_system": "Σάρωση Συστήματος",
+        "privacy_report": "Αναφορά Απορρήτου",
+        "network_monitoring": "Παρακολούθηση Δικτύου",
+        "total_connections": "Συνολικές συνδέσεις",
+        "blocked_count": "Αποκλεισμένες",
+        "monitoring_processes": "Διεργασίες υπό παρακολούθηση",
+        "file_access": "Παρακολούθηση Πρόσβασης Αρχείων",
+        "sensitive_files": "Πρόσβαση σε ευαίσθητα αρχεία",
+        "clipboard_monitoring": "Παρακολούθηση Πρόχειρου",
+        "sensitive_data_detected": "Εντοπίστηκαν ευαίσθητα δεδομένα",
+        "detection_rate": "Ποσοστό ανίχνευσης",
+        "device_monitoring": "Παρακολούθηση Συσκευών",
+        "camera": "Κάμερα",
+        "microphone": "Μικρόφωνο",
+        "unused": "Αχρησιμοποίητο",
+        "in_use": "Σε χρήση",
+        "risk_level": "Επίπεδο Κινδύνου",
+        "low": "ΧΑΜΗΛΟ",
+        "medium": "ΜΕΣΑΙΟ",
+        "high": "ΥΨΗΛΟ",
+        "critical": "ΚΡΙΤΙΚΟ",
+        "scan_time": "Χρόνος σάρωσης",
+        "total_risk_score": "Συνολική βαθμολογία κινδύνου",
+        "out_of": "από"
+      }
+    },
+    "optimization": {
+      "system_optimizer": "Βελτιστοποιητής Συστήματος",
+      "full_optimization": "Πλήρης Βελτιστοποίηση",
+      "memory": "Μνήμη",
+      "disk": "Δίσκος",
+      "network": "Δίκτυο",
+      "startup": "Εκκίνηση",
+      "processes": "Διεργασίες",
+      "temp_files": "Προσωρινά αρχεία",
+      "dns_cache": "Προσωρινή μνήμη DNS",
+      "optimization_report": "Αναφορά Βελτιστοποίησης",
+      "memory_usage": "Χρήση μνήμης",
+      "reduced": "μειώθηκε",
+      "files_deleted": "αρχεία διαγράφηκαν",
+      "freed": "απελευθερώθηκε",
+      "cache_cleared": "Προσωρινή μνήμη καθαρίστηκε"
+    },
+    "formats": {
+      "date": {
+        "short": "dd/MM/yy",
+        "medium": "dd MMM yyyy",
+        "long": "dd MMMM yyyy",
+        "full": "EEEE, dd MMMM yyyy"
+      },
+      "time": {
+        "short": "H:mm",
+        "medium": "H:mm:ss",
+        "long": "H:mm:ss z",
+        "full": "H:mm:ss zzzz"
+      },
+      "number": {
+        "default": "#.##0,##",
+        "currency": "¤#.##0,00",
+        "percent": "#.##0%"
+      }
+    },
+    "search": {
+      "title": "Αναζήτηση",
+      "placeholder": "Αναζήτηση YouTube, ακαδημαϊκά άρθρα, ιστός...",
+      "button": "Αναζήτηση",
+      "results": "Αποτελέσματα",
+      "no_results": "Δεν βρέθηκαν αποτελέσματα",
+      "loading": "Αναζήτηση...",
+      "error": "Αποτυχία αναζήτησης",
+      "type": {
+        "youtube": "Βίντεο YouTube",
+        "academic": "Ακαδημαϊκά Άρθρα",
+        "web": "Αποτελέσματα Ιστού",
+        "news": "Ειδήσεις",
+        "images": "Εικόνες"
+      },
+      "engine": {
+        "google": "Google",
+        "bing": "Bing",
+        "duckduckgo": "DuckDuckGo",
+        "brave": "Brave",
+        "youtube": "YouTube API",
+        "scholar": "Google Scholar",
+        "arxiv": "arXiv",
+        "semantic_scholar": "Semantic Scholar"
+      },
+      "filters": {
+        "date": "Ημερομηνία",
+        "relevance": "Σχετικότητα",
+        "rating": "Βαθμολογία",
+        "duration": "Διάρκεια",
+        "category": "Κατηγορία",
+        "language": "Γλώσσα"
+      }
+    },
+    "settings": {
+      "title": "Ρυθμίσεις",
+      "language": "Γλώσσα",
+      "region": "Περιοχή",
+      "safe_search": "Ασφαλής Αναζήτηση",
+      "max_results": "Μέγ. Αποτελέσματα",
+      "api_keys": "Κλειδιά API",
+      "youtube_key": "Κλειδί YouTube API",
+      "scholar_key": "Κλειδί Scholar API"
+    }
+  }
+}

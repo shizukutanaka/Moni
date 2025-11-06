@@ -1,0 +1,61 @@
+# MANIFEST.in - Package data inclusion for distribution
+
+# Include documentation
+include README.md
+include README_JP.md
+include README_ES.md
+include LICENSE
+include CHANGELOG.md
+include SECURITY.md
+include CONTRIBUTING.md
+include CODE_OF_CONDUCT.md
+
+# Include configuration files
+include pyproject.toml
+include setup.py
+include requirements.txt
+include requirements-dev.txt
+
+# Include configs directory
+recursive-include src/moni/configs *.yaml *.json
+
+# Include assets
+recursive-include src/moni/assets *.png *.ico *.svg
+
+# Include templates
+recursive-include src/moni/templates *.html *.jinja2
+
+# Include type stubs
+recursive-include src/moni *.pyi
+
+# Exclude unnecessary files
+global-exclude __pycache__
+global-exclude *.py[co]
+global-exclude .DS_Store
+global-exclude *.swp
+global-exclude *~
+
+# Exclude tests from distribution
+recursive-exclude tests *
+recursive-exclude tests *.py
+
+# Exclude development files
+exclude .gitignore
+exclude .dockerignore
+exclude .pre-commit-config.yaml
+exclude .ruff.toml
+exclude .bandit
+exclude tox.ini
+
+# Exclude CI/CD
+recursive-exclude .github *
+
+# Exclude docs build artifacts
+recursive-exclude docs/_build *
+recursive-exclude claudedocs *
+
+# Exclude venv and build artifacts
+recursive-exclude venv *
+recursive-exclude build *
+recursive-exclude dist *
+recursive-exclude *.egg-info *

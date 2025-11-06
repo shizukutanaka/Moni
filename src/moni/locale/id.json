@@ -1,0 +1,236 @@
+{
+  "metadata": {
+    "language": "Bahasa Indonesia",
+    "language_code": "id",
+    "locale": "id-ID",
+    "encoding": "UTF-8",
+    "author": "Moni System Monitor",
+    "version": "1.0.0",
+    "last_updated": "2025-10-27",
+    "rtl": false,
+    "text_direction": "ltr"
+  },
+  "translations": {
+    "app": {
+      "name": "Moni Monitor Sistem",
+      "description": "Pemantauan sistem canggih dengan fitur keamanan dan optimasi",
+      "version": "Versi"
+    },
+    "ui": {
+      "overlay": {
+        "title": "Monitor Sistem",
+        "last_update": "Pembaruan terakhir",
+        "automation_status": "Otomatisasi",
+        "metrics": "Metrik",
+        "values": "Nilai",
+        "initializing": "Menginisialisasi...",
+        "loading": "Memuat...",
+        "ready": "Siap"
+      },
+      "dialogs": {
+        "configure_metrics": "Konfigurasi Metrik",
+        "select_metrics": "Pilih metrik untuk ditampilkan. Seret untuk mengurutkan ulang.",
+        "overlay_settings": "Pengaturan Overlay",
+        "show_on_launch": "Tampilkan overlay saat peluncuran",
+        "always_on_top": "Jaga overlay tetap di atas",
+        "opacity": "Transparansi overlay",
+        "refresh_interval": "Interval pembaruan (ms)",
+        "logging_automation": "Otomatisasi Pencatatan",
+        "enable_logging": "Aktifkan pencatatan metrik berkala",
+        "interval": "Interval (ms)",
+        "log_file": "File log",
+        "browse": "Jelajah...",
+        "select_log_file": "Pilih file log",
+        "threshold_alerts": "Peringatan Ambang Batas",
+        "enable_alerts": "Aktifkan peringatan",
+        "show_banner": "Tampilkan banner peringatan di overlay",
+        "cpu_threshold": "Ambang batas CPU (%)",
+        "memory_threshold": "Ambang batas memori (%)",
+        "alert_cooldown": "Waktu pendinginan peringatan (detik)",
+        "alert_history": "Riwayat Peringatan",
+        "no_alerts": "Tidak ada peringatan yang tercatat.",
+        "select_profile": "Pilih Profil",
+        "choose_profile": "Pilih profil pemantauan:",
+        "select_profile_details": "Pilih profil untuk melihat detail",
+        "configure": "Konfigurasi",
+        "settings": "Pengaturan Overlay",
+        "automation": "Otomatisasi",
+        "enable_logging_button": "Aktifkan Pencatatan",
+        "alerts": "Peringatan",
+        "history": "Riwayat",
+        "profiles": "Profil",
+        "trends": "Tren",
+        "theme": "Tema",
+        "open_logs": "Buka Log",
+        "log_folder": "Folder Log",
+        "clear_alerts": "Hapus Peringatan"
+      },
+      "metrics": {
+        "cpu_usage": "Penggunaan CPU",
+        "memory_usage": "Penggunaan Memori",
+        "gpu_usage": "Penggunaan GPU",
+        "disk_usage": "Penggunaan Disk",
+        "network_io": "Jaringan I/O",
+        "system_uptime": "Waktu Aktif Sistem",
+        "temperature": "Suhu",
+        "processes": "Proses",
+        "cores": "Inti"
+      },
+      "status": {
+        "monitoring": "Pemantauan",
+        "stable": "Stabil",
+        "rising": "Naik",
+        "falling": "Turun",
+        "climbing": "Meningkat",
+        "easing": "Melambat",
+        "initializing": "Menginisialisasi...",
+        "ready": "Siap",
+        "error": "Kesalahan",
+        "warning": "Peringatan",
+        "success": "Berhasil"
+      },
+      "buttons": {
+        "ok": "OK",
+        "cancel": "Batal",
+        "apply": "Terapkan",
+        "save": "Simpan",
+        "close": "Tutup",
+        "refresh": "Segarkan",
+        "export": "Ekspor",
+        "import": "Impor",
+        "delete": "Hapus",
+        "edit": "Edit",
+        "add": "Tambah",
+        "remove": "Hapus",
+        "enable": "Aktifkan",
+        "disable": "Nonaktifkan",
+        "start": "Mulai",
+        "stop": "Berhenti",
+        "pause": "Jeda",
+        "resume": "Lanjutkan"
+      },
+      "messages": {
+        "loading": "Memuat...",
+        "saving": "Menyimpan...",
+        "processing": "Memproses...",
+        "completed": "Selesai",
+        "failed": "Gagal",
+        "success": "Berhasil",
+        "error": "Kesalahan",
+        "warning": "Peringatan",
+        "info": "Informasi",
+        "confirm": "Konfirmasi",
+        "yes": "Ya",
+        "no": "Tidak"
+      }
+    },
+    "privacy": {
+      "guard": {
+        "scan_system": "Pindai Sistem",
+        "privacy_report": "Laporan Privasi",
+        "network_monitoring": "Pemantauan Jaringan",
+        "total_connections": "Total koneksi",
+        "blocked_count": "Diblokir",
+        "monitoring_processes": "Proses yang dipantau",
+        "file_access": "Pemantauan Akses File",
+        "sensitive_files": "Akses file sensitif",
+        "clipboard_monitoring": "Pemantauan Clipboard",
+        "sensitive_data_detected": "Data sensitif terdeteksi",
+        "detection_rate": "Tingkat deteksi",
+        "device_monitoring": "Pemantauan Perangkat",
+        "camera": "Kamera",
+        "microphone": "Mikrofon",
+        "unused": "Tidak digunakan",
+        "in_use": "Sedang digunakan",
+        "risk_level": "Tingkat Risiko",
+        "low": "RENDAH",
+        "medium": "SEDANG",
+        "high": "TINGGI",
+        "critical": "KRITIS",
+        "scan_time": "Waktu pindai",
+        "total_risk_score": "Total skor risiko",
+        "out_of": "dari"
+      }
+    },
+    "optimization": {
+      "system_optimizer": "Pengoptimal Sistem",
+      "full_optimization": "Optimasi Lengkap",
+      "memory": "Memori",
+      "disk": "Disk",
+      "network": "Jaringan",
+      "startup": "Startup",
+      "processes": "Proses",
+      "temp_files": "File sementara",
+      "dns_cache": "Cache DNS",
+      "optimization_report": "Laporan Optimasi",
+      "memory_usage": "Penggunaan memori",
+      "reduced": "berkurang",
+      "files_deleted": "file dihapus",
+      "freed": "dibebaskan",
+      "cache_cleared": "Cache dibersihkan"
+    },
+    "formats": {
+      "date": {
+        "short": "dd/MM/yy",
+        "medium": "dd MMM yyyy",
+        "long": "dd MMMM yyyy",
+        "full": "EEEE, dd MMMM yyyy"
+      },
+      "time": {
+        "short": "H:mm",
+        "medium": "H:mm:ss",
+        "long": "H:mm:ss z",
+        "full": "H:mm:ss zzzz"
+      },
+      "number": {
+        "default": "#.##0,##",
+        "currency": "¤#.##0,00",
+        "percent": "#.##0%"
+      }
+    },
+    "search": {
+      "title": "Cari",
+      "placeholder": "Cari YouTube, makalah akademik, web...",
+      "button": "Cari",
+      "results": "Hasil",
+      "no_results": "Tidak ada hasil ditemukan",
+      "loading": "Mencari...",
+      "error": "Pencarian gagal",
+      "type": {
+        "youtube": "Video YouTube",
+        "academic": "Makalah Akademik",
+        "web": "Hasil Web",
+        "news": "Berita",
+        "images": "Gambar"
+      },
+      "engine": {
+        "google": "Google",
+        "bing": "Bing",
+        "duckduckgo": "DuckDuckGo",
+        "brave": "Brave",
+        "youtube": "YouTube API",
+        "scholar": "Google Scholar",
+        "arxiv": "arXiv",
+        "semantic_scholar": "Semantic Scholar"
+      },
+      "filters": {
+        "date": "Tanggal",
+        "relevance": "Relevansi",
+        "rating": "Peringkat",
+        "duration": "Durasi",
+        "category": "Kategori",
+        "language": "Bahasa"
+      }
+    },
+    "settings": {
+      "title": "Pengaturan",
+      "language": "Bahasa",
+      "region": "Wilayah",
+      "safe_search": "Pencarian Aman",
+      "max_results": "Hasil Maksimal",
+      "api_keys": "Kunci API",
+      "youtube_key": "Kunci API YouTube",
+      "scholar_key": "Kunci API Scholar"
+    }
+  }
+}

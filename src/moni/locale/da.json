@@ -1,0 +1,236 @@
+{
+  "metadata": {
+    "language": "Dansk",
+    "language_code": "da",
+    "locale": "da-DK",
+    "encoding": "UTF-8",
+    "author": "Moni System Monitor",
+    "version": "1.0.0",
+    "last_updated": "2025-10-27",
+    "rtl": false,
+    "text_direction": "ltr"
+  },
+  "translations": {
+    "app": {
+      "name": "Moni System Overvågning",
+      "description": "Avanceret systemovervågning med sikkerheds- og optimeringsfunktioner",
+      "version": "Version"
+    },
+    "ui": {
+      "overlay": {
+        "title": "System Overvågning",
+        "last_update": "Sidste opdatering",
+        "automation_status": "Automatisering",
+        "metrics": "Målinger",
+        "values": "Værdier",
+        "initializing": "Initialiserer...",
+        "loading": "Indlæser...",
+        "ready": "Klar"
+      },
+      "dialogs": {
+        "configure_metrics": "Konfigurer Målinger",
+        "select_metrics": "Vælg målinger til visning. Træk for at omarrangere.",
+        "overlay_settings": "Overlay Indstillinger",
+        "show_on_launch": "Vis overlay ved opstart",
+        "always_on_top": "Hold overlay altid øverst",
+        "opacity": "Overlay gennemsigtighed",
+        "refresh_interval": "Opdateringsinterval (ms)",
+        "logging_automation": "Log Automatisering",
+        "enable_logging": "Aktivér periodisk måling logning",
+        "interval": "Interval (ms)",
+        "log_file": "Log fil",
+        "browse": "Gennemse...",
+        "select_log_file": "Vælg log fil",
+        "threshold_alerts": "Tærskel Advarsler",
+        "enable_alerts": "Aktivér advarsler",
+        "show_banner": "Vis advarselsbanner i overlay",
+        "cpu_threshold": "CPU tærskel (%)",
+        "memory_threshold": "Hukommelse tærskel (%)",
+        "alert_cooldown": "Advarsel nedkøling (sekunder)",
+        "alert_history": "Advarsel Historie",
+        "no_alerts": "Ingen advarsler registreret.",
+        "select_profile": "Vælg Profil",
+        "choose_profile": "Vælg en overvågningsprofil:",
+        "select_profile_details": "Vælg en profil for at se detaljer",
+        "configure": "Konfigurer",
+        "settings": "Overlay Indstillinger",
+        "automation": "Automatisering",
+        "enable_logging_button": "Aktivér Logning",
+        "alerts": "Advarsler",
+        "history": "Historie",
+        "profiles": "Profiler",
+        "trends": "Tendenser",
+        "theme": "Tema",
+        "open_logs": "Åbn Logs",
+        "log_folder": "Log Mappe",
+        "clear_alerts": "Ryd Advarsler"
+      },
+      "metrics": {
+        "cpu_usage": "CPU Forbrug",
+        "memory_usage": "Hukommelse Forbrug",
+        "gpu_usage": "GPU Forbrug",
+        "disk_usage": "Disk Forbrug",
+        "network_io": "Netværk I/O",
+        "system_uptime": "System Drifttid",
+        "temperature": "Temperatur",
+        "processes": "Processer",
+        "cores": "Kerne"
+      },
+      "status": {
+        "monitoring": "Overvågning",
+        "stable": "Stabil",
+        "rising": "Stigende",
+        "falling": "Faldende",
+        "climbing": "Klatrende",
+        "easing": "Aftagende",
+        "initializing": "Initialiserer...",
+        "ready": "Klar",
+        "error": "Fejl",
+        "warning": "Advarsel",
+        "success": "Succes"
+      },
+      "buttons": {
+        "ok": "OK",
+        "cancel": "Annuller",
+        "apply": "Anvend",
+        "save": "Gem",
+        "close": "Luk",
+        "refresh": "Opdater",
+        "export": "Eksporter",
+        "import": "Importer",
+        "delete": "Slet",
+        "edit": "Rediger",
+        "add": "Tilføj",
+        "remove": "Fjern",
+        "enable": "Aktivér",
+        "disable": "Deaktivér",
+        "start": "Start",
+        "stop": "Stop",
+        "pause": "Pause",
+        "resume": "Genoptag"
+      },
+      "messages": {
+        "loading": "Indlæser...",
+        "saving": "Gemmer...",
+        "processing": "Behandler...",
+        "completed": "Afsluttet",
+        "failed": "Fejlede",
+        "success": "Succes",
+        "error": "Fejl",
+        "warning": "Advarsel",
+        "info": "Information",
+        "confirm": "Bekræft",
+        "yes": "Ja",
+        "no": "Nej"
+      }
+    },
+    "privacy": {
+      "guard": {
+        "scan_system": "Scan System",
+        "privacy_report": "Privatliv Rapport",
+        "network_monitoring": "Netværk Overvågning",
+        "total_connections": "Totale forbindelser",
+        "blocked_count": "Blokerede",
+        "monitoring_processes": "Overvågede processer",
+        "file_access": "Fil Adgang Overvågning",
+        "sensitive_files": "Adgang til følsomme filer",
+        "clipboard_monitoring": "Udklipsholder Overvågning",
+        "sensitive_data_detected": "Følsomme data opdaget",
+        "detection_rate": "Registreringsgrad",
+        "device_monitoring": "Enhed Overvågning",
+        "camera": "Kamera",
+        "microphone": "Mikrofon",
+        "unused": "Ubrugt",
+        "in_use": "I brug",
+        "risk_level": "Risiko Niveau",
+        "low": "LAV",
+        "medium": "MIDDEL",
+        "high": "HØJ",
+        "critical": "KRITISK",
+        "scan_time": "Scan tid",
+        "total_risk_score": "Total risiko score",
+        "out_of": "ud af"
+      }
+    },
+    "optimization": {
+      "system_optimizer": "System Optimering",
+      "full_optimization": "Fuld Optimering",
+      "memory": "Hukommelse",
+      "disk": "Disk",
+      "network": "Netværk",
+      "startup": "Opstart",
+      "processes": "Processer",
+      "temp_files": "Midlertidige filer",
+      "dns_cache": "DNS cache",
+      "optimization_report": "Optimering Rapport",
+      "memory_usage": "Hukommelsesforbrug",
+      "reduced": "reduceret",
+      "files_deleted": "filer slettet",
+      "freed": "frigjort",
+      "cache_cleared": "Cache ryddet"
+    },
+    "formats": {
+      "date": {
+        "short": "dd/MM/yy",
+        "medium": "dd MMM yyyy",
+        "long": "dd MMMM yyyy",
+        "full": "EEEE dd MMMM yyyy"
+      },
+      "time": {
+        "short": "H:mm",
+        "medium": "H:mm:ss",
+        "long": "H:mm:ss z",
+        "full": "H:mm:ss zzzz"
+      },
+      "number": {
+        "default": "#.##0,##",
+        "currency": "#.##0,00 ¤",
+        "percent": "#.##0%"
+      }
+    },
+    "search": {
+      "title": "Søg",
+      "placeholder": "Søg YouTube, akademiske artikler, web...",
+      "button": "Søg",
+      "results": "Resultater",
+      "no_results": "Ingen resultater fundet",
+      "loading": "Søger...",
+      "error": "Søgning fejlede",
+      "type": {
+        "youtube": "YouTube Videoer",
+        "academic": "Akademiske Artikler",
+        "web": "Web Resultater",
+        "news": "Nyheder",
+        "images": "Billeder"
+      },
+      "engine": {
+        "google": "Google",
+        "bing": "Bing",
+        "duckduckgo": "DuckDuckGo",
+        "brave": "Brave",
+        "youtube": "YouTube API",
+        "scholar": "Google Scholar",
+        "arxiv": "arXiv",
+        "semantic_scholar": "Semantic Scholar"
+      },
+      "filters": {
+        "date": "Dato",
+        "relevance": "Relevans",
+        "rating": "Bedømmelse",
+        "duration": "Varighed",
+        "category": "Kategori",
+        "language": "Sprog"
+      }
+    },
+    "settings": {
+      "title": "Indstillinger",
+      "language": "Sprog",
+      "region": "Region",
+      "safe_search": "Sikker Søgning",
+      "max_results": "Max. Resultater",
+      "api_keys": "API Nøgler",
+      "youtube_key": "YouTube API Nøgle",
+      "scholar_key": "Scholar API Nøgle"
+    }
+  }
+}

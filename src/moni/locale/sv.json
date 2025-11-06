@@ -1,0 +1,236 @@
+{
+  "metadata": {
+    "language": "Svenska",
+    "language_code": "sv",
+    "locale": "sv-SE",
+    "encoding": "UTF-8",
+    "author": "Moni System Monitor",
+    "version": "1.0.0",
+    "last_updated": "2025-10-27",
+    "rtl": false,
+    "text_direction": "ltr"
+  },
+  "translations": {
+    "app": {
+      "name": "Moni System Monitor",
+      "description": "Avancerad systemövervakning med säkerhets- och optimeringsfunktioner",
+      "version": "Version"
+    },
+    "ui": {
+      "overlay": {
+        "title": "System Monitor",
+        "last_update": "Senaste uppdatering",
+        "automation_status": "Automatisering",
+        "metrics": "Mått",
+        "values": "Värden",
+        "initializing": "Initierar...",
+        "loading": "Laddar...",
+        "ready": "Redo"
+      },
+      "dialogs": {
+        "configure_metrics": "Konfigurera Mått",
+        "select_metrics": "Välj mått att visa. Dra för att ordna om.",
+        "overlay_settings": "Overlay Inställningar",
+        "show_on_launch": "Visa overlay vid start",
+        "always_on_top": "Håll overlay alltid överst",
+        "opacity": "Overlay genomskinlighet",
+        "refresh_interval": "Uppdateringsintervall (ms)",
+        "logging_automation": "Loggning Automatisering",
+        "enable_logging": "Aktivera periodisk måttloggning",
+        "interval": "Intervall (ms)",
+        "log_file": "Loggfil",
+        "browse": "Bläddra...",
+        "select_log_file": "Välj loggfil",
+        "threshold_alerts": "Tröskelvärdesvarningar",
+        "enable_alerts": "Aktivera varningar",
+        "show_banner": "Visa varningsbanner i overlay",
+        "cpu_threshold": "CPU tröskelvärde (%)",
+        "memory_threshold": "Minne tröskelvärde (%)",
+        "alert_cooldown": "Varning nedkylning (sekunder)",
+        "alert_history": "Varning Historik",
+        "no_alerts": "Inga varningar registrerade.",
+        "select_profile": "Välj Profil",
+        "choose_profile": "Välj en övervakningsprofil:",
+        "select_profile_details": "Välj en profil för att se detaljer",
+        "configure": "Konfigurera",
+        "settings": "Overlay Inställningar",
+        "automation": "Automatisering",
+        "enable_logging_button": "Aktivera Loggning",
+        "alerts": "Varningar",
+        "history": "Historik",
+        "profiles": "Profiler",
+        "trends": "Trender",
+        "theme": "Tema",
+        "open_logs": "Öppna Loggar",
+        "log_folder": "Logg Mapp",
+        "clear_alerts": "Rensa Varningar"
+      },
+      "metrics": {
+        "cpu_usage": "CPU Användning",
+        "memory_usage": "Minne Användning",
+        "gpu_usage": "GPU Användning",
+        "disk_usage": "Disk Användning",
+        "network_io": "Nätverk I/O",
+        "system_uptime": "System Drifttid",
+        "temperature": "Temperatur",
+        "processes": "Processer",
+        "cores": "Kärnor"
+      },
+      "status": {
+        "monitoring": "Övervakning",
+        "stable": "Stabil",
+        "rising": "Stigande",
+        "falling": "Fallande",
+        "climbing": "Klivande",
+        "easing": "Avtagande",
+        "initializing": "Initierar...",
+        "ready": "Redo",
+        "error": "Fel",
+        "warning": "Varning",
+        "success": "Framgång"
+      },
+      "buttons": {
+        "ok": "OK",
+        "cancel": "Avbryt",
+        "apply": "Tillämpa",
+        "save": "Spara",
+        "close": "Stäng",
+        "refresh": "Uppdatera",
+        "export": "Exportera",
+        "import": "Importera",
+        "delete": "Ta bort",
+        "edit": "Redigera",
+        "add": "Lägg till",
+        "remove": "Ta bort",
+        "enable": "Aktivera",
+        "disable": "Inaktivera",
+        "start": "Starta",
+        "stop": "Stoppa",
+        "pause": "Paus",
+        "resume": "Återuppta"
+      },
+      "messages": {
+        "loading": "Laddar...",
+        "saving": "Sparar...",
+        "processing": "Bearbetar...",
+        "completed": "Slutfört",
+        "failed": "Misslyckades",
+        "success": "Framgång",
+        "error": "Fel",
+        "warning": "Varning",
+        "info": "Information",
+        "confirm": "Bekräfta",
+        "yes": "Ja",
+        "no": "Nej"
+      }
+    },
+    "privacy": {
+      "guard": {
+        "scan_system": "Skanna System",
+        "privacy_report": "Integritetsrapport",
+        "network_monitoring": "Nätverksövervakning",
+        "total_connections": "Totalt antal anslutningar",
+        "blocked_count": "Blockerade",
+        "monitoring_processes": "Övervakade processer",
+        "file_access": "Filåtkomst Övervakning",
+        "sensitive_files": "Åtkomst till känsliga filer",
+        "clipboard_monitoring": "Urklippsövervakning",
+        "sensitive_data_detected": "Känsliga data upptäckta",
+        "detection_rate": "Upptäcktsgrad",
+        "device_monitoring": "Enhetsövervakning",
+        "camera": "Kamera",
+        "microphone": "Mikrofon",
+        "unused": "Oanvänd",
+        "in_use": "I bruk",
+        "risk_level": "Risknivå",
+        "low": "LÅG",
+        "medium": "MEDEL",
+        "high": "HÖG",
+        "critical": "KRITISK",
+        "scan_time": "Skanningstid",
+        "total_risk_score": "Total riskpoäng",
+        "out_of": "av"
+      }
+    },
+    "optimization": {
+      "system_optimizer": "Systemoptimering",
+      "full_optimization": "Fullständig Optimering",
+      "memory": "Minne",
+      "disk": "Disk",
+      "network": "Nätverk",
+      "startup": "Uppstart",
+      "processes": "Processer",
+      "temp_files": "Temporära filer",
+      "dns_cache": "DNS cache",
+      "optimization_report": "Optimeringsrapport",
+      "memory_usage": "Minnesanvändning",
+      "reduced": "reducerad",
+      "files_deleted": "filer raderade",
+      "freed": "frigjord",
+      "cache_cleared": "Cache rensad"
+    },
+    "formats": {
+      "date": {
+        "short": "yy-MM-dd",
+        "medium": "dd MMM yyyy",
+        "long": "dd MMMM yyyy",
+        "full": "EEEE dd MMMM yyyy"
+      },
+      "time": {
+        "short": "H:mm",
+        "medium": "H:mm:ss",
+        "long": "H:mm:ss z",
+        "full": "H:mm:ss zzzz"
+      },
+      "number": {
+        "default": "# ##0,##",
+        "currency": "# ##0,00 ¤",
+        "percent": "# ##0%"
+      }
+    },
+    "search": {
+      "title": "Sök",
+      "placeholder": "Sök YouTube, akademiska papper, webb...",
+      "button": "Sök",
+      "results": "Resultat",
+      "no_results": "Inga resultat hittades",
+      "loading": "Söker...",
+      "error": "Sökfel",
+      "type": {
+        "youtube": "YouTube Videor",
+        "academic": "Akademiska Papper",
+        "web": "Webbresultat",
+        "news": "Nyheter",
+        "images": "Bilder"
+      },
+      "engine": {
+        "google": "Google",
+        "bing": "Bing",
+        "duckduckgo": "DuckDuckGo",
+        "brave": "Brave",
+        "youtube": "YouTube API",
+        "scholar": "Google Scholar",
+        "arxiv": "arXiv",
+        "semantic_scholar": "Semantic Scholar"
+      },
+      "filters": {
+        "date": "Datum",
+        "relevance": "Relevans",
+        "rating": "Betyg",
+        "duration": "Varaktighet",
+        "category": "Kategori",
+        "language": "Språk"
+      }
+    },
+    "settings": {
+      "title": "Inställningar",
+      "language": "Språk",
+      "region": "Region",
+      "safe_search": "Säker Sök",
+      "max_results": "Max Resultat",
+      "api_keys": "API Nycklar",
+      "youtube_key": "YouTube API Nyckel",
+      "scholar_key": "Scholar API Nyckel"
+    }
+  }
+}

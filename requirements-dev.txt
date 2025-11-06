@@ -1,0 +1,56 @@
+# Development and testing dependencies
+
+# Testing framework
+pytest>=7.4.0
+pytest-cov>=4.1.0
+pytest-asyncio>=0.21.0
+pytest-mock>=3.11.1
+pytest-xvfb>=3.0.0  # For GUI testing on Linux
+pytest-benchmark>=4.0.0  # For performance testing
+
+# Code quality
+ruff>=0.5.0  # Linting and formatting
+mypy>=1.10.0  # Type checking
+black>=23.0.0  # Code formatting (backup)
+isort>=5.12.0  # Import sorting
+
+# Security scanning
+bandit>=1.7.5  # Security linting
+safety>=3.0.0  # Dependency vulnerability scanning
+
+# Documentation
+mkdocs>=1.5.0
+mkdocs-material>=9.0.0
+mkdocs-mermaid2-plugin>=1.0.0
+pydoc-markdown>=4.8.0
+
+# Build tools
+pyinstaller>=6.0.0  # Executable building
+setuptools-scm>=8.0.0  # Version management
+wheel>=0.41.0  # Package building
+
+# Development utilities
+pre-commit>=3.5.0  # Git hooks
+tox>=4.11.0  # Testing across environments
+ipython>=8.15.0  # Enhanced REPL
+jupyter>=1.0.0  # Notebook development
+
+# Monitoring and profiling
+memory-profiler>=0.61.0  # Memory profiling
+line-profiler>=4.1.0  # Line-by-line profiling
+py-spy>=0.3.14  # Sampling profiler
+
+# GUI testing
+pytest-qt>=4.2.0  # Qt application testing
+
+# Coverage reporting
+coverage[toml]>=7.3.0
+codecov>=2.1.13
+
+# Development dependencies for specific modules
+watchdog>=3.0.0  # File system monitoring for config hot-reloading
+pyyaml>=6.0.1  # YAML configuration support
+toml>=0.10.2  # TOML configuration support
+
+# Performance testing
+locust>=2.17.0  # Load testing framework

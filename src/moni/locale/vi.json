@@ -1,0 +1,236 @@
+{
+  "metadata": {
+    "language": "Tiếng Việt",
+    "language_code": "vi",
+    "locale": "vi-VN",
+    "encoding": "UTF-8",
+    "author": "Moni System Monitor",
+    "version": "1.0.0",
+    "last_updated": "2025-10-27",
+    "rtl": false,
+    "text_direction": "ltr"
+  },
+  "translations": {
+    "app": {
+      "name": "Moni Giám Sát Hệ Thống",
+      "description": "Giám sát hệ thống nâng cao với tính năng bảo mật và tối ưu hóa",
+      "version": "Phiên bản"
+    },
+    "ui": {
+      "overlay": {
+        "title": "Giám Sát Hệ Thống",
+        "last_update": "Cập nhật lần cuối",
+        "automation_status": "Tự động hóa",
+        "metrics": "Số liệu",
+        "values": "Giá trị",
+        "initializing": "Đang khởi tạo...",
+        "loading": "Đang tải...",
+        "ready": "Sẵn sàng"
+      },
+      "dialogs": {
+        "configure_metrics": "Cấu Hình Số Liệu",
+        "select_metrics": "Chọn số liệu để hiển thị. Kéo để sắp xếp lại.",
+        "overlay_settings": "Cài Đặt Lớp Phủ",
+        "show_on_launch": "Hiển thị lớp phủ khi khởi động",
+        "always_on_top": "Giữ lớp phủ luôn ở trên cùng",
+        "opacity": "Độ trong suốt lớp phủ",
+        "refresh_interval": "Khoảng thời gian làm mới (ms)",
+        "logging_automation": "Tự Động Ghi Log",
+        "enable_logging": "Bật ghi log số liệu định kỳ",
+        "interval": "Khoảng thời gian (ms)",
+        "log_file": "Tệp nhật ký",
+        "browse": "Duyệt...",
+        "select_log_file": "Chọn tệp nhật ký",
+        "threshold_alerts": "Cảnh Báo Ngưỡng",
+        "enable_alerts": "Bật cảnh báo",
+        "show_banner": "Hiển thị banner cảnh báo trong lớp phủ",
+        "cpu_threshold": "Ngưỡng CPU (%)",
+        "memory_threshold": "Ngưỡng bộ nhớ (%)",
+        "alert_cooldown": "Thời gian chờ cảnh báo (giây)",
+        "alert_history": "Lịch Sử Cảnh Báo",
+        "no_alerts": "Không có cảnh báo nào được ghi lại.",
+        "select_profile": "Chọn Hồ Sơ",
+        "choose_profile": "Chọn hồ sơ giám sát:",
+        "select_profile_details": "Chọn hồ sơ để xem chi tiết",
+        "configure": "Cấu hình",
+        "settings": "Cài Đặt Lớp Phủ",
+        "automation": "Tự động hóa",
+        "enable_logging_button": "Bật Ghi Log",
+        "alerts": "Cảnh báo",
+        "history": "Lịch sử",
+        "profiles": "Hồ sơ",
+        "trends": "Xu hướng",
+        "theme": "Chủ đề",
+        "open_logs": "Mở Nhật Ký",
+        "log_folder": "Thư Mục Nhật Ký",
+        "clear_alerts": "Xóa Cảnh Báo"
+      },
+      "metrics": {
+        "cpu_usage": "Sử Dụng CPU",
+        "memory_usage": "Sử Dụng Bộ Nhớ",
+        "gpu_usage": "Sử Dụng GPU",
+        "disk_usage": "Sử Dụng Ổ Đĩa",
+        "network_io": "Mạng I/O",
+        "system_uptime": "Thời Gian Hoạt Động",
+        "temperature": "Nhiệt Độ",
+        "processes": "Tiến Trình",
+        "cores": "Nhân"
+      },
+      "status": {
+        "monitoring": "Giám sát",
+        "stable": "Ổn định",
+        "rising": "Đang tăng",
+        "falling": "Đang giảm",
+        "climbing": "Đang leo",
+        "easing": "Đang chậm lại",
+        "initializing": "Đang khởi tạo...",
+        "ready": "Sẵn sàng",
+        "error": "Lỗi",
+        "warning": "Cảnh báo",
+        "success": "Thành công"
+      },
+      "buttons": {
+        "ok": "OK",
+        "cancel": "Hủy",
+        "apply": "Áp dụng",
+        "save": "Lưu",
+        "close": "Đóng",
+        "refresh": "Làm mới",
+        "export": "Xuất",
+        "import": "Nhập",
+        "delete": "Xóa",
+        "edit": "Chỉnh sửa",
+        "add": "Thêm",
+        "remove": "Gỡ bỏ",
+        "enable": "Bật",
+        "disable": "Tắt",
+        "start": "Bắt đầu",
+        "stop": "Dừng",
+        "pause": "Tạm dừng",
+        "resume": "Tiếp tục"
+      },
+      "messages": {
+        "loading": "Đang tải...",
+        "saving": "Đang lưu...",
+        "processing": "Đang xử lý...",
+        "completed": "Hoàn thành",
+        "failed": "Thất bại",
+        "success": "Thành công",
+        "error": "Lỗi",
+        "warning": "Cảnh báo",
+        "info": "Thông tin",
+        "confirm": "Xác nhận",
+        "yes": "Có",
+        "no": "Không"
+      }
+    },
+    "privacy": {
+      "guard": {
+        "scan_system": "Quét Hệ Thống",
+        "privacy_report": "Báo Cáo Bảo Mật",
+        "network_monitoring": "Giám Sát Mạng",
+        "total_connections": "Tổng số kết nối",
+        "blocked_count": "Đã chặn",
+        "monitoring_processes": "Tiến trình được giám sát",
+        "file_access": "Giám Sát Truy Cập Tệp",
+        "sensitive_files": "Truy cập tệp nhạy cảm",
+        "clipboard_monitoring": "Giám Sát Bảng Tạm",
+        "sensitive_data_detected": "Phát hiện dữ liệu nhạy cảm",
+        "detection_rate": "Tỷ lệ phát hiện",
+        "device_monitoring": "Giám Sát Thiết Bị",
+        "camera": "Camera",
+        "microphone": "Microphone",
+        "unused": "Chưa sử dụng",
+        "in_use": "Đang sử dụng",
+        "risk_level": "Mức Độ Rủi Ro",
+        "low": "THẤP",
+        "medium": "TRUNG BÌNH",
+        "high": "CAO",
+        "critical": "NGUY HIỂM",
+        "scan_time": "Thời gian quét",
+        "total_risk_score": "Tổng điểm rủi ro",
+        "out_of": "trên"
+      }
+    },
+    "optimization": {
+      "system_optimizer": "Trình Tối Ưu Hóa Hệ Thống",
+      "full_optimization": "Tối Ưu Hóa Toàn Diện",
+      "memory": "Bộ nhớ",
+      "disk": "Ổ đĩa",
+      "network": "Mạng",
+      "startup": "Khởi động",
+      "processes": "Tiến trình",
+      "temp_files": "Tệp tạm thời",
+      "dns_cache": "Bộ nhớ đệm DNS",
+      "optimization_report": "Báo Cáo Tối Ưu Hóa",
+      "memory_usage": "Sử dụng bộ nhớ",
+      "reduced": "đã giảm",
+      "files_deleted": "tệp đã xóa",
+      "freed": "đã giải phóng",
+      "cache_cleared": "Bộ nhớ đệm đã xóa"
+    },
+    "formats": {
+      "date": {
+        "short": "dd/MM/yy",
+        "medium": "dd MMM yyyy",
+        "long": "dd MMMM yyyy",
+        "full": "EEEE, dd MMMM yyyy"
+      },
+      "time": {
+        "short": "H:mm",
+        "medium": "H:mm:ss",
+        "long": "H:mm:ss z",
+        "full": "H:mm:ss zzzz"
+      },
+      "number": {
+        "default": "#.##0,##",
+        "currency": "¤ #.##0,00",
+        "percent": "#.##0%"
+      }
+    },
+    "search": {
+      "title": "Tìm Kiếm",
+      "placeholder": "Tìm kiếm YouTube, bài báo học thuật, web...",
+      "button": "Tìm Kiếm",
+      "results": "Kết Quả",
+      "no_results": "Không tìm thấy kết quả",
+      "loading": "Đang tìm kiếm...",
+      "error": "Tìm kiếm thất bại",
+      "type": {
+        "youtube": "Video YouTube",
+        "academic": "Bài Báo Học Thuật",
+        "web": "Kết Quả Web",
+        "news": "Tin Tức",
+        "images": "Hình Ảnh"
+      },
+      "engine": {
+        "google": "Google",
+        "bing": "Bing",
+        "duckduckgo": "DuckDuckGo",
+        "brave": "Brave",
+        "youtube": "YouTube API",
+        "scholar": "Google Scholar",
+        "arxiv": "arXiv",
+        "semantic_scholar": "Semantic Scholar"
+      },
+      "filters": {
+        "date": "Ngày",
+        "relevance": "Mức độ liên quan",
+        "rating": "Đánh giá",
+        "duration": "Thời lượng",
+        "category": "Danh mục",
+        "language": "Ngôn ngữ"
+      }
+    },
+    "settings": {
+      "title": "Cài Đặt",
+      "language": "Ngôn ngữ",
+      "region": "Khu vực",
+      "safe_search": "Tìm Kiếm An Toàn",
+      "max_results": "Kết Quả Tối Đa",
+      "api_keys": "Khóa API",
+      "youtube_key": "Khóa API YouTube",
+      "scholar_key": "Khóa API Scholar"
+    }
+  }
+}

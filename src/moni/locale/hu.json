@@ -1,0 +1,236 @@
+{
+  "metadata": {
+    "language": "Magyar",
+    "language_code": "hu",
+    "locale": "hu-HU",
+    "encoding": "UTF-8",
+    "author": "Moni System Monitor",
+    "version": "1.0.0",
+    "last_updated": "2025-10-27",
+    "rtl": false,
+    "text_direction": "ltr"
+  },
+  "translations": {
+    "app": {
+      "name": "Moni Rendszerfigyelő",
+      "description": "Fejlett rendszerfigyelés biztonsági és optimalizációs funkciókkal",
+      "version": "Verzió"
+    },
+    "ui": {
+      "overlay": {
+        "title": "Rendszerfigyelő",
+        "last_update": "Utolsó frissítés",
+        "automation_status": "Automatizálás",
+        "metrics": "Metrikák",
+        "values": "Értékek",
+        "initializing": "Inicializálás...",
+        "loading": "Betöltés...",
+        "ready": "Kész"
+      },
+      "dialogs": {
+        "configure_metrics": "Metrikák Konfigurálása",
+        "select_metrics": "Válassza ki a megjelenítendő metrikákat. Húzza az átrendezéshez.",
+        "overlay_settings": "Átfedés Beállításai",
+        "show_on_launch": "Átfedés megjelenítése indításkor",
+        "always_on_top": "Átfedés mindig felül tartása",
+        "opacity": "Átfedés átlátszósága",
+        "refresh_interval": "Frissítési időköz (ms)",
+        "logging_automation": "Naplózás Automatizálása",
+        "enable_logging": "Időszakos metrika naplózás engedélyezése",
+        "interval": "Időköz (ms)",
+        "log_file": "Napló fájl",
+        "browse": "Tallózás...",
+        "select_log_file": "Napló fájl kiválasztása",
+        "threshold_alerts": "Küszöbérték Figyelmeztetések",
+        "enable_alerts": "Figyelmeztetések engedélyezése",
+        "show_banner": "Figyelmeztetés banner megjelenítése az átfedésben",
+        "cpu_threshold": "CPU küszöbérték (%)",
+        "memory_threshold": "Memória küszöbérték (%)",
+        "alert_cooldown": "Figyelmeztetés lehűlési idő (másodperc)",
+        "alert_history": "Figyelmeztetés Előzmények",
+        "no_alerts": "Nincs rögzített figyelmeztetés.",
+        "select_profile": "Profil Kiválasztása",
+        "choose_profile": "Válasszon megfigyelési profilt:",
+        "select_profile_details": "Válasszon profilt a részletek megtekintéséhez",
+        "configure": "Konfigurálás",
+        "settings": "Átfedés Beállításai",
+        "automation": "Automatizálás",
+        "enable_logging_button": "Naplózás Engedélyezése",
+        "alerts": "Figyelmeztetések",
+        "history": "Előzmények",
+        "profiles": "Profilok",
+        "trends": "Trendek",
+        "theme": "Téma",
+        "open_logs": "Naplók Megnyitása",
+        "log_folder": "Napló Mappa",
+        "clear_alerts": "Figyelmeztetések Törlése"
+      },
+      "metrics": {
+        "cpu_usage": "CPU Használat",
+        "memory_usage": "Memória Használat",
+        "gpu_usage": "GPU Használat",
+        "disk_usage": "Lemez Használat",
+        "network_io": "Hálózat I/O",
+        "system_uptime": "Rendszer Üzemidő",
+        "temperature": "Hőmérséklet",
+        "processes": "Folyamatok",
+        "cores": "Magok"
+      },
+      "status": {
+        "monitoring": "Figyelés",
+        "stable": "Stabil",
+        "rising": "Növekvő",
+        "falling": "Csökkenő",
+        "climbing": "Emelkedő",
+        "easing": "Mérséklődő",
+        "initializing": "Inicializálás...",
+        "ready": "Kész",
+        "error": "Hiba",
+        "warning": "Figyelmeztetés",
+        "success": "Siker"
+      },
+      "buttons": {
+        "ok": "OK",
+        "cancel": "Mégse",
+        "apply": "Alkalmaz",
+        "save": "Mentés",
+        "close": "Bezárás",
+        "refresh": "Frissítés",
+        "export": "Exportálás",
+        "import": "Importálás",
+        "delete": "Törlés",
+        "edit": "Szerkesztés",
+        "add": "Hozzáadás",
+        "remove": "Eltávolítás",
+        "enable": "Engedélyezés",
+        "disable": "Letiltás",
+        "start": "Indítás",
+        "stop": "Leállítás",
+        "pause": "Szünet",
+        "resume": "Folytatás"
+      },
+      "messages": {
+        "loading": "Betöltés...",
+        "saving": "Mentés...",
+        "processing": "Feldolgozás...",
+        "completed": "Befejezve",
+        "failed": "Sikertelen",
+        "success": "Siker",
+        "error": "Hiba",
+        "warning": "Figyelmeztetés",
+        "info": "Információ",
+        "confirm": "Megerősítés",
+        "yes": "Igen",
+        "no": "Nem"
+      }
+    },
+    "privacy": {
+      "guard": {
+        "scan_system": "Rendszer Vizsgálata",
+        "privacy_report": "Adatvédelmi Jelentés",
+        "network_monitoring": "Hálózat Figyelés",
+        "total_connections": "Összes kapcsolat",
+        "blocked_count": "Blokkolt",
+        "monitoring_processes": "Figyelt folyamatok",
+        "file_access": "Fájlhozzáférés Figyelés",
+        "sensitive_files": "Érzékeny fájlokhoz való hozzáférés",
+        "clipboard_monitoring": "Vágólap Figyelés",
+        "sensitive_data_detected": "Érzékeny adatok észlelve",
+        "detection_rate": "Észlelési arány",
+        "device_monitoring": "Eszköz Figyelés",
+        "camera": "Kamera",
+        "microphone": "Mikrofon",
+        "unused": "Használaton kívül",
+        "in_use": "Használatban",
+        "risk_level": "Kockázati Szint",
+        "low": "ALACSONY",
+        "medium": "KÖZEPES",
+        "high": "MAGAS",
+        "critical": "KRITIKUS",
+        "scan_time": "Vizsgálati idő",
+        "total_risk_score": "Összes kockázati pontszám",
+        "out_of": "összesen"
+      }
+    },
+    "optimization": {
+      "system_optimizer": "Rendszer Optimalizáló",
+      "full_optimization": "Teljes Optimalizáció",
+      "memory": "Memória",
+      "disk": "Lemez",
+      "network": "Hálózat",
+      "startup": "Indítás",
+      "processes": "Folyamatok",
+      "temp_files": "Ideiglenes fájlok",
+      "dns_cache": "DNS gyorsítótár",
+      "optimization_report": "Optimalizációs Jelentés",
+      "memory_usage": "Memória használat",
+      "reduced": "csökkentve",
+      "files_deleted": "fájlok törölve",
+      "freed": "felszabadítva",
+      "cache_cleared": "Gyorsítótár törölve"
+    },
+    "formats": {
+      "date": {
+        "short": "yy.MM.dd",
+        "medium": "yyyy. MMM dd.",
+        "long": "yyyy. MMMM dd.",
+        "full": "yyyy. MMMM dd., EEEE"
+      },
+      "time": {
+        "short": "H:mm",
+        "medium": "H:mm:ss",
+        "long": "H:mm:ss z",
+        "full": "H:mm:ss zzzz"
+      },
+      "number": {
+        "default": "# ##0,##",
+        "currency": "# ##0,00 ¤",
+        "percent": "# ##0%"
+      }
+    },
+    "search": {
+      "title": "Keresés",
+      "placeholder": "Keresés YouTube, tudományos cikkek, web...",
+      "button": "Keresés",
+      "results": "Eredmények",
+      "no_results": "Nincs találat",
+      "loading": "Keresés...",
+      "error": "Keresés sikertelen",
+      "type": {
+        "youtube": "YouTube Videók",
+        "academic": "Tudományos Cikkek",
+        "web": "Web Eredmények",
+        "news": "Hírek",
+        "images": "Képek"
+      },
+      "engine": {
+        "google": "Google",
+        "bing": "Bing",
+        "duckduckgo": "DuckDuckGo",
+        "brave": "Brave",
+        "youtube": "YouTube API",
+        "scholar": "Google Scholar",
+        "arxiv": "arXiv",
+        "semantic_scholar": "Semantic Scholar"
+      },
+      "filters": {
+        "date": "Dátum",
+        "relevance": "Relevancia",
+        "rating": "Értékelés",
+        "duration": "Időtartam",
+        "category": "Kategória",
+        "language": "Nyelv"
+      }
+    },
+    "settings": {
+      "title": "Beállítások",
+      "language": "Nyelv",
+      "region": "Régió",
+      "safe_search": "Biztonságos Keresés",
+      "max_results": "Max. Eredmények",
+      "api_keys": "API Kulcsok",
+      "youtube_key": "YouTube API Kulcs",
+      "scholar_key": "Scholar API Kulcs"
+    }
+  }
+}

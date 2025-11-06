@@ -1,0 +1,236 @@
+{
+  "metadata": {
+    "language": "العربية",
+    "language_code": "ar",
+    "locale": "ar-SA",
+    "encoding": "UTF-8",
+    "author": "Moni System Monitor",
+    "version": "1.0.0",
+    "last_updated": "2025-10-27",
+    "rtl": true,
+    "text_direction": "rtl"
+  },
+  "translations": {
+    "app": {
+      "name": "Moni مراقب النظام",
+      "description": "مراقبة النظام المتقدمة مع ميزات الأمان والتحسين",
+      "version": "الإصدار"
+    },
+    "ui": {
+      "overlay": {
+        "title": "مراقب النظام",
+        "last_update": "آخر تحديث",
+        "automation_status": "الأتمتة",
+        "metrics": "المقاييس",
+        "values": "القيم",
+        "initializing": "...جاري التهيئة",
+        "loading": "...جاري التحميل",
+        "ready": "جاهز"
+      },
+      "dialogs": {
+        "configure_metrics": "تكوين المقاييس",
+        "select_metrics": "اختر المقاييس للعرض. اسحب لإعادة الترتيب.",
+        "overlay_settings": "إعدادات التراكب",
+        "show_on_launch": "إظهار التراكب عند البدء",
+        "always_on_top": "إبقاء التراكب في المقدمة دائمًا",
+        "opacity": "شفافية التراكب",
+        "refresh_interval": "فاصل التحديث (مللي ثانية)",
+        "logging_automation": "أتمتة التسجيل",
+        "enable_logging": "تفعيل تسجيل المقاييس الدورية",
+        "interval": "الفاصل (مللي ثانية)",
+        "log_file": "ملف السجل",
+        "browse": "...استعراض",
+        "select_log_file": "اختر ملف السجل",
+        "threshold_alerts": "تنبيهات العتبة",
+        "enable_alerts": "تفعيل التنبيهات",
+        "show_banner": "إظهار شعار التنبيه في التراكب",
+        "cpu_threshold": "عتبة المعالج (%)",
+        "memory_threshold": "عتبة الذاكرة (%)",
+        "alert_cooldown": "فترة تهدئة التنبيه (ثواني)",
+        "alert_history": "سجل التنبيهات",
+        "no_alerts": "لا توجد تنبيهات مسجلة.",
+        "select_profile": "اختر الملف الشخصي",
+        "choose_profile": "اختر ملف تعريف المراقبة:",
+        "select_profile_details": "اختر ملفًا شخصيًا لعرض التفاصيل",
+        "configure": "تكوين",
+        "settings": "إعدادات التراكب",
+        "automation": "الأتمتة",
+        "enable_logging_button": "تفعيل التسجيل",
+        "alerts": "التنبيهات",
+        "history": "السجل",
+        "profiles": "الملفات الشخصية",
+        "trends": "الاتجاهات",
+        "theme": "المظهر",
+        "open_logs": "فتح السجلات",
+        "log_folder": "مجلد السجلات",
+        "clear_alerts": "مسح التنبيهات"
+      },
+      "metrics": {
+        "cpu_usage": "استخدام المعالج",
+        "memory_usage": "استخدام الذاكرة",
+        "gpu_usage": "استخدام وحدة المعالجة الرسومية",
+        "disk_usage": "استخدام القرص",
+        "network_io": "إدخال/إخراج الشبكة",
+        "system_uptime": "وقت تشغيل النظام",
+        "temperature": "درجة الحرارة",
+        "processes": "العمليات",
+        "cores": "الأنوية"
+      },
+      "status": {
+        "monitoring": "المراقبة",
+        "stable": "مستقر",
+        "rising": "متصاعد",
+        "falling": "هابط",
+        "climbing": "صاعد",
+        "easing": "مخفف",
+        "initializing": "...جاري التهيئة",
+        "ready": "جاهز",
+        "error": "خطأ",
+        "warning": "تحذير",
+        "success": "نجح"
+      },
+      "buttons": {
+        "ok": "موافق",
+        "cancel": "إلغاء",
+        "apply": "تطبيق",
+        "save": "حفظ",
+        "close": "إغلاق",
+        "refresh": "تحديث",
+        "export": "تصدير",
+        "import": "استيراد",
+        "delete": "حذف",
+        "edit": "تحرير",
+        "add": "إضافة",
+        "remove": "إزالة",
+        "enable": "تفعيل",
+        "disable": "تعطيل",
+        "start": "بدء",
+        "stop": "إيقاف",
+        "pause": "إيقاف مؤقت",
+        "resume": "استئناف"
+      },
+      "messages": {
+        "loading": "...جاري التحميل",
+        "saving": "...جاري الحفظ",
+        "processing": "...جاري المعالجة",
+        "completed": "مكتمل",
+        "failed": "فشل",
+        "success": "نجح",
+        "error": "خطأ",
+        "warning": "تحذير",
+        "info": "معلومات",
+        "confirm": "تأكيد",
+        "yes": "نعم",
+        "no": "لا"
+      }
+    },
+    "privacy": {
+      "guard": {
+        "scan_system": "فحص النظام",
+        "privacy_report": "تقرير الخصوصية",
+        "network_monitoring": "مراقبة الشبكة",
+        "total_connections": "إجمالي الاتصالات",
+        "blocked_count": "محظورة",
+        "monitoring_processes": "العمليات الخاضعة للمراقبة",
+        "file_access": "مراقبة الوصول للملفات",
+        "sensitive_files": "الوصول للملفات الحساسة",
+        "clipboard_monitoring": "مراقبة الحافظة",
+        "sensitive_data_detected": "تم اكتشاف بيانات حساسة",
+        "detection_rate": "معدل الكشف",
+        "device_monitoring": "مراقبة الأجهزة",
+        "camera": "الكاميرا",
+        "microphone": "الميكروفون",
+        "unused": "غير مستخدم",
+        "in_use": "قيد الاستخدام",
+        "risk_level": "مستوى المخاطر",
+        "low": "منخفض",
+        "medium": "متوسط",
+        "high": "مرتفع",
+        "critical": "حرج",
+        "scan_time": "وقت الفحص",
+        "total_risk_score": "إجمالي نقاط المخاطر",
+        "out_of": "من"
+      }
+    },
+    "optimization": {
+      "system_optimizer": "محسن النظام",
+      "full_optimization": "التحسين الكامل",
+      "memory": "الذاكرة",
+      "disk": "القرص",
+      "network": "الشبكة",
+      "startup": "البدء",
+      "processes": "العمليات",
+      "temp_files": "الملفات المؤقتة",
+      "dns_cache": "ذاكرة DNS المؤقتة",
+      "optimization_report": "تقرير التحسين",
+      "memory_usage": "استخدام الذاكرة",
+      "reduced": "تم تقليله",
+      "files_deleted": "ملف محذوف",
+      "freed": "تم تحريره",
+      "cache_cleared": "تم مسح ذاكرة التخزين المؤقت"
+    },
+    "formats": {
+      "date": {
+        "short": "yy/M/d",
+        "medium": "d MMM yyyy",
+        "long": "d MMMM yyyy",
+        "full": "EEEE، d MMMM yyyy"
+      },
+      "time": {
+        "short": "h:mm a",
+        "medium": "h:mm:ss a",
+        "long": "h:mm:ss a z",
+        "full": "h:mm:ss a zzzz"
+      },
+      "number": {
+        "default": "#,##0.##",
+        "currency": "¤#,##0.00",
+        "percent": "#,##0%"
+      }
+    },
+    "search": {
+      "title": "بحث",
+      "placeholder": "البحث في يوتيوب، الأوراق الأكاديمية، الويب...",
+      "button": "بحث",
+      "results": "النتائج",
+      "no_results": "لم يتم العثور على نتائج",
+      "loading": "...جاري البحث",
+      "error": "فشل البحث",
+      "type": {
+        "youtube": "فيديوهات يوتيوب",
+        "academic": "أوراق أكاديمية",
+        "web": "نتائج الويب",
+        "news": "أخبار",
+        "images": "صور"
+      },
+      "engine": {
+        "google": "Google",
+        "bing": "Bing",
+        "duckduckgo": "DuckDuckGo",
+        "brave": "Brave",
+        "youtube": "YouTube API",
+        "scholar": "Google Scholar",
+        "arxiv": "arXiv",
+        "semantic_scholar": "Semantic Scholar"
+      },
+      "filters": {
+        "date": "التاريخ",
+        "relevance": "الصلة",
+        "rating": "التقييم",
+        "duration": "المدة",
+        "category": "الفئة",
+        "language": "اللغة"
+      }
+    },
+    "settings": {
+      "title": "الإعدادات",
+      "language": "اللغة",
+      "region": "المنطقة",
+      "safe_search": "البحث الآمن",
+      "max_results": "أقصى النتائج",
+      "api_keys": "مفاتيح API",
+      "youtube_key": "مفتاح YouTube API",
+      "scholar_key": "مفتاح Scholar API"
+    }
+  }
+}

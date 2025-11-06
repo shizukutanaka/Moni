@@ -1,0 +1,236 @@
+{
+  "metadata": {
+    "language": "Nederlands",
+    "language_code": "nl",
+    "locale": "nl-NL",
+    "encoding": "UTF-8",
+    "author": "Moni System Monitor",
+    "version": "1.0.0",
+    "last_updated": "2025-10-27",
+    "rtl": false,
+    "text_direction": "ltr"
+  },
+  "translations": {
+    "app": {
+      "name": "Moni Systeem Monitor",
+      "description": "Geavanceerde systeembewaking met beveiligings- en optimalisatiefuncties",
+      "version": "Versie"
+    },
+    "ui": {
+      "overlay": {
+        "title": "Systeem Monitor",
+        "last_update": "Laatste update",
+        "automation_status": "Automatisering",
+        "metrics": "Metrieken",
+        "values": "Waarden",
+        "initializing": "Initialiseren...",
+        "loading": "Laden...",
+        "ready": "Gereed"
+      },
+      "dialogs": {
+        "configure_metrics": "Metrieken Configureren",
+        "select_metrics": "Selecteer te tonen metrieken. Sleep om te herschikken.",
+        "overlay_settings": "Overlay Instellingen",
+        "show_on_launch": "Overlay tonen bij opstarten",
+        "always_on_top": "Overlay altijd op voorgrond houden",
+        "opacity": "Overlay transparantie",
+        "refresh_interval": "Vernieuwingsinterval (ms)",
+        "logging_automation": "Logging Automatisering",
+        "enable_logging": "Periodieke metriek logging inschakelen",
+        "interval": "Interval (ms)",
+        "log_file": "Logbestand",
+        "browse": "Bladeren...",
+        "select_log_file": "Selecteer logbestand",
+        "threshold_alerts": "Drempelwaarde Waarschuwingen",
+        "enable_alerts": "Waarschuwingen inschakelen",
+        "show_banner": "Waarschuwingsbanner tonen in overlay",
+        "cpu_threshold": "CPU drempelwaarde (%)",
+        "memory_threshold": "Geheugen drempelwaarde (%)",
+        "alert_cooldown": "Waarschuwing afkoeltijd (seconden)",
+        "alert_history": "Waarschuwing Geschiedenis",
+        "no_alerts": "Geen waarschuwingen geregistreerd.",
+        "select_profile": "Selecteer Profiel",
+        "choose_profile": "Kies een bewakingsprofiel:",
+        "select_profile_details": "Selecteer een profiel om details te zien",
+        "configure": "Configureren",
+        "settings": "Overlay Instellingen",
+        "automation": "Automatisering",
+        "enable_logging_button": "Logging Inschakelen",
+        "alerts": "Waarschuwingen",
+        "history": "Geschiedenis",
+        "profiles": "Profielen",
+        "trends": "Trends",
+        "theme": "Thema",
+        "open_logs": "Logboeken Openen",
+        "log_folder": "Logboek Map",
+        "clear_alerts": "Waarschuwingen Wissen"
+      },
+      "metrics": {
+        "cpu_usage": "CPU Gebruik",
+        "memory_usage": "Geheugen Gebruik",
+        "gpu_usage": "GPU Gebruik",
+        "disk_usage": "Schijf Gebruik",
+        "network_io": "Netwerk I/O",
+        "system_uptime": "Systeem Bedrijfstijd",
+        "temperature": "Temperatuur",
+        "processes": "Processen",
+        "cores": "Kernen"
+      },
+      "status": {
+        "monitoring": "Bewaking",
+        "stable": "Stabiel",
+        "rising": "Stijgend",
+        "falling": "Dalend",
+        "climbing": "Klimmend",
+        "easing": "Afnemend",
+        "initializing": "Initialiseren...",
+        "ready": "Gereed",
+        "error": "Fout",
+        "warning": "Waarschuwing",
+        "success": "Succes"
+      },
+      "buttons": {
+        "ok": "OK",
+        "cancel": "Annuleren",
+        "apply": "Toepassen",
+        "save": "Opslaan",
+        "close": "Sluiten",
+        "refresh": "Vernieuwen",
+        "export": "Exporteren",
+        "import": "Importeren",
+        "delete": "Verwijderen",
+        "edit": "Bewerken",
+        "add": "Toevoegen",
+        "remove": "Verwijderen",
+        "enable": "Inschakelen",
+        "disable": "Uitschakelen",
+        "start": "Starten",
+        "stop": "Stoppen",
+        "pause": "Pauze",
+        "resume": "Hervatten"
+      },
+      "messages": {
+        "loading": "Laden...",
+        "saving": "Opslaan...",
+        "processing": "Verwerken...",
+        "completed": "Voltooid",
+        "failed": "Mislukt",
+        "success": "Succes",
+        "error": "Fout",
+        "warning": "Waarschuwing",
+        "info": "Informatie",
+        "confirm": "Bevestigen",
+        "yes": "Ja",
+        "no": "Nee"
+      }
+    },
+    "privacy": {
+      "guard": {
+        "scan_system": "Systeem Scannen",
+        "privacy_report": "Privacy Rapport",
+        "network_monitoring": "Netwerk Bewaking",
+        "total_connections": "Totaal verbindingen",
+        "blocked_count": "Geblokkeerd",
+        "monitoring_processes": "Gecontroleerde processen",
+        "file_access": "Bestandstoegang Bewaking",
+        "sensitive_files": "Toegang tot gevoelige bestanden",
+        "clipboard_monitoring": "Klembord Bewaking",
+        "sensitive_data_detected": "Gevoelige gegevens gedetecteerd",
+        "detection_rate": "Detectiepercentage",
+        "device_monitoring": "Apparaat Bewaking",
+        "camera": "Camera",
+        "microphone": "Microfoon",
+        "unused": "Ongebruikt",
+        "in_use": "In gebruik",
+        "risk_level": "Risiconiveau",
+        "low": "LAAG",
+        "medium": "GEMIDDELD",
+        "high": "HOOG",
+        "critical": "KRITIEK",
+        "scan_time": "Scan tijd",
+        "total_risk_score": "Totale risico score",
+        "out_of": "van"
+      }
+    },
+    "optimization": {
+      "system_optimizer": "Systeem Optimalisatie",
+      "full_optimization": "Volledige Optimalisatie",
+      "memory": "Geheugen",
+      "disk": "Schijf",
+      "network": "Netwerk",
+      "startup": "Opstarten",
+      "processes": "Processen",
+      "temp_files": "Tijdelijke bestanden",
+      "dns_cache": "DNS cache",
+      "optimization_report": "Optimalisatie Rapport",
+      "memory_usage": "Geheugen gebruik",
+      "reduced": "verminderd",
+      "files_deleted": "bestanden verwijderd",
+      "freed": "vrijgemaakt",
+      "cache_cleared": "Cache gewist"
+    },
+    "formats": {
+      "date": {
+        "short": "dd-MM-yy",
+        "medium": "dd MMM yyyy",
+        "long": "dd MMMM yyyy",
+        "full": "EEEE dd MMMM yyyy"
+      },
+      "time": {
+        "short": "H:mm",
+        "medium": "H:mm:ss",
+        "long": "H:mm:ss z",
+        "full": "H:mm:ss zzzz"
+      },
+      "number": {
+        "default": "#.##0,##",
+        "currency": "¤ #.##0,00",
+        "percent": "#.##0%"
+      }
+    },
+    "search": {
+      "title": "Zoeken",
+      "placeholder": "Zoek YouTube, academische papers, web...",
+      "button": "Zoeken",
+      "results": "Resultaten",
+      "no_results": "Geen resultaten gevonden",
+      "loading": "Zoeken...",
+      "error": "Zoekfout",
+      "type": {
+        "youtube": "YouTube Video's",
+        "academic": "Academische Papers",
+        "web": "Web Resultaten",
+        "news": "Nieuws",
+        "images": "Afbeeldingen"
+      },
+      "engine": {
+        "google": "Google",
+        "bing": "Bing",
+        "duckduckgo": "DuckDuckGo",
+        "brave": "Brave",
+        "youtube": "YouTube API",
+        "scholar": "Google Scholar",
+        "arxiv": "arXiv",
+        "semantic_scholar": "Semantic Scholar"
+      },
+      "filters": {
+        "date": "Datum",
+        "relevance": "Relevantie",
+        "rating": "Beoordeling",
+        "duration": "Duur",
+        "category": "Categorie",
+        "language": "Taal"
+      }
+    },
+    "settings": {
+      "title": "Instellingen",
+      "language": "Taal",
+      "region": "Regio",
+      "safe_search": "Veilig Zoeken",
+      "max_results": "Max Resultaten",
+      "api_keys": "API Sleutels",
+      "youtube_key": "YouTube API Sleutel",
+      "scholar_key": "Scholar API Sleutel"
+    }
+  }
+}

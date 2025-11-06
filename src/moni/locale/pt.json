@@ -1,0 +1,236 @@
+{
+  "metadata": {
+    "language": "Português",
+    "language_code": "pt",
+    "locale": "pt-BR",
+    "encoding": "UTF-8",
+    "author": "Moni System Monitor",
+    "version": "1.0.0",
+    "last_updated": "2025-10-27",
+    "rtl": false,
+    "text_direction": "ltr"
+  },
+  "translations": {
+    "app": {
+      "name": "Moni Monitor do Sistema",
+      "description": "Monitoramento avançado do sistema com recursos de segurança e otimização",
+      "version": "Versão"
+    },
+    "ui": {
+      "overlay": {
+        "title": "Monitor do Sistema",
+        "last_update": "Última atualização",
+        "automation_status": "Automação",
+        "metrics": "Métricas",
+        "values": "Valores",
+        "initializing": "Inicializando...",
+        "loading": "Carregando...",
+        "ready": "Pronto"
+      },
+      "dialogs": {
+        "configure_metrics": "Configurar Métricas",
+        "select_metrics": "Selecionar métricas para exibir. Arraste para reordenar.",
+        "overlay_settings": "Configurações de Sobreposição",
+        "show_on_launch": "Mostrar sobreposição na inicialização",
+        "always_on_top": "Manter sobreposição sempre visível",
+        "opacity": "Opacidade da sobreposição",
+        "refresh_interval": "Intervalo de atualização (ms)",
+        "logging_automation": "Automação de Logs",
+        "enable_logging": "Habilitar registro periódico de métricas",
+        "interval": "Intervalo (ms)",
+        "log_file": "Arquivo de log",
+        "browse": "Procurar...",
+        "select_log_file": "Selecionar arquivo de log",
+        "threshold_alerts": "Alertas de Limite",
+        "enable_alerts": "Habilitar alertas",
+        "show_banner": "Mostrar banner de alerta na sobreposição",
+        "cpu_threshold": "Limite de CPU (%)",
+        "memory_threshold": "Limite de memória (%)",
+        "alert_cooldown": "Tempo de espera do alerta (segundos)",
+        "alert_history": "Histórico de Alertas",
+        "no_alerts": "Nenhum alerta registrado.",
+        "select_profile": "Selecionar Perfil",
+        "choose_profile": "Escolher um perfil de monitoramento:",
+        "select_profile_details": "Selecionar um perfil para ver detalhes",
+        "configure": "Configurar",
+        "settings": "Configurações de Sobreposição",
+        "automation": "Automação",
+        "enable_logging_button": "Habilitar Log",
+        "alerts": "Alertas",
+        "history": "Histórico",
+        "profiles": "Perfis",
+        "trends": "Tendências",
+        "theme": "Tema",
+        "open_logs": "Abrir Logs",
+        "log_folder": "Pasta de Logs",
+        "clear_alerts": "Limpar Alertas"
+      },
+      "metrics": {
+        "cpu_usage": "Uso da CPU",
+        "memory_usage": "Uso da Memória",
+        "gpu_usage": "Uso da GPU",
+        "disk_usage": "Uso do Disco",
+        "network_io": "E/S de Rede",
+        "system_uptime": "Tempo de Atividade",
+        "temperature": "Temperatura",
+        "processes": "Processos",
+        "cores": "Núcleos"
+      },
+      "status": {
+        "monitoring": "Monitorando",
+        "stable": "Estável",
+        "rising": "Subindo",
+        "falling": "Caindo",
+        "climbing": "Aumentando",
+        "easing": "Diminuindo",
+        "initializing": "Inicializando...",
+        "ready": "Pronto",
+        "error": "Erro",
+        "warning": "Aviso",
+        "success": "Sucesso"
+      },
+      "buttons": {
+        "ok": "OK",
+        "cancel": "Cancelar",
+        "apply": "Aplicar",
+        "save": "Salvar",
+        "close": "Fechar",
+        "refresh": "Atualizar",
+        "export": "Exportar",
+        "import": "Importar",
+        "delete": "Excluir",
+        "edit": "Editar",
+        "add": "Adicionar",
+        "remove": "Remover",
+        "enable": "Habilitar",
+        "disable": "Desabilitar",
+        "start": "Iniciar",
+        "stop": "Parar",
+        "pause": "Pausar",
+        "resume": "Continuar"
+      },
+      "messages": {
+        "loading": "Carregando...",
+        "saving": "Salvando...",
+        "processing": "Processando...",
+        "completed": "Concluído",
+        "failed": "Falhou",
+        "success": "Sucesso",
+        "error": "Erro",
+        "warning": "Aviso",
+        "info": "Informação",
+        "confirm": "Confirmar",
+        "yes": "Sim",
+        "no": "Não"
+      }
+    },
+    "privacy": {
+      "guard": {
+        "scan_system": "Escanear Sistema",
+        "privacy_report": "Relatório de Privacidade",
+        "network_monitoring": "Monitoramento de Rede",
+        "total_connections": "Conexões totais",
+        "blocked_count": "Bloqueadas",
+        "monitoring_processes": "Processos monitorados",
+        "file_access": "Monitoramento de Acesso a Arquivos",
+        "sensitive_files": "Acesso a arquivos sensíveis",
+        "clipboard_monitoring": "Monitoramento da Área de Transferência",
+        "sensitive_data_detected": "Dados sensíveis detectados",
+        "detection_rate": "Taxa de detecção",
+        "device_monitoring": "Monitoramento de Dispositivos",
+        "camera": "Câmera",
+        "microphone": "Microfone",
+        "unused": "Não usado",
+        "in_use": "Em uso",
+        "risk_level": "Nível de Risco",
+        "low": "BAIXO",
+        "medium": "MÉDIO",
+        "high": "ALTO",
+        "critical": "CRÍTICO",
+        "scan_time": "Tempo de scan",
+        "total_risk_score": "Pontuação total de risco",
+        "out_of": "de"
+      }
+    },
+    "optimization": {
+      "system_optimizer": "Otimizador do Sistema",
+      "full_optimization": "Otimização Completa",
+      "memory": "Memória",
+      "disk": "Disco",
+      "network": "Rede",
+      "startup": "Inicialização",
+      "processes": "Processos",
+      "temp_files": "Arquivos temporários",
+      "dns_cache": "Cache DNS",
+      "optimization_report": "Relatório de Otimização",
+      "memory_usage": "Uso de memória",
+      "reduced": "reduzido",
+      "files_deleted": "arquivos excluídos",
+      "freed": "liberado",
+      "cache_cleared": "Cache limpo"
+    },
+    "formats": {
+      "date": {
+        "short": "dd/MM/yy",
+        "medium": "dd MMM yyyy",
+        "long": "dd 'de' MMMM 'de' yyyy",
+        "full": "EEEE, dd 'de' MMMM 'de' yyyy"
+      },
+      "time": {
+        "short": "HH:mm",
+        "medium": "HH:mm:ss",
+        "long": "HH:mm:ss z",
+        "full": "HH:mm:ss zzzz"
+      },
+      "number": {
+        "default": "#.##0,##",
+        "currency": "¤ #.##0,00",
+        "percent": "#.##0%"
+      }
+    },
+    "search": {
+      "title": "Pesquisar",
+      "placeholder": "Pesquisar YouTube, artigos acadêmicos, web...",
+      "button": "Pesquisar",
+      "results": "Resultados",
+      "no_results": "Nenhum resultado encontrado",
+      "loading": "Pesquisando...",
+      "error": "Falha na pesquisa",
+      "type": {
+        "youtube": "Vídeos do YouTube",
+        "academic": "Artigos Acadêmicos",
+        "web": "Resultados Web",
+        "news": "Notícias",
+        "images": "Imagens"
+      },
+      "engine": {
+        "google": "Google",
+        "bing": "Bing",
+        "duckduckgo": "DuckDuckGo",
+        "brave": "Brave",
+        "youtube": "API do YouTube",
+        "scholar": "Google Scholar",
+        "arxiv": "arXiv",
+        "semantic_scholar": "Semantic Scholar"
+      },
+      "filters": {
+        "date": "Data",
+        "relevance": "Relevância",
+        "rating": "Avaliação",
+        "duration": "Duração",
+        "category": "Categoria",
+        "language": "Idioma"
+      }
+    },
+    "settings": {
+      "title": "Configurações",
+      "language": "Idioma",
+      "region": "Região",
+      "safe_search": "Pesquisa Segura",
+      "max_results": "Máx. Resultados",
+      "api_keys": "Chaves API",
+      "youtube_key": "Chave API do YouTube",
+      "scholar_key": "Chave API do Scholar"
+    }
+  }
+}
