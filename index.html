@@ -1,0 +1,693 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Moni — PC Device Info Viewer</title>
+<style>
+:root{
+  --bg:#0d1117; --bg2:#111826; --card:#161e2c; --card2:#1b2637;
+  --line:#2a3648; --text:#e6edf3; --sub:#93a4bb; --faint:#6b7c93;
+  --accent:#4da3ff; --accent2:#2f7fe0;
+  --ok:#3fb96f; --warn:#e8a33d; --bad:#e5534b; --gray:#8b98a9;
+  --chip:#22314a;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{
+  background:var(--bg); color:var(--text);
+  font-family:"Segoe UI","Hiragino Kaku Gothic ProN","Hiragino Sans","Noto Sans JP",Meiryo,system-ui,-apple-system,sans-serif;
+  font-size:15px; line-height:1.55;
+}
+button{font-family:inherit; cursor:pointer}
+input,select,textarea{font-family:inherit; font-size:14px}
+header.top{
+  position:sticky; top:0; z-index:40;
+  background:rgba(13,17,23,.94); backdrop-filter:blur(6px);
+  border-bottom:1px solid var(--line);
+}
+.top-in{max-width:1080px; margin:0 auto; padding:12px 16px; display:flex; align-items:center; gap:12px; flex-wrap:wrap}
+.logo{display:flex; align-items:baseline; gap:10px; margin-right:auto}
+.logo .name{font-size:24px; font-weight:800; letter-spacing:3px}
+.logo .name span{color:var(--accent)}
+.logo .tag{color:var(--sub); font-size:12px}
+.top-actions{display:flex; gap:8px; flex-wrap:wrap; align-items:center}
+.btn{
+  background:var(--card2); color:var(--text); border:1px solid var(--line);
+  border-radius:8px; padding:8px 14px; font-size:13.5px; font-weight:600;
+}
+.btn:hover{border-color:var(--accent)}
+.btn.primary{background:var(--accent2); border-color:var(--accent2); color:#fff}
+.btn.primary:hover{background:var(--accent)}
+.btn:disabled{opacity:.45; cursor:not-allowed}
+select.langsel{
+  background:var(--card2); color:var(--text); border:1px solid var(--line);
+  border-radius:8px; padding:8px 10px; font-size:13.5px; font-weight:600;
+}
+main{max-width:1080px; margin:0 auto; padding:18px 16px 60px}
+.notice{
+  background:#221a10; border:1px solid #6b4d1f; color:#f0cf9a;
+  border-radius:10px; padding:10px 14px; font-size:13.5px; margin-bottom:16px;
+}
+.notice.sample{background:#101d2e; border-color:#2f5b8f; color:#a9ccf5}
+.notice.err{background:#2e1414; border-color:#8f2f2f; color:#f5a9a9}
+.searchbar{display:flex; gap:8px; align-items:center; margin-bottom:16px; flex-wrap:wrap}
+.searchbar input{
+  flex:1; min-width:220px; background:var(--card); color:var(--text);
+  border:1px solid var(--line); border-radius:8px; padding:9px 12px;
+}
+.meta{color:var(--sub); font-size:13px; margin-bottom:14px}
+.meta b{color:var(--text)}
+.cards{display:grid; grid-template-columns:repeat(auto-fill,minmax(330px,1fr)); gap:14px}
+.card{background:var(--card); border:1px solid var(--line); border-radius:12px; padding:16px 18px}
+.card h3{margin:0 0 10px; font-size:16px; display:flex; align-items:center; gap:8px}
+.card h3 .ic{font-size:18px}
+.card .subttl{color:var(--sub); font-size:12.5px; font-weight:700; margin:12px 0 4px; text-transform:uppercase; letter-spacing:.5px}
+table.kv{width:100%; border-collapse:collapse}
+table.kv tr td{padding:4px 0; vertical-align:top}
+table.kv td.k{color:var(--sub); width:42%; padding-right:10px; font-size:13.5px}
+table.kv td.v{font-weight:600; word-break:break-word}
+td.v.na{color:var(--faint); font-weight:400; font-style:italic}
+.bar{height:8px; background:var(--card2); border-radius:4px; overflow:hidden; margin-top:4px}
+.bar > div{height:100%; background:var(--accent2)}
+.bar > div.hot{background:var(--bad)}
+.empty{
+  background:var(--card); border:1px dashed var(--line); border-radius:12px;
+  padding:34px 26px; text-align:center; color:var(--sub);
+}
+.empty h2{color:var(--text); margin:0 0 8px}
+.empty ol{text-align:left; max-width:520px; margin:14px auto 0; line-height:1.9}
+#dropOverlay{
+  position:fixed; inset:0; z-index:90; display:none;
+  background:rgba(13,17,23,.88); border:3px dashed var(--accent);
+  align-items:center; justify-content:center; font-size:22px; font-weight:700;
+}
+.modal{
+  position:fixed; inset:0; z-index:80; display:none;
+  background:rgba(0,0,0,.6); align-items:center; justify-content:center; padding:16px;
+}
+.modal .box{background:var(--bg2); border:1px solid var(--line); border-radius:12px; padding:20px; width:640px; max-width:100%}
+.modal textarea{
+  width:100%; height:260px; background:var(--card); color:var(--text);
+  border:1px solid var(--line); border-radius:8px; padding:10px; font-family:monospace; font-size:12.5px;
+}
+.modal .row{display:flex; gap:8px; justify-content:flex-end; margin-top:12px}
+footer{max-width:1080px; margin:0 auto; padding:0 16px 30px; color:var(--faint); font-size:12.5px}
+@media (max-width:640px){ .cards{grid-template-columns:1fr} }
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="top-in">
+    <div class="logo">
+      <div class="name">MO<span>NI</span></div>
+      <div class="tag" data-i18n="tagline"></div>
+    </div>
+    <div class="top-actions">
+      <button class="btn primary" id="btnOpen" data-i18n="btnOpen"></button>
+      <button class="btn" id="btnPaste" data-i18n="btnPaste"></button>
+      <button class="btn" id="btnSample" data-i18n="btnSample"></button>
+      <button class="btn" id="btnExportTxt" data-i18n="btnExportTxt" disabled></button>
+      <button class="btn" id="btnExportJson" data-i18n="btnExportJson" disabled></button>
+      <select class="langsel" id="langSel" aria-label="Language">
+        <option value="ja">日本語</option>
+        <option value="en">English</option>
+      </select>
+    </div>
+  </div>
+</header>
+<input type="file" id="fileInput" accept=".json,application/json" style="display:none">
+<div id="dropOverlay"><span data-i18n="dropHere"></span></div>
+
+<main>
+  <div class="notice" data-i18n="honestNotice"></div>
+  <div class="notice sample" id="sampleBanner" style="display:none" data-i18n="sampleBanner"></div>
+  <div class="notice err" id="errBanner" style="display:none"></div>
+
+  <div class="empty" id="emptyState">
+    <h2 data-i18n="emptyTitle"></h2>
+    <div data-i18n="emptyBody"></div>
+    <ol>
+      <li data-i18n="step1"></li>
+      <li data-i18n="step2"></li>
+      <li data-i18n="step3"></li>
+    </ol>
+  </div>
+
+  <div id="reportArea" style="display:none">
+    <div class="meta" id="reportMeta"></div>
+    <div class="searchbar">
+      <input type="text" id="searchInput">
+    </div>
+    <div class="cards" id="cards"></div>
+    <div class="empty" id="noMatch" style="display:none" data-i18n="noMatch"></div>
+  </div>
+</main>
+
+<footer data-i18n="footerNote"></footer>
+
+<div class="modal" id="pasteModal">
+  <div class="box">
+    <h3 style="margin-top:0" data-i18n="pasteTitle"></h3>
+    <textarea id="pasteText" spellcheck="false"></textarea>
+    <div class="row">
+      <button class="btn" id="btnPasteCancel" data-i18n="btnCancel"></button>
+      <button class="btn primary" id="btnPasteLoad" data-i18n="btnLoad"></button>
+    </div>
+  </div>
+</div>
+
+<script>
+"use strict";
+
+/* ===== Sample report: fictional PC, for display verification only.
+   Kept in sync with sample-report.json (checked by tests/validate.js). ===== */
+const SAMPLE_REPORT = {"battery":null,"collectedAt":"2026-01-15T10:30:00+09:00","collector":"Moni collect.ps1 1.0.0","cpu":{"cores":20,"logicalProcessors":28,"maxClockMHz":5600,"name":"SampleCore i7-14700K (fictional)"},"displays":[{"height":1440,"name":"Sample Display 27 (fictional)","refreshRateHz":144,"width":2560},{"height":1080,"name":"Sample Display 24 (fictional)","refreshRateHz":60,"width":1920}],"format":"moni-report","gpus":[{"driverVersion":"32.0.15.6601","name":"SampleForce RTX 4070 (fictional)","vramBytes":12884901888},{"driverVersion":"32.0.101.5972","name":"Sample UHD Graphics 770 (fictional)","vramBytes":null}],"memory":{"modules":[{"capacityBytes":34359738368,"manufacturer":"Sample Memory Co.","partNumber":"SM-D5-5600-32G","speedMHz":5600,"type":"DDR5"},{"capacityBytes":34359738368,"manufacturer":"Sample Memory Co.","partNumber":"SM-D5-5600-32G","speedMHz":5600,"type":"DDR5"}],"totalBytes":68719476736},"motherboard":{"biosDate":"2025-09-12","biosVersion":"1.20","manufacturer":"Sample Board Works","product":"SBW Z790 SAMPLE"},"network":[{"description":"Sample I226-V Gigabit Network Connection (fictional)","ipv4":["192.168.1.50"],"ipv6":["fe80::1a2b:3c4d:5e6f:7788"],"linkSpeedMbps":1000,"macAddress":"AA-BB-CC-DD-EE-FF","name":"Ethernet","status":"Up"},{"description":"Sample AX211 Wi-Fi 6E (fictional)","ipv4":[],"ipv6":[],"linkSpeedMbps":null,"macAddress":"11-22-33-44-55-66","name":"Wi-Fi","status":"Disconnected"}],"peripherals":[{"description":"USB Input Device","name":"Sample USB Keyboard (fictional)"},{"description":"USB Input Device","name":"Sample Wireless Mouse (fictional)"},{"description":"USB Audio Device","name":"Sample USB Audio DAC (fictional)"},{"description":"USB Mass Storage Device","name":"Sample Portable SSD 1TB (fictional)"}],"sampleData":true,"storage":{"logical":[{"drive":"C:","fileSystem":"NTFS","freeBytes":812345671680,"label":"Windows","totalBytes":1999307276288},{"drive":"D:","fileSystem":"NTFS","freeBytes":2987654320128,"label":"Data","totalBytes":4000785960960}],"physical":[{"busType":"NVMe","mediaType":"SSD","model":"Sample SSD SN850X 2TB (fictional)","sizeBytes":2000398934016},{"busType":"SATA","mediaType":"HDD","model":"Sample HDD Barracuda 4TB (fictional)","sizeBytes":4000787030016}]},"system":{"computerName":"SAMPLE-DESKTOP","manufacturer":"Sample Systems Inc.","model":"Sample Tower 5000","osBuild":"26200","osName":"Microsoft Windows 11 Pro","osVersion":"10.0.26200","uptimeSeconds":93784},"version":1};
+
+const I18N = {
+  ja: {
+    tagline: "PC デバイス情報ビューア",
+    btnOpen: "JSON を開く",
+    btnPaste: "貼り付けて読み込む",
+    btnSample: "サンプルを表示",
+    btnExportTxt: "テキストで書き出し",
+    btnExportJson: "JSON で書き出し",
+    dropHere: "ここに moni-report.json をドロップ",
+    honestNotice: "Moni は「見る」だけのツールです。監視・常駐はせず、外部への送信も一切しません。表示されるのは、あなたが読み込んだファイルの内容だけです。取れなかった項目は「取得不可」と正直に表示します。",
+    sampleBanner: "これは表示確認用のサンプルデータです。実在しない架空の PC の情報です。",
+    emptyTitle: "まだレポートが読み込まれていません",
+    emptyBody: "お使いの PC で collect.bat を実行すると moni-report.json が作られます。そのファイルをここで開いてください。まずは「サンプルを表示」で見た目を確認できます。",
+    step1: "collect.bat をダブルクリックする（PC の情報を集めて moni-report.json を出力します）",
+    step2: "このページで「JSON を開く」から moni-report.json を選ぶ（ドラッグ＆ドロップや貼り付けでも可）",
+    step3: "カテゴリ別にデバイス情報を確認する。検索や書き出しもできます",
+    pasteTitle: "レポート JSON を貼り付け",
+    btnCancel: "キャンセル",
+    btnLoad: "読み込む",
+    noMatch: "検索に一致する項目がありません。",
+    searchPlaceholder: "項目を検索（例: DDR5、192.168、RTX）",
+    footerNote: "Moni は読み取り専用のビューアです。データはあなたの端末の中だけにあり、どこにも送信されません。BIOS の更新管理は姉妹ツール BIOSMAN の役割です。",
+    metaCollected: "収集日時",
+    metaCollector: "収集元",
+    errParse: "JSON として読み取れませんでした。ファイルの内容を確認してください。",
+    errFormat: "moni-report 形式ではない可能性があります（format フィールドが一致しません）。表示は試みます。",
+    na: "取得不可",
+    catSystem: "システム概要",
+    catCpu: "CPU",
+    catMemory: "メモリ",
+    catGpu: "GPU",
+    catMotherboard: "マザーボード",
+    catStorage: "ストレージ",
+    catNetwork: "ネットワーク",
+    catDisplay: "ディスプレイ",
+    catBattery: "バッテリー",
+    catPeripherals: "USB / 周辺デバイス",
+    fComputerName: "コンピュータ名",
+    fManufacturer: "メーカー",
+    fModel: "モデル",
+    fOs: "OS",
+    fOsVersion: "バージョン",
+    fOsBuild: "ビルド",
+    fUptime: "稼働時間",
+    fCpuName: "名前",
+    fCores: "物理コア",
+    fThreads: "論理プロセッサ（スレッド）",
+    fMaxClock: "最大クロック",
+    fMemTotal: "総容量",
+    fMemModule: "モジュール",
+    fCapacity: "容量",
+    fMemType: "規格",
+    fSpeed: "速度",
+    fPartNumber: "型番",
+    fVram: "VRAM",
+    fDriver: "ドライバ",
+    fBoardProduct: "製品名",
+    fBiosVersion: "BIOS バージョン",
+    fBiosDate: "BIOS 日付",
+    fPhysicalDisks: "物理ディスク",
+    fLogicalDrives: "論理ドライブ",
+    fSize: "容量",
+    fMediaType: "種別",
+    fBusType: "接続方式",
+    fDrive: "ドライブ",
+    fLabel: "ラベル",
+    fFileSystem: "ファイルシステム",
+    fFree: "空き",
+    fUsed: "使用率",
+    fStatus: "状態",
+    fDesc: "説明",
+    fIpv4: "IPv4",
+    fIpv6: "IPv6",
+    fMac: "MAC アドレス",
+    fLinkSpeed: "リンク速度",
+    fResolution: "解像度",
+    fRefresh: "リフレッシュレート",
+    fCharge: "充電率",
+    fDesignCap: "設計容量",
+    fFullCap: "満充電容量",
+    fHealth: "健全性（満充電 / 設計）",
+    fBattStatus: "状態コード",
+    noBattery: "なし（バッテリーは搭載されていません）",
+    none: "なし",
+    days: "日",
+    hours: "時間",
+    minutes: "分"
+  },
+  en: {
+    tagline: "PC Device Info Viewer",
+    btnOpen: "Open JSON",
+    btnPaste: "Paste JSON",
+    btnSample: "Show sample",
+    btnExportTxt: "Export as text",
+    btnExportJson: "Export as JSON",
+    dropHere: "Drop moni-report.json here",
+    honestNotice: "Moni only displays information. It does not monitor, run in the background, or send anything anywhere. You only see the contents of the file you loaded. Items that could not be collected are honestly shown as \"Unavailable\".",
+    sampleBanner: "This is sample data for display verification. It describes a fictional PC that does not exist.",
+    emptyTitle: "No report loaded yet",
+    emptyBody: "Run collect.bat on your PC to create moni-report.json, then open that file here. You can also press \"Show sample\" to preview the layout first.",
+    step1: "Double-click collect.bat (it collects your PC's device info and writes moni-report.json)",
+    step2: "On this page, choose \"Open JSON\" and select moni-report.json (drag & drop and paste also work)",
+    step3: "Browse the device info by category. You can search and export, too",
+    pasteTitle: "Paste report JSON",
+    btnCancel: "Cancel",
+    btnLoad: "Load",
+    noMatch: "No items match your search.",
+    searchPlaceholder: "Search items (e.g. DDR5, 192.168, RTX)",
+    footerNote: "Moni is a read-only viewer. Your data stays on your own device and is never sent anywhere. Managing BIOS updates is the job of its sibling tool, BIOSMAN.",
+    metaCollected: "Collected at",
+    metaCollector: "Collector",
+    errParse: "Could not parse the input as JSON. Please check the file contents.",
+    errFormat: "This may not be a moni-report file (the format field does not match). Trying to display it anyway.",
+    na: "Unavailable",
+    catSystem: "System",
+    catCpu: "CPU",
+    catMemory: "Memory",
+    catGpu: "GPU",
+    catMotherboard: "Motherboard",
+    catStorage: "Storage",
+    catNetwork: "Network",
+    catDisplay: "Display",
+    catBattery: "Battery",
+    catPeripherals: "USB / Peripherals",
+    fComputerName: "Computer name",
+    fManufacturer: "Manufacturer",
+    fModel: "Model",
+    fOs: "OS",
+    fOsVersion: "Version",
+    fOsBuild: "Build",
+    fUptime: "Uptime",
+    fCpuName: "Name",
+    fCores: "Physical cores",
+    fThreads: "Logical processors (threads)",
+    fMaxClock: "Max clock",
+    fMemTotal: "Total capacity",
+    fMemModule: "Module",
+    fCapacity: "Capacity",
+    fMemType: "Type",
+    fSpeed: "Speed",
+    fPartNumber: "Part number",
+    fVram: "VRAM",
+    fDriver: "Driver",
+    fBoardProduct: "Product",
+    fBiosVersion: "BIOS version",
+    fBiosDate: "BIOS date",
+    fPhysicalDisks: "Physical disks",
+    fLogicalDrives: "Logical drives",
+    fSize: "Size",
+    fMediaType: "Media type",
+    fBusType: "Bus type",
+    fDrive: "Drive",
+    fLabel: "Label",
+    fFileSystem: "File system",
+    fFree: "Free",
+    fUsed: "Used",
+    fStatus: "Status",
+    fDesc: "Description",
+    fIpv4: "IPv4",
+    fIpv6: "IPv6",
+    fMac: "MAC address",
+    fLinkSpeed: "Link speed",
+    fResolution: "Resolution",
+    fRefresh: "Refresh rate",
+    fCharge: "Charge",
+    fDesignCap: "Design capacity",
+    fFullCap: "Full-charge capacity",
+    fHealth: "Health (full / design)",
+    fBattStatus: "Status code",
+    noBattery: "None (no battery installed)",
+    none: "None",
+    days: "d",
+    hours: "h",
+    minutes: "m"
+  }
+};
+
+const state = { lang: "ja", report: null };
+const $ = (id) => document.getElementById(id);
+const t = (key) => (I18N[state.lang] && I18N[state.lang][key]) || I18N.en[key] || key;
+const isNil = (v) => v === null || v === undefined || v === "" || (Array.isArray(v) && v.length === 0);
+
+/* ---------- formatting ---------- */
+function fmtBytes(n) {
+  if (isNil(n) || typeof n !== "number") return null;
+  const units = ["B", "KB", "MB", "GB", "TB", "PB"];
+  let v = n, i = 0;
+  while (v >= 1024 && i < units.length - 1) { v /= 1024; i++; }
+  return (i === 0 ? v : v.toFixed(v >= 100 ? 0 : 1)) + " " + units[i];
+}
+function fmtMHz(mhz) {
+  if (isNil(mhz) || typeof mhz !== "number") return null;
+  return mhz >= 1000 ? (mhz / 1000).toFixed(2).replace(/\.?0+$/, "") + " GHz" : mhz + " MHz";
+}
+function fmtUptime(sec) {
+  if (isNil(sec) || typeof sec !== "number") return null;
+  const d = Math.floor(sec / 86400), h = Math.floor((sec % 86400) / 3600), m = Math.floor((sec % 3600) / 60);
+  const parts = [];
+  if (d) parts.push(d + " " + t("days"));
+  if (h || d) parts.push(h + " " + t("hours"));
+  parts.push(m + " " + t("minutes"));
+  return parts.join(" ");
+}
+
+/* ---------- row / card builders ----------
+   Each row carries searchable text so the filter can match label + value. */
+function row(label, value) {
+  const display = isNil(value) ? t("na") : String(value);
+  return { label, display, na: isNil(value), search: (label + " " + display).toLowerCase() };
+}
+function rowHtml(r) {
+  return `<tr data-search="${escapeHtml(r.search)}"><td class="k">${escapeHtml(r.label)}</td><td class="v${r.na ? " na" : ""}">${escapeHtml(r.display)}</td></tr>`;
+}
+function escapeHtml(s) {
+  return String(s).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+}
+function kvTable(rows) {
+  return `<table class="kv">${rows.map(rowHtml).join("")}</table>`;
+}
+function card(icon, title, innerHtml) {
+  return `<section class="card"><h3><span class="ic">${icon}</span>${escapeHtml(title)}</h3>${innerHtml}</section>`;
+}
+
+/* ---------- report -> sections (shared shape for HTML and text export) ---------- */
+function buildSections(rep) {
+  const S = [];
+  const sys = rep.system || {};
+  S.push({ icon: "🖥️", title: t("catSystem"), groups: [{ rows: [
+    row(t("fComputerName"), sys.computerName),
+    row(t("fManufacturer"), sys.manufacturer),
+    row(t("fModel"), sys.model),
+    row(t("fOs"), sys.osName),
+    row(t("fOsVersion"), sys.osVersion),
+    row(t("fOsBuild"), sys.osBuild),
+    row(t("fUptime"), fmtUptime(sys.uptimeSeconds))
+  ] }] });
+
+  const cpu = rep.cpu || {};
+  S.push({ icon: "🧠", title: t("catCpu"), groups: [{ rows: [
+    row(t("fCpuName"), cpu.name),
+    row(t("fCores"), cpu.cores),
+    row(t("fThreads"), cpu.logicalProcessors),
+    row(t("fMaxClock"), fmtMHz(cpu.maxClockMHz))
+  ] }] });
+
+  const mem = rep.memory || {};
+  const memGroups = [{ rows: [row(t("fMemTotal"), fmtBytes(mem.totalBytes))] }];
+  (mem.modules || []).forEach((m, i) => {
+    memGroups.push({ subtitle: t("fMemModule") + " " + (i + 1), rows: [
+      row(t("fCapacity"), fmtBytes(m.capacityBytes)),
+      row(t("fMemType"), m.type),
+      row(t("fSpeed"), isNil(m.speedMHz) ? null : m.speedMHz + " MHz"),
+      row(t("fManufacturer"), m.manufacturer),
+      row(t("fPartNumber"), m.partNumber)
+    ] });
+  });
+  S.push({ icon: "💾", title: t("catMemory"), groups: memGroups });
+
+  const gpuGroups = (rep.gpus && rep.gpus.length ? rep.gpus : [{}]).map((g, i) => ({
+    subtitle: rep.gpus && rep.gpus.length > 1 ? "GPU " + (i + 1) : null,
+    rows: [
+      row(t("fCpuName"), g.name),
+      row(t("fVram"), fmtBytes(g.vramBytes)),
+      row(t("fDriver"), g.driverVersion)
+    ]
+  }));
+  S.push({ icon: "🎮", title: t("catGpu"), groups: gpuGroups });
+
+  const mb = rep.motherboard || {};
+  S.push({ icon: "🔌", title: t("catMotherboard"), groups: [{ rows: [
+    row(t("fManufacturer"), mb.manufacturer),
+    row(t("fBoardProduct"), mb.product),
+    row(t("fBiosVersion"), mb.biosVersion),
+    row(t("fBiosDate"), mb.biosDate)
+  ] }] });
+
+  const st = rep.storage || {};
+  const stGroups = [];
+  stGroups.push({ subtitle: t("fPhysicalDisks"), rows: (st.physical && st.physical.length ? st.physical : [{}]).flatMap((d) => [
+    row(t("fModel"), d.model),
+    row(t("fSize"), fmtBytes(d.sizeBytes)),
+    row(t("fMediaType"), d.mediaType),
+    row(t("fBusType"), d.busType)
+  ]) });
+  const logicalRows = [];
+  (st.logical || []).forEach((d) => {
+    const usedPct = (!isNil(d.totalBytes) && !isNil(d.freeBytes) && d.totalBytes > 0)
+      ? Math.round((1 - d.freeBytes / d.totalBytes) * 100) : null;
+    logicalRows.push({ ...row(t("fDrive"), d.drive + (d.label ? " (" + d.label + ")" : "")), bar: usedPct });
+    logicalRows.push(row(t("fFileSystem"), d.fileSystem));
+    logicalRows.push(row(t("fSize"), fmtBytes(d.totalBytes)));
+    logicalRows.push(row(t("fFree"), fmtBytes(d.freeBytes)));
+  });
+  if (!logicalRows.length) logicalRows.push(row(t("fLogicalDrives"), null));
+  stGroups.push({ subtitle: t("fLogicalDrives"), rows: logicalRows });
+  S.push({ icon: "🗄️", title: t("catStorage"), groups: stGroups });
+
+  const netGroups = (rep.network && rep.network.length ? rep.network : [{}]).map((n) => ({
+    subtitle: n.name || null,
+    rows: [
+      row(t("fDesc"), n.description),
+      row(t("fStatus"), n.status),
+      row(t("fIpv4"), (n.ipv4 || []).join(", ") || null),
+      row(t("fIpv6"), (n.ipv6 || []).join(", ") || null),
+      row(t("fMac"), n.macAddress),
+      row(t("fLinkSpeed"), isNil(n.linkSpeedMbps) ? null : n.linkSpeedMbps + " Mbps")
+    ]
+  }));
+  S.push({ icon: "🌐", title: t("catNetwork"), groups: netGroups });
+
+  const dispGroups = (rep.displays && rep.displays.length ? rep.displays : [{}]).map((d, i) => ({
+    subtitle: rep.displays && rep.displays.length > 1 ? t("catDisplay") + " " + (i + 1) : null,
+    rows: [
+      row(t("fCpuName"), d.name),
+      row(t("fResolution"), (isNil(d.width) || isNil(d.height)) ? null : d.width + " × " + d.height),
+      row(t("fRefresh"), isNil(d.refreshRateHz) ? null : d.refreshRateHz + " Hz")
+    ]
+  }));
+  S.push({ icon: "🖵", title: t("catDisplay"), groups: dispGroups });
+
+  let battGroups;
+  if (rep.battery === null || rep.battery === undefined) {
+    battGroups = [{ rows: [{ label: t("catBattery"), display: t("noBattery"), na: false, search: ("battery " + t("noBattery")).toLowerCase(), plain: true }] }];
+  } else {
+    const b = rep.battery;
+    const health = (!isNil(b.designCapacityMWh) && !isNil(b.fullChargeCapacityMWh) && b.designCapacityMWh > 0)
+      ? Math.round(b.fullChargeCapacityMWh / b.designCapacityMWh * 100) + " %" : null;
+    battGroups = [{ rows: [
+      row(t("fCharge"), isNil(b.chargePercent) ? null : b.chargePercent + " %"),
+      row(t("fStatus"), b.status),
+      row(t("fDesignCap"), isNil(b.designCapacityMWh) ? null : b.designCapacityMWh + " mWh"),
+      row(t("fFullCap"), isNil(b.fullChargeCapacityMWh) ? null : b.fullChargeCapacityMWh + " mWh"),
+      row(t("fHealth"), health)
+    ] }];
+  }
+  S.push({ icon: "🔋", title: t("catBattery"), groups: battGroups });
+
+  const periRows = (rep.peripherals && rep.peripherals.length)
+    ? rep.peripherals.map((p) => ({ label: p.name || "", display: p.description || "", na: false, search: ((p.name || "") + " " + (p.description || "")).toLowerCase(), plain: true }))
+    : [row(t("catPeripherals"), null)];
+  S.push({ icon: "🔗", title: t("catPeripherals"), groups: [{ rows: periRows }] });
+
+  return S;
+}
+
+function renderReport() {
+  const rep = state.report;
+  if (!rep) return;
+  const sections = buildSections(rep);
+  $("cards").innerHTML = sections.map((s) => {
+    const inner = s.groups.map((g) => {
+      const rowsHtml = g.rows.map((r) => {
+        let h = rowHtml(r);
+        if (typeof r.bar === "number") {
+          h += `<tr data-search="${escapeHtml(r.search)}"><td class="k">${escapeHtml(t("fUsed"))}</td><td class="v">${r.bar} %<div class="bar"><div style="width:${r.bar}%" class="${r.bar >= 90 ? "hot" : ""}"></div></div></td></tr>`;
+        }
+        return h;
+      }).join("");
+      return (g.subtitle ? `<div class="subttl">${escapeHtml(g.subtitle)}</div>` : "") + `<table class="kv">${rowsHtml}</table>`;
+    }).join("");
+    return card(s.icon, s.title, inner);
+  }).join("");
+
+  const meta = [];
+  if (rep.collectedAt) meta.push(`<span>${escapeHtml(t("metaCollected"))}: <b>${escapeHtml(rep.collectedAt)}</b></span>`);
+  if (rep.collector) meta.push(`<span>${escapeHtml(t("metaCollector"))}: <b>${escapeHtml(rep.collector)}</b></span>`);
+  $("reportMeta").innerHTML = meta.join("　·　");
+  $("sampleBanner").style.display = rep.sampleData ? "block" : "none";
+  $("emptyState").style.display = "none";
+  $("reportArea").style.display = "block";
+  $("btnExportTxt").disabled = false;
+  $("btnExportJson").disabled = false;
+  applySearch();
+}
+
+/* ---------- load paths ---------- */
+function showError(msg) {
+  const b = $("errBanner");
+  b.textContent = msg;
+  b.style.display = msg ? "block" : "none";
+}
+function parseAndLoad(text) {
+  showError("");
+  let obj;
+  try {
+    obj = JSON.parse(String(text).replace(/^\uFEFF/, ""));
+  } catch (e) {
+    showError(t("errParse"));
+    return false;
+  }
+  if (!obj || typeof obj !== "object") { showError(t("errParse")); return false; }
+  if (obj.format !== "moni-report") showError(t("errFormat"));
+  state.report = obj;
+  renderReport();
+  return true;
+}
+function loadSample() {
+  showError("");
+  state.report = JSON.parse(JSON.stringify(SAMPLE_REPORT));
+  renderReport();
+}
+
+/* ---------- search ---------- */
+function applySearch() {
+  const q = $("searchInput").value.trim().toLowerCase();
+  let anyVisible = false;
+  document.querySelectorAll("#cards .card").forEach((cardEl) => {
+    let cardVisible = false;
+    cardEl.querySelectorAll("tr[data-search]").forEach((tr) => {
+      const hit = !q || tr.getAttribute("data-search").includes(q);
+      tr.style.display = hit ? "" : "none";
+      if (hit) cardVisible = true;
+    });
+    cardEl.querySelectorAll(".subttl").forEach((st) => {
+      let tbl = st.nextElementSibling, subVisible = false;
+      if (tbl) tbl.querySelectorAll("tr[data-search]").forEach((tr) => { if (tr.style.display !== "none") subVisible = true; });
+      st.style.display = subVisible ? "" : "none";
+      if (tbl) tbl.style.display = subVisible ? "" : "none";
+    });
+    cardEl.style.display = cardVisible ? "" : "none";
+    if (cardVisible) anyVisible = true;
+  });
+  $("noMatch").style.display = (q && !anyVisible) ? "block" : "none";
+}
+
+/* ---------- export ---------- */
+function buildTextExport() {
+  const rep = state.report;
+  if (!rep) return "";
+  const lines = ["Moni Device Report", "=================="];
+  if (rep.collectedAt) lines.push(t("metaCollected") + ": " + rep.collectedAt);
+  if (rep.collector) lines.push(t("metaCollector") + ": " + rep.collector);
+  if (rep.sampleData) lines.push(t("sampleBanner"));
+  buildSections(rep).forEach((s) => {
+    lines.push("", "[" + s.title + "]");
+    s.groups.forEach((g) => {
+      if (g.subtitle) lines.push("  -- " + g.subtitle);
+      g.rows.forEach((r) => {
+        lines.push("  " + (r.label ? r.label + ": " : "") + r.display);
+        if (typeof r.bar === "number") lines.push("  " + t("fUsed") + ": " + r.bar + " %");
+      });
+    });
+  });
+  return lines.join("\n");
+}
+function download(filename, text, mime) {
+  const blob = new Blob([text], { type: mime || "text/plain;charset=utf-8" });
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = filename;
+  document.body.appendChild(a);
+  a.click();
+  setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 400);
+}
+
+/* ---------- language ---------- */
+function applyLang() {
+  document.documentElement.lang = state.lang;
+  document.querySelectorAll("[data-i18n]").forEach((el) => { el.textContent = t(el.getAttribute("data-i18n")); });
+  $("searchInput").placeholder = t("searchPlaceholder");
+  $("langSel").value = state.lang;
+  if (state.report) renderReport();
+}
+function setLang(lang) {
+  state.lang = I18N[lang] ? lang : "en";
+  try { localStorage.setItem("moni-lang", state.lang); } catch (e) {}
+  applyLang();
+}
+
+/* ---------- wiring ---------- */
+$("btnOpen").addEventListener("click", () => $("fileInput").click());
+$("fileInput").addEventListener("change", (e) => {
+  const f = e.target.files && e.target.files[0];
+  if (!f) return;
+  const reader = new FileReader();
+  reader.onload = () => parseAndLoad(String(reader.result || ""));
+  reader.readAsText(f);
+  e.target.value = "";
+});
+$("btnSample").addEventListener("click", loadSample);
+$("btnPaste").addEventListener("click", () => { $("pasteModal").style.display = "flex"; $("pasteText").focus(); });
+$("btnPasteCancel").addEventListener("click", () => { $("pasteModal").style.display = "none"; });
+$("btnPasteLoad").addEventListener("click", () => {
+  if (parseAndLoad($("pasteText").value)) $("pasteModal").style.display = "none";
+});
+$("pasteModal").addEventListener("click", (e) => { if (e.target === $("pasteModal")) $("pasteModal").style.display = "none"; });
+$("btnExportTxt").addEventListener("click", () => download("moni-report.txt", buildTextExport()));
+$("btnExportJson").addEventListener("click", () => download("moni-report.json", JSON.stringify(state.report, null, 2), "application/json;charset=utf-8"));
+$("searchInput").addEventListener("input", applySearch);
+$("langSel").addEventListener("change", (e) => setLang(e.target.value));
+
+let dragDepth = 0;
+window.addEventListener("dragenter", (e) => { e.preventDefault(); dragDepth++; $("dropOverlay").style.display = "flex"; });
+window.addEventListener("dragleave", (e) => { e.preventDefault(); if (--dragDepth <= 0) { dragDepth = 0; $("dropOverlay").style.display = "none"; } });
+window.addEventListener("dragover", (e) => e.preventDefault());
+window.addEventListener("drop", (e) => {
+  e.preventDefault();
+  dragDepth = 0;
+  $("dropOverlay").style.display = "none";
+  const f = e.dataTransfer && e.dataTransfer.files && e.dataTransfer.files[0];
+  if (f) {
+    const reader = new FileReader();
+    reader.onload = () => parseAndLoad(String(reader.result || ""));
+    reader.readAsText(f);
+  }
+});
+
+/* ---------- init ---------- */
+(function init() {
+  let saved = null;
+  try { saved = localStorage.getItem("moni-lang"); } catch (e) {}
+  state.lang = saved && I18N[saved] ? saved : ((navigator.language || "en").startsWith("ja") ? "ja" : "en");
+  applyLang();
+})();
+
+/* Test hooks (used by tests/ui-test; harmless in normal use). */
+window.Moni = {
+  loadReport: (obj) => { state.report = obj; renderReport(); },
+  parseAndLoad,
+  loadSample,
+  setLang,
+  buildTextExport,
+  getReport: () => state.report
+};
+</script>
+</body>
+</html>
