@@ -5,6 +5,8 @@ Moni は、**PC のデバイス情報を「見る」ことに特化した**ビ�
 
 > 住み分け: **Moni はデバイス情報の閲覧専門**です。BIOS の更新管理は姉妹ツール [BIOSMAN](https://github.com/shizukutanaka/BIOSMAN) の役割です。
 
+![Moni のスクリーンショット — サンプルレポートをカテゴリ別に表示](docs/images/screenshot.png)
+
 ## 使い方（3ステップ）
 
 1. **集める** — このリポジトリの `collect.bat` をダウンロードしてダブルクリックします。PC のデバイス情報を集めて、同じ場所に `moni-report.json` を出力します（管理者権限は不要です）。
