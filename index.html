@@ -92,6 +92,32 @@ td.v.na{color:var(--faint); font-weight:400; font-style:italic}
   border:1px solid var(--line); border-radius:8px; padding:10px; font-family:monospace; font-size:12.5px;
 }
 .modal .row{display:flex; gap:8px; justify-content:flex-end; margin-top:12px}
+.modal .opt{display:block; background:var(--card); border:1px solid var(--line); border-radius:8px; padding:10px 12px; margin-top:10px; cursor:pointer}
+.modal .opt input{margin-right:8px}
+.modal .optinfo{color:var(--sub); font-size:13px; margin-top:6px; line-height:1.6}
+.modal .optinfo.warn{color:#f0cf9a}
+#diffArea{
+  background:var(--card); border:1px solid var(--line); border-radius:12px;
+  padding:16px 18px; margin-bottom:16px;
+}
+#diffArea h3{margin:0 0 6px; font-size:16px; display:flex; align-items:center; gap:8px; flex-wrap:wrap}
+#diffArea h3 .spacer{margin-left:auto}
+#diffArea .dmeta{color:var(--sub); font-size:13px; margin-bottom:8px}
+#diffArea .dsummary{font-weight:700; margin-bottom:10px}
+#diffArea .dcat{color:var(--sub); font-size:12.5px; font-weight:700; margin:12px 0 4px; text-transform:uppercase; letter-spacing:.5px}
+.diffrow{display:flex; gap:8px; align-items:baseline; padding:3px 0; flex-wrap:wrap}
+.diffrow .dlabel{font-weight:600; min-width:180px}
+.diffrow .dbefore{color:#f5a9a9; text-decoration:line-through}
+.diffrow .dafter{color:#a9e5bc; font-weight:600}
+.diffrow .darrow{color:var(--faint)}
+.chip{display:inline-block; border-radius:6px; padding:0 7px; font-size:12px; font-weight:700; background:var(--chip); color:var(--sub)}
+.chip.add{background:#12351f; color:#7fd79b}
+.chip.del{background:#3d1717; color:#f0938d}
+.chip.chg{background:#3a2c10; color:#f0cf9a}
+#diffArea details{margin-top:12px}
+#diffArea summary{cursor:pointer; color:var(--sub); font-size:13.5px}
+#diffArea .unchanged-list{color:var(--sub); font-size:13.5px; margin-top:6px; line-height:1.7}
+#diffArea .dnote{color:var(--faint); font-size:12.5px; margin-top:12px}
 footer{max-width:1080px; margin:0 auto; padding:0 16px 30px; color:var(--faint); font-size:12.5px}
 @media (max-width:640px){ .cards{grid-template-columns:1fr} }
 </style>
@@ -109,6 +135,7 @@ footer{max-width:1080px; margin:0 auto; padding:0 16px 30px; color:var(--faint);
       <button class="btn" id="btnSample" data-i18n="btnSample"></button>
       <button class="btn" id="btnExportTxt" data-i18n="btnExportTxt" disabled></button>
       <button class="btn" id="btnExportJson" data-i18n="btnExportJson" disabled></button>
+      <button class="btn" id="btnShareExport" data-i18n="btnShare" disabled></button>
       <select class="langsel" id="langSel" aria-label="Language">
         <option value="ja">日本語</option>
         <option value="en">English</option>
@@ -117,6 +144,7 @@ footer{max-width:1080px; margin:0 auto; padding:0 16px 30px; color:var(--faint);
   </div>
 </header>
 <input type="file" id="fileInput" accept=".json,application/json" style="display:none">
+<input type="file" id="compareFileInput" accept=".json,application/json" style="display:none">
 <div id="dropOverlay"><span data-i18n="dropHere"></span></div>
 
 <main>
@@ -136,8 +164,10 @@ footer{max-width:1080px; margin:0 auto; padding:0 16px 30px; color:var(--faint);
 
   <div id="reportArea" style="display:none">
     <div class="meta" id="reportMeta"></div>
+    <div id="diffArea" style="display:none"></div>
     <div class="searchbar">
       <input type="text" id="searchInput">
+      <button class="btn" id="btnCompare" data-i18n="btnCompare"></button>
     </div>
     <div class="cards" id="cards"></div>
     <div class="empty" id="noMatch" style="display:none" data-i18n="noMatch"></div>
@@ -145,6 +175,31 @@ footer{max-width:1080px; margin:0 auto; padding:0 16px 30px; color:var(--faint);
 </main>
 
 <footer data-i18n="footerNote"></footer>
+
+<div class="modal" id="shareModal">
+  <div class="box">
+    <h3 style="margin-top:0" data-i18n="shareTitle"></h3>
+    <div data-i18n="shareIntro"></div>
+    <label class="opt">
+      <input type="radio" name="shareMask" value="masked" checked>
+      <span data-i18n="shareMaskOn"></span>
+      <div class="optinfo" id="shareMaskedInfo">
+        <div data-i18n="shareMaskedList"></div>
+        <div data-i18n="shareMaskNote"></div>
+      </div>
+    </label>
+    <label class="opt">
+      <input type="radio" name="shareMask" value="full">
+      <span data-i18n="shareMaskOff"></span>
+      <div class="optinfo warn" id="shareFullInfo" style="display:none" data-i18n="shareUnmaskedList"></div>
+    </label>
+    <div class="row">
+      <button class="btn" id="btnShareCancel" data-i18n="btnCancel"></button>
+      <button class="btn" id="btnShareTxt" data-i18n="btnExportTxt"></button>
+      <button class="btn primary" id="btnShareJson" data-i18n="btnExportJson"></button>
+    </div>
+  </div>
+</div>
 
 <div class="modal" id="pasteModal">
   <div class="box">
@@ -250,7 +305,31 @@ const I18N = {
     none: "なし",
     days: "日",
     hours: "時間",
-    minutes: "分"
+    minutes: "分",
+    btnShare: "共有用に書き出し",
+    btnCompare: "レポートを比較",
+    compareTitle: "レポート比較",
+    diffBefore: "前回",
+    diffAfter: "今回",
+    diffChanged: "変更",
+    diffAdded: "追加",
+    diffRemoved: "削除",
+    diffUnchanged: "変更なし",
+    diffNone: "比較対象の項目に違いはありませんでした。",
+    diffClose: "比較を閉じる",
+    diffShowUnchanged: "変更のない項目を表示",
+    diffExcludedNote: "比較対象外（デバイスの変更ではなく、その時々で変わる値）: 収集日時、稼働時間、ドライブの空き容量、バッテリーの充電率と状態、ネットワークの接続状態。",
+    shareTitle: "共有用に書き出し",
+    shareIntro: "詳しい人に見せて相談するための書き出しです。ファイルはこの端末の中で作られ、どこにも送信されません。保存先はあなたが選びます。",
+    shareMaskOn: "個人を特定しうる項目を伏せる（推奨）",
+    shareMaskOff: "伏せない（元の値のまま書き出す）",
+    shareMaskedList: "伏せる項目: コンピュータ名、MAC アドレス、IP アドレス（IPv4 / IPv6）。伏せた項目は (masked) に置き換わります。",
+    shareMaskNote: "ドライブのラベルやデバイス名など、自由な文字列が入る項目は伏せ字の対象外です。共有する前に内容を確認してください。",
+    shareUnmaskedList: "注意: この書き出しには、コンピュータ名、MAC アドレス、IP アドレス（IPv4 / IPv6）が元の値のまま含まれます。渡す相手を確認してから書き出してください。",
+    shareMaskedHeader: "【共有用・マスク済み】コンピュータ名、MAC アドレス、IP アドレスを伏せています。",
+    maskedValue: "(masked)",
+    diffPresent: "あり",
+    errCompare: "比較用のファイルを読み込めませんでした。moni-report 形式の JSON を選んでください。"
   },
   en: {
     tagline: "PC Device Info Viewer",
@@ -337,11 +416,35 @@ const I18N = {
     none: "None",
     days: "d",
     hours: "h",
-    minutes: "m"
+    minutes: "m",
+    btnShare: "Export for sharing",
+    btnCompare: "Compare reports",
+    compareTitle: "Report comparison",
+    diffBefore: "Before",
+    diffAfter: "After",
+    diffChanged: "Changed",
+    diffAdded: "Added",
+    diffRemoved: "Removed",
+    diffUnchanged: "Unchanged",
+    diffNone: "No differences in the compared items.",
+    diffClose: "Close comparison",
+    diffShowUnchanged: "Show unchanged items",
+    diffExcludedNote: "Not compared (values that change on their own, not device changes): collection time, uptime, free disk space, battery charge and status, network connection status.",
+    shareTitle: "Export for sharing",
+    shareIntro: "This creates a copy to show someone knowledgeable for advice. The file is created on this device and is never sent anywhere. You choose where to save it.",
+    shareMaskOn: "Hide identifying items (recommended)",
+    shareMaskOff: "Do not hide (export with original values)",
+    shareMaskedList: "Hidden items: computer name, MAC addresses, IP addresses (IPv4 / IPv6). Hidden values are replaced with (masked).",
+    shareMaskNote: "Free-text fields such as drive labels and device names are not masked. Please review the contents before sharing.",
+    shareUnmaskedList: "Warning: this export will contain your computer name, MAC addresses and IP addresses (IPv4 / IPv6) with their original values. Check who you are giving it to before exporting.",
+    shareMaskedHeader: "[Shared copy - masked] Computer name, MAC addresses and IP addresses are hidden.",
+    maskedValue: "(masked)",
+    diffPresent: "Present",
+    errCompare: "Could not load the comparison file. Please choose a moni-report JSON file."
   }
 };
 
-const state = { lang: "ja", report: null };
+const state = { lang: "ja", report: null, compare: null };
 const $ = (id) => document.getElementById(id);
 const t = (key) => (I18N[state.lang] && I18N[state.lang][key]) || I18N.en[key] || key;
 const isNil = (v) => v === null || v === undefined || v === "" || (Array.isArray(v) && v.length === 0);
@@ -509,6 +612,230 @@ function buildSections(rep) {
   return S;
 }
 
+/* ---------- diff: flatten a report into comparable items ----------
+   Items are keyed by stable identity (device names, drive letters, part
+   numbers) rather than array position, so adding or removing a device
+   does not shift everything else. Values are the same display strings
+   the viewer shows, or null for "unavailable".
+   Deliberately NOT compared (they change without any device change):
+   collectedAt, uptime, free disk space, battery charge/status and the
+   network connection status. This list is also shown in the UI. */
+function flattenReport(rep) {
+  const items = [];
+  const push = (key, catKey, label, value) => {
+    items.push({ key, catKey, label, value: isNil(value) ? null : String(value) });
+  };
+  const occ = {};
+  const keyed = (base) => {
+    const n = occ[base] || 0;
+    occ[base] = n + 1;
+    return base + "#" + n;
+  };
+  const grp = (name, idLabel) => name + " (" + (idLabel || t("na")) + ")";
+
+  const sys = rep.system || {};
+  push("system.computerName", "catSystem", t("fComputerName"), sys.computerName);
+  push("system.manufacturer", "catSystem", t("fManufacturer"), sys.manufacturer);
+  push("system.model", "catSystem", t("fModel"), sys.model);
+  push("system.osName", "catSystem", t("fOs"), sys.osName);
+  push("system.osVersion", "catSystem", t("fOsVersion"), sys.osVersion);
+  push("system.osBuild", "catSystem", t("fOsBuild"), sys.osBuild);
+
+  const cpu = rep.cpu || {};
+  push("cpu.name", "catCpu", t("fCpuName"), cpu.name);
+  push("cpu.cores", "catCpu", t("fCores"), cpu.cores);
+  push("cpu.logicalProcessors", "catCpu", t("fThreads"), cpu.logicalProcessors);
+  push("cpu.maxClockMHz", "catCpu", t("fMaxClock"), fmtMHz(cpu.maxClockMHz));
+
+  const mem = rep.memory || {};
+  push("memory.totalBytes", "catMemory", t("fMemTotal"), fmtBytes(mem.totalBytes));
+  (mem.modules || []).forEach((m) => {
+    const id = keyed("memory.module|" + [m.partNumber || "", m.capacityBytes || "", m.type || "", m.manufacturer || ""].join("|"));
+    const g = grp(t("fMemModule"), m.partNumber);
+    push(id, "catMemory", g, t("diffPresent"));
+    push(id + ".capacityBytes", "catMemory", g + " / " + t("fCapacity"), fmtBytes(m.capacityBytes));
+    push(id + ".type", "catMemory", g + " / " + t("fMemType"), m.type);
+    push(id + ".speedMHz", "catMemory", g + " / " + t("fSpeed"), isNil(m.speedMHz) ? null : m.speedMHz + " MHz");
+    push(id + ".manufacturer", "catMemory", g + " / " + t("fManufacturer"), m.manufacturer);
+    push(id + ".partNumber", "catMemory", g + " / " + t("fPartNumber"), m.partNumber);
+  });
+
+  (rep.gpus || []).forEach((g0) => {
+    const id = keyed("gpu|" + (g0.name || ""));
+    const g = grp("GPU", g0.name);
+    push(id, "catGpu", g, t("diffPresent"));
+    push(id + ".vramBytes", "catGpu", g + " / " + t("fVram"), fmtBytes(g0.vramBytes));
+    push(id + ".driverVersion", "catGpu", g + " / " + t("fDriver"), g0.driverVersion);
+  });
+
+  const mb = rep.motherboard || {};
+  push("motherboard.manufacturer", "catMotherboard", t("fManufacturer"), mb.manufacturer);
+  push("motherboard.product", "catMotherboard", t("fBoardProduct"), mb.product);
+  push("motherboard.biosVersion", "catMotherboard", t("fBiosVersion"), mb.biosVersion);
+  push("motherboard.biosDate", "catMotherboard", t("fBiosDate"), mb.biosDate);
+
+  const st = rep.storage || {};
+  (st.physical || []).forEach((d) => {
+    const id = keyed("storage.physical|" + (d.model || ""));
+    const g = grp(t("fPhysicalDisks"), d.model);
+    push(id, "catStorage", g, t("diffPresent"));
+    push(id + ".sizeBytes", "catStorage", g + " / " + t("fSize"), fmtBytes(d.sizeBytes));
+    push(id + ".mediaType", "catStorage", g + " / " + t("fMediaType"), d.mediaType);
+    push(id + ".busType", "catStorage", g + " / " + t("fBusType"), d.busType);
+  });
+  (st.logical || []).forEach((d) => {
+    const id = keyed("storage.logical|" + (d.drive || ""));
+    const g = grp(t("fDrive"), d.drive);
+    push(id, "catStorage", g, t("diffPresent"));
+    push(id + ".label", "catStorage", g + " / " + t("fLabel"), d.label);
+    push(id + ".fileSystem", "catStorage", g + " / " + t("fFileSystem"), d.fileSystem);
+    push(id + ".totalBytes", "catStorage", g + " / " + t("fSize"), fmtBytes(d.totalBytes));
+  });
+
+  (rep.network || []).forEach((n) => {
+    const id = keyed("network|" + (n.name || ""));
+    const g = grp(t("catNetwork"), n.name);
+    push(id, "catNetwork", g, t("diffPresent"));
+    push(id + ".description", "catNetwork", g + " / " + t("fDesc"), n.description);
+    push(id + ".ipv4", "catNetwork", g + " / " + t("fIpv4"), (n.ipv4 || []).join(", ") || null);
+    push(id + ".ipv6", "catNetwork", g + " / " + t("fIpv6"), (n.ipv6 || []).join(", ") || null);
+    push(id + ".macAddress", "catNetwork", g + " / " + t("fMac"), n.macAddress);
+    push(id + ".linkSpeedMbps", "catNetwork", g + " / " + t("fLinkSpeed"), isNil(n.linkSpeedMbps) ? null : n.linkSpeedMbps + " Mbps");
+  });
+
+  (rep.displays || []).forEach((d) => {
+    const id = keyed("display|" + (d.name || ""));
+    const g = grp(t("catDisplay"), d.name);
+    push(id, "catDisplay", g, t("diffPresent"));
+    push(id + ".resolution", "catDisplay", g + " / " + t("fResolution"), (isNil(d.width) || isNil(d.height)) ? null : d.width + " × " + d.height);
+    push(id + ".refreshRateHz", "catDisplay", g + " / " + t("fRefresh"), isNil(d.refreshRateHz) ? null : d.refreshRateHz + " Hz");
+  });
+
+  if (rep.battery === null || rep.battery === undefined) {
+    push("battery.presence", "catBattery", t("catBattery"), t("noBattery"));
+  } else {
+    const b = rep.battery;
+    push("battery.presence", "catBattery", t("catBattery"), t("diffPresent"));
+    push("battery.designCapacityMWh", "catBattery", t("fDesignCap"), isNil(b.designCapacityMWh) ? null : b.designCapacityMWh + " mWh");
+    push("battery.fullChargeCapacityMWh", "catBattery", t("fFullCap"), isNil(b.fullChargeCapacityMWh) ? null : b.fullChargeCapacityMWh + " mWh");
+  }
+
+  (rep.peripherals || []).forEach((p) => {
+    const id = keyed("peripheral|" + (p.name || ""));
+    push(id, "catPeripherals", p.name || "", p.description);
+  });
+
+  return items;
+}
+
+function diffReports(before, after) {
+  const fb = flattenReport(before);
+  const fa = flattenReport(after);
+  const mapA = new Map(fa.map((e) => [e.key, e]));
+  const seenA = new Set();
+  const changes = [];
+  const unchanged = [];
+  fb.forEach((eb) => {
+    const ea = mapA.get(eb.key);
+    if (!ea) {
+      changes.push({ type: "removed", key: eb.key, catKey: eb.catKey, label: eb.label, before: eb.value, after: null });
+      return;
+    }
+    seenA.add(eb.key);
+    if (eb.value === ea.value) unchanged.push({ key: eb.key, catKey: eb.catKey, label: eb.label, value: eb.value });
+    else changes.push({ type: "changed", key: eb.key, catKey: eb.catKey, label: eb.label, before: eb.value, after: ea.value });
+  });
+  fa.forEach((ea) => {
+    if (!seenA.has(ea.key)) {
+      changes.push({ type: "added", key: ea.key, catKey: ea.catKey, label: ea.label, before: null, after: ea.value });
+    }
+  });
+  /* A device that was added or removed as a whole collapses into its
+     single presence entry; listing every field of it would be noise. */
+  const isPresence = (k) => /\|\S+#\d+$/.test(k);
+  const deviceOf = (k) => {
+    const m = k.match(/^(.+?#\d+)\./);
+    return m ? m[1] : null;
+  };
+  const collapsed = changes.filter((c) => {
+    if (c.type !== "added" && c.type !== "removed") return true;
+    if (isPresence(c.key)) return true;
+    const dev = deviceOf(c.key);
+    if (!dev) return true;
+    const pres = changes.find((x) => x.key === dev);
+    return !(pres && pres.type === c.type);
+  });
+  return { changes: collapsed, unchanged };
+}
+
+const CAT_ORDER = ["catSystem", "catCpu", "catMemory", "catGpu", "catMotherboard", "catStorage", "catNetwork", "catDisplay", "catBattery", "catPeripherals"];
+function renderDiff() {
+  const area = $("diffArea");
+  const cmp = state.compare;
+  if (!cmp) { area.style.display = "none"; area.innerHTML = ""; return; }
+  const d = diffReports(cmp.before, cmp.after);
+  const counts = { changed: 0, added: 0, removed: 0 };
+  d.changes.forEach((c) => { counts[c.type]++; });
+  const val = (v) => (v === null ? t("na") : v);
+  let h = `<h3><span>🔍 ${escapeHtml(t("compareTitle"))}</span><span class="spacer"></span><button class="btn" id="btnDiffClose">${escapeHtml(t("diffClose"))}</button></h3>`;
+  h += `<div class="dmeta">${escapeHtml(t("diffBefore"))}: <b>${escapeHtml(cmp.before.collectedAt || t("na"))}</b>　→　${escapeHtml(t("diffAfter"))}: <b>${escapeHtml(cmp.after.collectedAt || t("na"))}</b></div>`;
+  h += `<div class="dsummary">${escapeHtml(t("diffChanged"))}: ${counts.changed} · ${escapeHtml(t("diffAdded"))}: ${counts.added} · ${escapeHtml(t("diffRemoved"))}: ${counts.removed} · ${escapeHtml(t("diffUnchanged"))}: ${d.unchanged.length}</div>`;
+  if (!d.changes.length) h += `<div>${escapeHtml(t("diffNone"))}</div>`;
+  CAT_ORDER.forEach((catKey) => {
+    const rows = d.changes.filter((c) => c.catKey === catKey);
+    if (!rows.length) return;
+    h += `<div class="dcat">${escapeHtml(t(catKey))}</div>`;
+    rows.forEach((c) => {
+      if (c.type === "changed") {
+        h += `<div class="diffrow"><span class="chip chg">${escapeHtml(t("diffChanged"))}</span><span class="dlabel">${escapeHtml(c.label)}</span><span class="dbefore">${escapeHtml(val(c.before))}</span><span class="darrow">→</span><span class="dafter">${escapeHtml(val(c.after))}</span></div>`;
+      } else if (c.type === "added") {
+        h += `<div class="diffrow"><span class="chip add">${escapeHtml(t("diffAdded"))}</span><span class="dlabel">${escapeHtml(c.label)}</span><span class="dafter">${escapeHtml(val(c.after))}</span></div>`;
+      } else {
+        h += `<div class="diffrow"><span class="chip del">${escapeHtml(t("diffRemoved"))}</span><span class="dlabel">${escapeHtml(c.label)}</span><span class="dbefore" style="text-decoration:none">${escapeHtml(val(c.before))}</span></div>`;
+      }
+    });
+  });
+  if (d.unchanged.length) {
+    h += `<details><summary>${escapeHtml(t("diffShowUnchanged"))} (${d.unchanged.length})</summary><div class="unchanged-list">` +
+      d.unchanged.map((u) => escapeHtml(u.label) + ": " + escapeHtml(val(u.value))).join("<br>") + `</div></details>`;
+  }
+  h += `<div class="dnote">${escapeHtml(t("diffExcludedNote"))}</div>`;
+  area.innerHTML = h;
+  area.style.display = "block";
+  $("btnDiffClose").addEventListener("click", () => { state.compare = null; renderDiff(); });
+}
+
+/* Order a pair by collection time: earlier = before, later = after.
+   The main view then shows the "after" report. */
+function setCompare(a, b) {
+  const ta = Date.parse(a && a.collectedAt);
+  const tb = Date.parse(b && b.collectedAt);
+  let before = a, after = b;
+  if (!isNaN(ta) && !isNaN(tb) && ta > tb) { before = b; after = a; }
+  state.compare = { before, after };
+  state.report = after;
+  renderReport();
+}
+
+/* ---------- masked share export ----------
+   Masking is by field, never by pattern matching on strings, so value
+   formats (AA-BB-.. vs AA:BB:.., IPv6 notation, EUI-64 link-local
+   addresses that embed the MAC) cannot slip through. Only values that
+   are present are replaced; "unavailable" (null) stays null, so a
+   masked copy never fabricates data. Free-text fields (drive labels,
+   device names) are NOT masked — the share dialog says so. */
+function maskReport(rep) {
+  const copy = JSON.parse(JSON.stringify(rep));
+  const M = t("maskedValue");
+  if (copy.system && !isNil(copy.system.computerName)) copy.system.computerName = M;
+  (copy.network || []).forEach((n) => {
+    if (!isNil(n.macAddress)) n.macAddress = M;
+    if (Array.isArray(n.ipv4)) n.ipv4 = n.ipv4.map(() => M);
+    if (Array.isArray(n.ipv6)) n.ipv6 = n.ipv6.map(() => M);
+  });
+  return copy;
+}
+
 function renderReport() {
   const rep = state.report;
   if (!rep) return;
@@ -536,6 +863,8 @@ function renderReport() {
   $("reportArea").style.display = "block";
   $("btnExportTxt").disabled = false;
   $("btnExportJson").disabled = false;
+  $("btnShareExport").disabled = false;
+  renderDiff();
   applySearch();
 }
 
@@ -557,12 +886,14 @@ function parseAndLoad(text) {
   if (!obj || typeof obj !== "object") { showError(t("errParse")); return false; }
   if (obj.format !== "moni-report") showError(t("errFormat"));
   state.report = obj;
+  state.compare = null;
   renderReport();
   return true;
 }
 function loadSample() {
   showError("");
   state.report = JSON.parse(JSON.stringify(SAMPLE_REPORT));
+  state.compare = null;
   renderReport();
 }
 
@@ -590,10 +921,11 @@ function applySearch() {
 }
 
 /* ---------- export ---------- */
-function buildTextExport() {
-  const rep = state.report;
+function buildTextExport(repOverride, opts) {
+  const rep = repOverride || state.report;
   if (!rep) return "";
   const lines = ["Moni Device Report", "=================="];
+  if (opts && opts.masked) lines.push(t("shareMaskedHeader"));
   if (rep.collectedAt) lines.push(t("metaCollected") + ": " + rep.collectedAt);
   if (rep.collector) lines.push(t("metaCollector") + ": " + rep.collector);
   if (rep.sampleData) lines.push(t("sampleBanner"));
@@ -652,6 +984,53 @@ $("btnPasteLoad").addEventListener("click", () => {
 $("pasteModal").addEventListener("click", (e) => { if (e.target === $("pasteModal")) $("pasteModal").style.display = "none"; });
 $("btnExportTxt").addEventListener("click", () => download("moni-report.txt", buildTextExport()));
 $("btnExportJson").addEventListener("click", () => download("moni-report.json", JSON.stringify(state.report, null, 2), "application/json;charset=utf-8"));
+
+/* ---------- compare wiring ---------- */
+$("btnCompare").addEventListener("click", () => $("compareFileInput").click());
+$("compareFileInput").addEventListener("change", (e) => {
+  const f = e.target.files && e.target.files[0];
+  if (!f) return;
+  const reader = new FileReader();
+  reader.onload = () => {
+    let obj = null;
+    try { obj = JSON.parse(String(reader.result || "").replace(/^\uFEFF/, "")); } catch (err) { obj = null; }
+    if (!obj || typeof obj !== "object" || obj.format !== "moni-report" || !state.report) {
+      showError(t("errCompare"));
+      return;
+    }
+    showError("");
+    setCompare(state.report, obj);
+  };
+  reader.readAsText(f);
+  e.target.value = "";
+});
+
+/* ---------- share export wiring ---------- */
+function shareMaskMode() {
+  const el = document.querySelector('input[name="shareMask"]:checked');
+  return el ? el.value : "masked";
+}
+function updateShareInfo() {
+  const masked = shareMaskMode() === "masked";
+  $("shareMaskedInfo").style.display = masked ? "block" : "none";
+  $("shareFullInfo").style.display = masked ? "none" : "block";
+}
+document.querySelectorAll('input[name="shareMask"]').forEach((r) => r.addEventListener("change", updateShareInfo));
+$("btnShareExport").addEventListener("click", () => { updateShareInfo(); $("shareModal").style.display = "flex"; });
+$("btnShareCancel").addEventListener("click", () => { $("shareModal").style.display = "none"; });
+$("shareModal").addEventListener("click", (e) => { if (e.target === $("shareModal")) $("shareModal").style.display = "none"; });
+$("btnShareJson").addEventListener("click", () => {
+  const masked = shareMaskMode() === "masked";
+  const rep = masked ? maskReport(state.report) : state.report;
+  download(masked ? "moni-report-shared.json" : "moni-report.json", JSON.stringify(rep, null, 2), "application/json;charset=utf-8");
+  $("shareModal").style.display = "none";
+});
+$("btnShareTxt").addEventListener("click", () => {
+  const masked = shareMaskMode() === "masked";
+  const rep = masked ? maskReport(state.report) : state.report;
+  download(masked ? "moni-report-shared.txt" : "moni-report.txt", buildTextExport(rep, { masked }));
+  $("shareModal").style.display = "none";
+});
 $("searchInput").addEventListener("input", applySearch);
 $("langSel").addEventListener("change", (e) => setLang(e.target.value));
 
@@ -681,12 +1060,16 @@ window.addEventListener("drop", (e) => {
 
 /* Test hooks (used by tests/ui-test; harmless in normal use). */
 window.Moni = {
-  loadReport: (obj) => { state.report = obj; renderReport(); },
+  loadReport: (obj) => { state.report = obj; state.compare = null; renderReport(); },
   parseAndLoad,
   loadSample,
   setLang,
   buildTextExport,
-  getReport: () => state.report
+  getReport: () => state.report,
+  diffReports,
+  maskReport,
+  setCompare,
+  getCompare: () => state.compare
 };
 </script>
 </body>

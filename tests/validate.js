@@ -218,5 +218,38 @@ if (fs.existsSync(shPath)) {
   }
 }
 
+/* 8. viewer features: I18N symmetry, diff comparison, masked share export */
+const jaStart = html.indexOf("\n  ja: {");
+const enStart = html.indexOf("\n  en: {");
+const i18nEnd = enStart >= 0 ? html.indexOf("\n};", enStart) : -1;
+function i18nKeys(slice) {
+  const out = new Set();
+  const re = /^\s{4}([A-Za-z][A-Za-z0-9]*):/gm;
+  let mm;
+  while ((mm = re.exec(slice))) out.add(mm[1]);
+  return out;
+}
+if (jaStart >= 0 && enStart > jaStart && i18nEnd > enStart) {
+  const jaKeys = i18nKeys(html.slice(jaStart, enStart));
+  const enKeys = i18nKeys(html.slice(enStart, i18nEnd));
+  const onlyJa = [...jaKeys].filter((k) => !enKeys.has(k));
+  const onlyEn = [...enKeys].filter((k) => !jaKeys.has(k));
+  check("I18N ja/en key sets are symmetric", onlyJa.length === 0 && onlyEn.length === 0,
+    "ja-only: " + onlyJa.join(", ") + " / en-only: " + onlyEn.join(", "));
+} else {
+  check("I18N ja/en key sets are symmetric", false, "I18N blocks not found");
+}
+check("index.html implements report diff (flattenReport/diffReports/diffArea)",
+  html.includes("function flattenReport") && html.includes("function diffReports") &&
+  html.includes('id="diffArea"') && html.includes('id="btnCompare"'));
+check("index.html implements masked share export (maskReport/shareModal)",
+  html.includes("function maskReport") && html.includes('id="shareModal"') &&
+  html.includes('id="btnShareExport"') && html.includes("(masked)"));
+const maskStart = html.indexOf("function maskReport");
+const maskBody = maskStart >= 0 ? html.slice(maskStart, html.indexOf("\n}", maskStart)) : "";
+check("maskReport masks computerName, macAddress, ipv4 and ipv6 by field",
+  ["computerName", "macAddress", "ipv4", "ipv6"].every((k) => maskBody.includes(k)),
+  "maskReport body missing a field");
+
 console.log(failures === 0 ? "\nALL CHECKS PASSED" : "\n" + failures + " CHECK(S) FAILED");
 process.exit(failures === 0 ? 0 : 1);
