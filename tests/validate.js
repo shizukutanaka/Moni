@@ -13,6 +13,11 @@
  *  7. collect.sh (Linux) emits every schema key, contains no network or
  *     system-changing commands, passes bash -n, and — on Linux — a live
  *     run in a temp dir produces a schema-valid report.
+ *  8. Viewer features: I18N symmetry, diff comparison, masked share export.
+ *  9. collect-mac.sh (macOS) emits every schema key, contains no network
+ *     or system-changing commands, passes bash -n, and the macOS sample
+ *     report fixture conforms to the schema. (A live run is only
+ *     possible on a real Mac, so the fixture stands in for it here.)
  */
 const fs = require("fs");
 const path = require("path");
@@ -250,6 +255,42 @@ const maskBody = maskStart >= 0 ? html.slice(maskStart, html.indexOf("\n}", mask
 check("maskReport masks computerName, macAddress, ipv4 and ipv6 by field",
   ["computerName", "macAddress", "ipv4", "ipv6"].every((k) => maskBody.includes(k)),
   "maskReport body missing a field");
+
+/* 9. collect-mac.sh (macOS collector) */
+const macPath = path.join(root, "collect-mac.sh");
+check("collect-mac.sh exists", fs.existsSync(macPath));
+if (fs.existsSync(macPath)) {
+  const mac = fs.readFileSync(macPath, "utf8");
+  check("collect-mac.sh has a bash shebang", mac.startsWith("#!/usr/bin/env bash") || mac.startsWith("#!/bin/bash"));
+  check("collect-mac.sh is executable", (fs.statSync(macPath).mode & 0o111) !== 0);
+  const missingMacKeys = schemaKeys.filter((k) => !mac.includes(k));
+  check("collect-mac.sh emits all schema keys", missingMacKeys.length === 0, "missing: " + missingMacKeys.join(", "));
+  const forbiddenMacNet = ["curl", "wget", "/dev/tcp", "netcat", "socat", "telnet", "Invoke-WebRequest"];
+  const foundMacNet = forbiddenMacNet.filter((f) => mac.includes(f));
+  check("collect-mac.sh contains no network-sending commands", foundMacNet.length === 0, "found: " + foundMacNet.join(", "));
+  const forbiddenMacWrite = ["mkfs", "fdisk", "parted", "systemctl", "shutdown", "reboot", "apt-get", "dnf install", "pacman -", "dd if=", "umount", "diskutil erase", "diskutil partition", "nvram", "csrutil", "spctl", "softwareupdate"];
+  const foundMacWrite = forbiddenMacWrite.filter((f) => mac.includes(f));
+  check("collect-mac.sh contains no system-changing commands", foundMacWrite.length === 0, "found: " + foundMacWrite.join(", "));
+  check("collect-mac.sh writes moni-report.json", mac.includes("moni-report.json"));
+  let macSyntaxOk = false, macSyntaxDetail = "";
+  try {
+    require("child_process").execFileSync("bash", ["-n", macPath], { stdio: "pipe" });
+    macSyntaxOk = true;
+  } catch (e) { macSyntaxDetail = String((e && e.stderr) || e); }
+  check("collect-mac.sh passes bash -n", macSyntaxOk, macSyntaxDetail.slice(0, 200));
+
+  const macSamplePath = path.join(root, "tests", "sample-report-mac.json");
+  check("tests/sample-report-mac.json exists", fs.existsSync(macSamplePath));
+  if (fs.existsSync(macSamplePath)) {
+    const macSample = JSON.parse(fs.readFileSync(macSamplePath, "utf8"));
+    const macErrs = validateReport(macSample);
+    check("sample-report-mac.json conforms to schema", macErrs.length === 0, macErrs.join("; "));
+    check("sample-report-mac.json is marked as sample data", macSample.sampleData === true);
+    check("sample-report-mac.json comes from collect-mac.sh",
+      typeof macSample.collector === "string" && macSample.collector.includes("collect-mac.sh"));
+  }
+}
+check("README documents the macOS collector", readme.includes("collect-mac.sh"));
 
 console.log(failures === 0 ? "\nALL CHECKS PASSED" : "\n" + failures + " CHECK(S) FAILED");
 process.exit(failures === 0 ? 0 : 1);
