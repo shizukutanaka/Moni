@@ -1,1 +1,1 @@
-{"description":"Moni — PC device info viewer (single-file HTML viewer + read-only Windows collector script)","name":"moni","private":true,"scripts":{"test":"node tests/validate.js","test:ui":"xvfb-run -a electron tests/ui-test/main.js"},"version":"1.0.0"}
+{"description":"Moni — PC device info viewer (single-file HTML viewer + read-only collector scripts for Windows and Linux)","name":"moni","private":true,"scripts":{"test":"node tests/validate.js","test:ui":"xvfb-run -a electron tests/ui-test/main.js"},"version":"1.0.0"}

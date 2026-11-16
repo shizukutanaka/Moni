@@ -10,6 +10,9 @@
  *     no network-sending commands (read-only collector).
  *  5. collect.bat is ASCII-only, calls collect.ps1 and pauses.
  *  6. README.md documents the Moni / BIOSMAN split.
+ *  7. collect.sh (Linux) emits every schema key, contains no network or
+ *     system-changing commands, passes bash -n, and — on Linux — a live
+ *     run in a temp dir produces a schema-valid report.
  */
 const fs = require("fs");
 const path = require("path");
@@ -172,6 +175,48 @@ check("collect.bat has a pause", /pause/.test(batText));
 const readme = fs.readFileSync(path.join(root, "README.md"), "utf8");
 check("README documents the BIOSMAN split", readme.includes("BIOSMAN"));
 check("README states what Moni does NOT do", /やらないこと|does NOT|does not do/i.test(readme));
+check("README documents the Linux collector", readme.includes("collect.sh"));
+
+/* 7. collect.sh (Linux collector) */
+const shPath = path.join(root, "collect.sh");
+check("collect.sh exists", fs.existsSync(shPath));
+if (fs.existsSync(shPath)) {
+  const sh = fs.readFileSync(shPath, "utf8");
+  check("collect.sh has a bash shebang", sh.startsWith("#!/usr/bin/env bash") || sh.startsWith("#!/bin/bash"));
+  check("collect.sh is executable", (fs.statSync(shPath).mode & 0o111) !== 0);
+  const missingShKeys = schemaKeys.filter((k) => !sh.includes(k));
+  check("collect.sh emits all schema keys", missingShKeys.length === 0, "missing: " + missingShKeys.join(", "));
+  const forbiddenNet = ["curl", "wget", "/dev/tcp", "netcat", "socat", "telnet", "Invoke-WebRequest"];
+  const foundNet = forbiddenNet.filter((f) => sh.includes(f));
+  check("collect.sh contains no network-sending commands", foundNet.length === 0, "found: " + foundNet.join(", "));
+  const forbiddenWrite = ["mkfs", "fdisk", "parted", "systemctl", "shutdown", "reboot", "apt-get", "dnf install", "pacman -", "dd if=", "umount"];
+  const foundWrite = forbiddenWrite.filter((f) => sh.includes(f));
+  check("collect.sh contains no system-changing commands", foundWrite.length === 0, "found: " + foundWrite.join(", "));
+  check("collect.sh writes moni-report.json", sh.includes("moni-report.json"));
+  let syntaxOk = false, syntaxDetail = "";
+  try {
+    require("child_process").execFileSync("bash", ["-n", shPath], { stdio: "pipe" });
+    syntaxOk = true;
+  } catch (e) { syntaxDetail = String((e && e.stderr) || e); }
+  check("collect.sh passes bash -n", syntaxOk, syntaxDetail.slice(0, 200));
+
+  if (process.platform === "linux") {
+    const tmp = fs.mkdtempSync(path.join(require("os").tmpdir(), "moni-collect-"));
+    try {
+      fs.copyFileSync(shPath, path.join(tmp, "collect.sh"));
+      require("child_process").execFileSync("bash", [path.join(tmp, "collect.sh")], { stdio: "pipe", timeout: 60000 });
+      const live = JSON.parse(fs.readFileSync(path.join(tmp, "moni-report.json"), "utf8"));
+      const liveErrs = validateReport(live);
+      check("collect.sh live run produces a schema-valid report", liveErrs.length === 0, liveErrs.join("; "));
+      check("live report is real data from collect.sh",
+        live.sampleData === false && typeof live.collector === "string" && live.collector.includes("collect.sh"));
+    } catch (e) {
+      check("collect.sh live run produces a schema-valid report", false, String((e && e.message) || e).slice(0, 200));
+    } finally {
+      try { fs.rmSync(tmp, { recursive: true, force: true }); } catch (_) {}
+    }
+  }
+}
 
 console.log(failures === 0 ? "\nALL CHECKS PASSED" : "\n" + failures + " CHECK(S) FAILED");
 process.exit(failures === 0 ? 0 : 1);
