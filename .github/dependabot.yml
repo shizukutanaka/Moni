@@ -1,0 +1,17 @@
+# Dependency update checks for the current Moni.
+#
+# The pre-rebuild Moni was a Python/Docker product and also watched the
+# "pip" and "docker" ecosystems. The rebuilt Moni (PR #5) has no Python,
+# no Docker and zero npm dependencies (see package.json), so the only
+# remaining third-party supply-chain surface is the GitHub Actions used
+# by .github/workflows/ci.yml. Only that ecosystem is watched here.
+# The old scheduled Python security audit workflow
+# (.github/workflows/dependency-audit.yml) was removed in the same
+# rebuild because every step audited files that no longer exist
+# (requirements.txt, src/moni/); it is intentionally not restored.
+version: 2
+updates:
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
