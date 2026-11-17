@@ -1,0 +1,56 @@
+name: Release
+
+# Tag a release (v*) to publish the portable ZIP on a GitHub Release.
+# Manual runs (workflow_dispatch) only build the ZIP and upload it as an
+# Actions artifact — they never create a Release.
+on:
+  push:
+    tags: ["v*"]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  package:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write # only used by the tag-only Release step below
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+      - name: Validate schema, embedded sample and collector scripts
+        run: node tests/validate.js
+      - name: Build portable ZIP
+        run: |
+          set -euo pipefail
+          mkdir -p dist/Moni
+          # Portable ZIP contents: the viewer, one collector per OS, the
+          # fictional sample report, README and LICENSE. Nothing else —
+          # in particular no collected report (moni-report.json) is included.
+          cp -p index.html collect.ps1 collect.bat collect.sh collect-mac.sh \
+            sample-report.json README.md LICENSE dist/Moni/
+          chmod +x dist/Moni/collect.sh dist/Moni/collect-mac.sh
+          (cd dist && zip -r Moni.zip Moni)
+          (cd dist && sha256sum Moni.zip > Moni.zip.sha256)
+          unzip -l dist/Moni.zip
+          cat dist/Moni.zip.sha256
+      - name: Upload ZIP as an Actions artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: Moni
+          path: |
+            dist/Moni.zip
+            dist/Moni.zip.sha256
+      - name: Publish GitHub Release (tag pushes only)
+        if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags/')
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          gh release create "${GITHUB_REF_NAME}" \
+            dist/Moni.zip dist/Moni.zip.sha256 \
+            --title "Moni ${GITHUB_REF_NAME}" \
+            --generate-notes
