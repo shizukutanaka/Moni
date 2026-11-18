@@ -1,8 +1,8 @@
 name: Release
 
-# Tag a release (v*) to publish the portable ZIP on a GitHub Release.
-# Manual runs (workflow_dispatch) only build the ZIP and upload it as an
-# Actions artifact — they never create a Release.
+# Tag a release (v*) to publish the portable ZIP and the desktop app on a
+# GitHub Release. Manual runs (workflow_dispatch) only build and upload
+# them as Actions artifacts — they never create a Release.
 on:
   push:
     tags: ["v*"]
@@ -54,3 +54,45 @@ jobs:
             dist/Moni.zip dist/Moni.zip.sha256 \
             --title "Moni ${GITHUB_REF_NAME}" \
             --generate-notes
+
+  # The desktop app (Electron shell in app/, viewer in index.html) is the
+  # canonical product form. Builds are unsigned. This job runs after the
+  # package job so that, on tag pushes, the Release already exists when
+  # the app binaries are attached to it.
+  desktop:
+    needs: package
+    permissions:
+      contents: write # only used by the tag-only Release step below
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [windows-latest, macos-latest, ubuntu-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+      - name: Install dependencies
+        run: npm ci
+      - name: Build desktop app (never publishes by itself)
+        run: npx electron-builder --publish never
+      - name: Upload desktop app as an Actions artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: Moni-desktop-${{ matrix.os }}
+          path: |
+            dist/*.exe
+            dist/*.zip
+            dist/*.AppImage
+          if-no-files-found: error
+      - name: Attach desktop app to the GitHub Release (tag pushes only)
+        if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags/')
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          files=$(ls dist/*.exe dist/*.zip dist/*.AppImage 2>/dev/null)
+          echo "Attaching: $files"
+          gh release upload "${GITHUB_REF_NAME}" $files --clobber
