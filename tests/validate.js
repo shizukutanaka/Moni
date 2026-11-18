@@ -79,6 +79,14 @@ function validateReport(rep) {
     need(isNNum(d.sizeBytes), "storage.physical[" + i + "].sizeBytes");
     need(isNStr(d.mediaType), "storage.physical[" + i + "].mediaType");
     need(isNStr(d.busType), "storage.physical[" + i + "].busType");
+    if (!isNil(d.smart)) {
+      const sm = d.smart;
+      need(typeof sm === "object", "storage.physical[" + i + "].smart must be an object or null");
+      need(isNStr(sm.status), "storage.physical[" + i + "].smart.status");
+      need(isNNum(sm.temperatureC), "storage.physical[" + i + "].smart.temperatureC");
+      need(isNNum(sm.powerOnHours), "storage.physical[" + i + "].smart.powerOnHours");
+      need(isNNum(sm.powerOnCount), "storage.physical[" + i + "].smart.powerOnCount");
+    }
   });
   need(Array.isArray(st.logical), "storage.logical must be an array");
   (st.logical || []).forEach((d, i) => {
@@ -154,7 +162,8 @@ const ps1 = ps1Buf.toString("utf16le");
 const schemaKeys = ["computerName", "manufacturer", "model", "osName", "osVersion", "osBuild",
   "uptimeSeconds", "cores", "logicalProcessors", "maxClockMHz", "totalBytes", "modules",
   "capacityBytes", "speedMHz", "partNumber", "vramBytes", "driverVersion", "biosVersion",
-  "biosDate", "physical", "logical", "drive", "fileSystem", "freeBytes", "ipv4", "ipv6",
+  "biosDate", "physical", "logical", "drive", "fileSystem", "freeBytes",
+  "smart", "temperatureC", "powerOnHours", "powerOnCount", "ipv4", "ipv6",
   "macAddress", "linkSpeedMbps", "width", "height", "refreshRateHz", "chargePercent",
   "designCapacityMWh", "fullChargeCapacityMWh", "peripherals", "moni-report", "collectedAt"];
 const missingKeys = schemaKeys.filter((k) => !ps1.includes(k));

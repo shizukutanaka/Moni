@@ -302,7 +302,16 @@ for dnode in $disk_ids; do
     "PCI-Express") bus_json='"NVMe"' ;;
     *) bus_json="$(jstr_plain "$d_proto")" ;;
   esac
-  phys_fragments+=("{\"model\":$(jstr "$d_model"),\"sizeBytes\":$(jnum_pos "$d_size"),\"mediaType\":$media_json,\"busType\":$bus_json}")
+  # SMART summary: diskutil reports only the overall status ("Verified"
+  # / "Failing" / "Not Supported"); macOS exposes no temperature or
+  # power-on counters through its standard tools, so those stay null.
+  d_smart="$(printf '%s\n' "$d_info" | sed -n 's/^[[:space:]]*SMART Status:[[:space:]]*//p' | head -n 1)"
+  case "$(trim "$d_smart")" in
+    Verified) smart_json='{"status":"ok","temperatureC":null,"powerOnHours":null,"powerOnCount":null}' ;;
+    Failing) smart_json='{"status":"critical","temperatureC":null,"powerOnHours":null,"powerOnCount":null}' ;;
+    *) smart_json='{"status":null,"temperatureC":null,"powerOnHours":null,"powerOnCount":null}' ;;
+  esac
+  phys_fragments+=("{\"model\":$(jstr "$d_model"),\"sizeBytes\":$(jnum_pos "$d_size"),\"mediaType\":$media_json,\"busType\":$bus_json,\"smart\":$smart_json}")
 done
 
 # Filesystem types per mount point, from the mount table.
