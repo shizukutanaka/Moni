@@ -358,6 +358,47 @@ case "$mb_bios_date_raw" in
 esac
 motherboard_json="{\"manufacturer\":$(jstr "$mb_manufacturer"),\"product\":$(jstr "$mb_product"),\"biosVersion\":$(jstr "$mb_bios_version"),\"biosDate\":$(jstr_plain "$mb_bios_date")}"
 
+# ---------- SMART summary (optional, via smartctl when present) ----------
+# smartctl (from smartmontools) is not part of a standard install, so
+# this is strictly best-effort: when it is missing, or the drive cannot
+# be read (SMART reads usually need root), every field stays null and
+# the viewer shows "Unavailable". Only the summary is collected
+# (health, temperature, power-on hours / count), never raw attributes.
+# "-n standby" keeps a sleeping drive asleep: the probe never wakes it.
+smart_json_for() { # $1 = device name (e.g. sda, nvme0n1) -> JSON object
+  local dev="$1" out="" status="" temp="" hours="" count=""
+  if command -v smartctl >/dev/null 2>&1; then
+    out="$(smartctl -n standby -H -A "/dev/$dev" 2>/dev/null)"
+  fi
+  if [ -n "$out" ]; then
+    case "$(printf '%s\n' "$out" | grep 'overall-health self-assessment' | head -n 1)" in
+      *PASSED*) status="ok" ;;
+      *FAILED*) status="critical" ;;
+    esac
+    # NVMe health log lines ("Temperature: 36 Celsius" and friends).
+    temp="$(printf '%s\n' "$out" | sed -n 's/^Temperature:[[:space:]]*\([0-9][0-9]*\)[[:space:]].*/\1/p' | head -n 1)"
+    hours="$(printf '%s\n' "$out" | sed -n 's/^Power On Hours:[[:space:]]*\([0-9,]*\).*/\1/p' | head -n 1 | tr -d ',')"
+    count="$(printf '%s\n' "$out" | sed -n 's/^Power Cycles:[[:space:]]*\([0-9,]*\).*/\1/p' | head -n 1 | tr -d ',')"
+    # ATA attribute table (194 = temperature, 9 = power-on hours,
+    # 12 = power cycle count); the raw value is the last column.
+    if [ -z "$temp" ]; then
+      temp="$(printf '%s\n' "$out" | awk '$1 == "194" { for (i = NF; i >= 1; i--) if ($i ~ /^[0-9]+$/) { print $i; exit } }')"
+    fi
+    if [ -z "$hours" ]; then
+      hours="$(printf '%s\n' "$out" | awk '$1 == "9" && /Power_On_Hours/ { print $NF; exit }')"
+    fi
+    if [ -z "$count" ]; then
+      count="$(printf '%s\n' "$out" | awk '$1 == "12" && /Power_Cycle_Count/ { print $NF; exit }')"
+    fi
+  fi
+  local status_json='null'
+  case "$status" in
+    ok | warning | critical) status_json="\"$status\"" ;;
+  esac
+  printf '{"status":%s,"temperatureC":%s,"powerOnHours":%s,"powerOnCount":%s}' \
+    "$status_json" "$(jnum_nonneg "$temp")" "$(jnum_nonneg "$hours")" "$(jnum_nonneg "$count")"
+}
+
 # ---------- Storage ----------
 phys_fragments=()
 if command -v lsblk >/dev/null 2>&1; then
@@ -410,7 +451,7 @@ if command -v lsblk >/dev/null 2>&1; then
       0) media_json='"SSD"' ;;
       *) media_json='null' ;;
     esac
-    phys_fragments+=("{\"model\":$(jstr "$d_model"),\"sizeBytes\":$(jnum_pos "$d_size"),\"mediaType\":$media_json,\"busType\":$bus_json}")
+    phys_fragments+=("{\"model\":$(jstr "$d_model"),\"sizeBytes\":$(jnum_pos "$d_size"),\"mediaType\":$media_json,\"busType\":$bus_json,\"smart\":$(smart_json_for "$d_name")}")
   done <<EOF
 $(lsblk -b -d -n -P -o NAME,MODEL,SIZE,TRAN,ROTA,TYPE 2>/dev/null)
 EOF
@@ -435,7 +476,7 @@ else
       *usb*) bus_json='"USB"' ;;
       *virtio*) bus_json='"VirtIO"' ;;
     esac
-    phys_fragments+=("{\"model\":$(jstr "$bmodel"),\"sizeBytes\":$(jnum_pos "$bsize"),\"mediaType\":$media_json,\"busType\":$bus_json}")
+    phys_fragments+=("{\"model\":$(jstr "$bmodel"),\"sizeBytes\":$(jnum_pos "$bsize"),\"mediaType\":$media_json,\"busType\":$bus_json,\"smart\":$(smart_json_for "$bname")}")
   done
 fi
 
