@@ -15,14 +15,16 @@
  *     run in a temp dir produces a schema-valid report.
  *  8. Viewer features: I18N symmetry, diff comparison, masked share export.
  *  9. collect-mac.sh (macOS) emits every schema key, contains no network
- *     or system-changing commands, passes bash -n, and the macOS sample
- *     report fixture conforms to the schema. (A live run is only
- *     possible on a real Mac, so the fixture stands in for it here.)
+ *     or system-changing commands and passes bash -n. The macOS sample
+ *     and, on macOS, a live report from a temp dir conform to the schema.
  */
+const { execFileSync } = require("child_process");
 const fs = require("fs");
+const os = require("os");
 const path = require("path");
 
 const root = path.join(__dirname, "..");
+const bash = process.platform === "darwin" ? "/bin/bash" : "bash";
 let failures = 0;
 function check(name, cond, detail) {
   if (cond) { console.log("PASS | " + name); }
@@ -132,6 +134,27 @@ function validateReport(rep) {
   return errs;
 }
 
+function validateLiveCollector(scriptPath) {
+  const name = path.basename(scriptPath);
+  const label = name + " live run produces a schema-valid report";
+  const tmp = fs.mkdtempSync(path.join(os.tmpdir(), "moni-collect-"));
+  try {
+    const script = path.join(tmp, name);
+    fs.copyFileSync(scriptPath, script);
+    execFileSync(bash, [script], { stdio: "ignore", timeout: 60000 });
+    const live = JSON.parse(fs.readFileSync(path.join(tmp, "moni-report.json"), "utf8"));
+    const errors = validateReport(live);
+    check(label, errors.length === 0, errors.join("; "));
+    check("live report is real data from " + name,
+      live?.sampleData === false && typeof live.collector === "string" && live.collector.includes(name));
+  } catch (e) {
+    // Parse errors can include report contents; log only the error type or code.
+    check(label, false, String(e.code ?? e.signal ?? e.status ?? e.name));
+  } finally {
+    fs.rmSync(tmp, { recursive: true, force: true });
+  }
+}
+
 /* 1. sample schema */
 const sample = JSON.parse(fs.readFileSync(path.join(root, "sample-report.json"), "utf8"));
 const schemaErrs = validateReport(sample);
@@ -209,27 +232,12 @@ if (fs.existsSync(shPath)) {
   check("collect.sh writes moni-report.json", sh.includes("moni-report.json"));
   let syntaxOk = false, syntaxDetail = "";
   try {
-    require("child_process").execFileSync("bash", ["-n", shPath], { stdio: "pipe" });
+    execFileSync(bash, ["-n", shPath], { stdio: "pipe" });
     syntaxOk = true;
   } catch (e) { syntaxDetail = String((e && e.stderr) || e); }
   check("collect.sh passes bash -n", syntaxOk, syntaxDetail.slice(0, 200));
 
-  if (process.platform === "linux") {
-    const tmp = fs.mkdtempSync(path.join(require("os").tmpdir(), "moni-collect-"));
-    try {
-      fs.copyFileSync(shPath, path.join(tmp, "collect.sh"));
-      require("child_process").execFileSync("bash", [path.join(tmp, "collect.sh")], { stdio: "pipe", timeout: 60000 });
-      const live = JSON.parse(fs.readFileSync(path.join(tmp, "moni-report.json"), "utf8"));
-      const liveErrs = validateReport(live);
-      check("collect.sh live run produces a schema-valid report", liveErrs.length === 0, liveErrs.join("; "));
-      check("live report is real data from collect.sh",
-        live.sampleData === false && typeof live.collector === "string" && live.collector.includes("collect.sh"));
-    } catch (e) {
-      check("collect.sh live run produces a schema-valid report", false, String((e && e.message) || e).slice(0, 200));
-    } finally {
-      try { fs.rmSync(tmp, { recursive: true, force: true }); } catch (_) {}
-    }
-  }
+  if (process.platform === "linux") validateLiveCollector(shPath);
 }
 
 /* 8. viewer features: I18N symmetry, diff comparison, masked share export */
@@ -283,7 +291,7 @@ if (fs.existsSync(macPath)) {
   check("collect-mac.sh writes moni-report.json", mac.includes("moni-report.json"));
   let macSyntaxOk = false, macSyntaxDetail = "";
   try {
-    require("child_process").execFileSync("bash", ["-n", macPath], { stdio: "pipe" });
+    execFileSync(bash, ["-n", macPath], { stdio: "pipe" });
     macSyntaxOk = true;
   } catch (e) { macSyntaxDetail = String((e && e.stderr) || e); }
   check("collect-mac.sh passes bash -n", macSyntaxOk, macSyntaxDetail.slice(0, 200));
@@ -298,6 +306,8 @@ if (fs.existsSync(macPath)) {
     check("sample-report-mac.json comes from collect-mac.sh",
       typeof macSample.collector === "string" && macSample.collector.includes("collect-mac.sh"));
   }
+
+  if (process.platform === "darwin") validateLiveCollector(macPath);
 }
 check("README documents the macOS collector", readme.includes("collect-mac.sh"));
 
