@@ -93,6 +93,11 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: |
           set -euo pipefail
-          files=$(ls dist/*.exe dist/*.zip dist/*.AppImage 2>/dev/null)
-          echo "Attaching: $files"
-          gh release upload "${GITHUB_REF_NAME}" $files --clobber
+          shopt -s nullglob
+          files=(dist/*.exe dist/*.zip dist/*.AppImage)
+          if ((${#files[@]} == 0)); then
+            echo "No desktop release assets found in dist/" >&2
+            exit 1
+          fi
+          printf 'Attaching: %s\n' "${files[@]}"
+          gh release upload "${GITHUB_REF_NAME}" "${files[@]}" --clobber
