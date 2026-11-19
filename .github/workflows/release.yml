@@ -15,6 +15,7 @@ on:
       - "collect*"
       - "sample-report.json"
       - "tests/macos-package-test.js"
+      - "tests/windows-package-test.ps1"
       - "tests/validate.js"
       - "tests/sample-report-mac.json"
       - "README.md"
@@ -85,6 +86,9 @@ jobs:
       - name: Launch the macOS release ZIP with sample reports
         if: runner.os == 'macOS'
         run: node tests/macos-package-test.js dist/*-mac.zip
+      - name: Launch the Windows portable EXE
+        if: runner.os == 'Windows'
+        run: ./tests/windows-package-test.ps1
       - name: Upload desktop app as an Actions artifact
         uses: actions/upload-artifact@v4
         with:
