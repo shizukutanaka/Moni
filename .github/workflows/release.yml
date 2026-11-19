@@ -1,11 +1,23 @@
 name: Release
 
 # Tag a release (v*) to publish the portable ZIP and the desktop app on a
-# GitHub Release. Manual runs (workflow_dispatch) only build and upload
-# them as Actions artifacts — they never create a Release.
+# GitHub Release. Pull requests and manual runs only build and upload
+# Actions artifacts — they never create a Release.
 on:
   push:
     tags: ["v*"]
+  pull_request:
+    paths:
+      - ".github/workflows/release.yml"
+      - "app/**"
+      - "package*.json"
+      - "index.html"
+      - "collect*"
+      - "sample-report.json"
+      - "tests/validate.js"
+      - "tests/sample-report-mac.json"
+      - "README.md"
+      - "LICENSE"
   workflow_dispatch:
 
 permissions:
@@ -14,10 +26,10 @@ permissions:
 jobs:
   package:
     runs-on: ubuntu-latest
-    permissions:
-      contents: write # only used by the tag-only Release step below
     steps:
       - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
       - uses: actions/setup-node@v4
         with:
           node-version: "20"
@@ -44,32 +56,24 @@ jobs:
           path: |
             dist/Moni.zip
             dist/Moni.zip.sha256
-      - name: Publish GitHub Release (tag pushes only)
-        if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags/')
-        env:
-          GH_TOKEN: ${{ github.token }}
-        run: |
-          set -euo pipefail
-          gh release create "${GITHUB_REF_NAME}" \
-            dist/Moni.zip dist/Moni.zip.sha256 \
-            --title "Moni ${GITHUB_REF_NAME}" \
-            --generate-notes
+          if-no-files-found: error
 
-  # The desktop app (Electron shell in app/, viewer in index.html) is the
-  # canonical product form. Builds are unsigned. This job runs after the
-  # package job so that, on tag pushes, the Release already exists when
-  # the app binaries are attached to it.
   desktop:
-    needs: package
-    permissions:
-      contents: write # only used by the tag-only Release step below
     strategy:
       fail-fast: false
       matrix:
-        os: [windows-latest, macos-latest, ubuntu-latest]
+        include:
+          - os: windows-latest
+            asset: "dist/*.exe"
+          - os: macos-latest
+            asset: "dist/*.zip"
+          - os: ubuntu-latest
+            asset: "dist/*.AppImage"
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
       - uses: actions/setup-node@v4
         with:
           node-version: "20"
@@ -81,23 +85,36 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: Moni-desktop-${{ matrix.os }}
-          path: |
-            dist/*.exe
-            dist/*.zip
-            dist/*.AppImage
+          path: ${{ matrix.asset }}
           if-no-files-found: error
-      - name: Attach desktop app to the GitHub Release (tag pushes only)
-        if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags/')
-        shell: bash
+
+  publish:
+    if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags/v')
+    needs: [package, desktop]
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: Moni*
+          path: release-assets
+      - name: Publish GitHub Release with all assets
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
           set -euo pipefail
+          (cd release-assets/Moni && sha256sum --check Moni.zip.sha256)
           shopt -s nullglob
-          files=(dist/*.exe dist/*.zip dist/*.AppImage)
-          if ((${#files[@]} == 0)); then
-            echo "No desktop release assets found in dist/" >&2
+          windows=(release-assets/Moni-desktop-windows-latest/*.exe)
+          macos=(release-assets/Moni-desktop-macos-latest/*.zip)
+          linux=(release-assets/Moni-desktop-ubuntu-latest/*.AppImage)
+          if ((${#windows[@]} == 0 || ${#macos[@]} == 0 || ${#linux[@]} == 0)); then
+            echo "Missing desktop release assets" >&2
             exit 1
           fi
-          printf 'Attaching: %s\n' "${files[@]}"
-          gh release upload "${GITHUB_REF_NAME}" "${files[@]}" --clobber
+          gh release create "${GITHUB_REF_NAME}" \
+            release-assets/Moni/Moni.zip release-assets/Moni/Moni.zip.sha256 \
+            "${windows[@]}" "${macos[@]}" "${linux[@]}" \
+            --repo "${GITHUB_REPOSITORY}" --verify-tag \
+            --title "Moni ${GITHUB_REF_NAME}" --generate-notes
