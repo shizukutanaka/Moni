@@ -15,3 +15,13 @@ jobs:
           node-version: "20"
       - name: Validate schema, embedded sample and collector script
         run: node tests/validate.js
+
+  validate-macos:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+      - name: Validate the macOS collector's generated report
+        run: node tests/validate.js
