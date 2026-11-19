@@ -7,7 +7,8 @@
  *  2. The SAMPLE_REPORT embedded in index.html is identical to sample-report.json.
  *  3. index.html references no external resources (offline, single file).
  *  4. collect.ps1 is UTF-16LE with BOM, emits every schema key, and contains
- *     no network-sending commands (read-only collector).
+ *     no network-sending commands (read-only collector). On Windows,
+ *     a live run in a temp dir produces a schema-valid report.
  *  5. collect.bat is ASCII-only, calls collect.ps1 and pauses.
  *  6. README.md documents the Moni / BIOSMAN split.
  *  7. collect.sh (Linux) emits every schema key, contains no network or
@@ -134,15 +135,16 @@ function validateReport(rep) {
   return errs;
 }
 
-function validateLiveCollector(scriptPath) {
+function validateLiveCollector(scriptPath, executable, args = []) {
   const name = path.basename(scriptPath);
   const label = name + " live run produces a schema-valid report";
   const tmp = fs.mkdtempSync(path.join(os.tmpdir(), "moni-collect-"));
   try {
     const script = path.join(tmp, name);
     fs.copyFileSync(scriptPath, script);
-    execFileSync(bash, [script], { stdio: "ignore", timeout: 60000 });
-    const live = JSON.parse(fs.readFileSync(path.join(tmp, "moni-report.json"), "utf8"));
+    execFileSync(executable, [...args, script], { stdio: "ignore", timeout: 60000 });
+    const json = fs.readFileSync(path.join(tmp, "moni-report.json"), "utf8");
+    const live = JSON.parse(json.replace(/^\uFEFF/, ""));
     const errors = validateReport(live);
     check(label, errors.length === 0, errors.join("; "));
     check("live report is real data from " + name,
@@ -155,6 +157,19 @@ function validateLiveCollector(scriptPath) {
   }
 }
 
+function validateBashScript(scriptPath) {
+  if (process.platform === "win32") return;
+  const name = path.basename(scriptPath);
+  check(name + " is executable", (fs.statSync(scriptPath).mode & 0o111) !== 0);
+  const label = name + " passes bash -n";
+  try {
+    execFileSync(bash, ["-n", scriptPath], { stdio: "pipe" });
+    check(label, true);
+  } catch (e) {
+    check(label, false, String(e.stderr || e).slice(0, 200));
+  }
+}
+
 /* 1. sample schema */
 const sample = JSON.parse(fs.readFileSync(path.join(root, "sample-report.json"), "utf8"));
 const schemaErrs = validateReport(sample);
@@ -162,7 +177,7 @@ check("sample-report.json conforms to schema", schemaErrs.length === 0, schemaEr
 check("sample-report.json is marked as sample data", sample.sampleData === true);
 
 /* 2. embedded sample in index.html */
-const html = fs.readFileSync(path.join(root, "index.html"), "utf8");
+const html = fs.readFileSync(path.join(root, "index.html"), "utf8").replace(/\r\n/g, "\n");
 const m = html.match(/const SAMPLE_REPORT = (\{.*?\});\n/s);
 check("index.html embeds SAMPLE_REPORT", !!m);
 if (m) {
@@ -179,7 +194,8 @@ check("index.html has no external resource references", externalRefs.length === 
 check("index.html has no fetch/XHR network calls", !/fetch\(|XMLHttpRequest|WebSocket/.test(html));
 
 /* 4. collect.ps1 */
-const ps1Buf = fs.readFileSync(path.join(root, "collect.ps1"));
+const ps1Path = path.join(root, "collect.ps1");
+const ps1Buf = fs.readFileSync(ps1Path);
 check("collect.ps1 starts with UTF-16LE BOM", ps1Buf[0] === 0xff && ps1Buf[1] === 0xfe);
 const ps1 = ps1Buf.toString("utf16le");
 const schemaKeys = ["computerName", "manufacturer", "model", "osName", "osVersion", "osBuild",
@@ -200,6 +216,10 @@ const opens = (ps1.match(/\{/g) || []).length, closes = (ps1.match(/\}/g) || [])
 check("collect.ps1 braces balance", opens === closes, opens + " vs " + closes);
 const po = (ps1.match(/\(/g) || []).length, pc = (ps1.match(/\)/g) || []).length;
 check("collect.ps1 parentheses balance", po === pc, po + " vs " + pc);
+if (process.platform === "win32") {
+  validateLiveCollector(ps1Path, "powershell.exe",
+    ["-NoProfile", "-NonInteractive", "-ExecutionPolicy", "Bypass", "-File"]);
+}
 
 /* 5. collect.bat */
 const bat = fs.readFileSync(path.join(root, "collect.bat"));
@@ -220,7 +240,6 @@ check("collect.sh exists", fs.existsSync(shPath));
 if (fs.existsSync(shPath)) {
   const sh = fs.readFileSync(shPath, "utf8");
   check("collect.sh has a bash shebang", sh.startsWith("#!/usr/bin/env bash") || sh.startsWith("#!/bin/bash"));
-  check("collect.sh is executable", (fs.statSync(shPath).mode & 0o111) !== 0);
   const missingShKeys = schemaKeys.filter((k) => !sh.includes(k));
   check("collect.sh emits all schema keys", missingShKeys.length === 0, "missing: " + missingShKeys.join(", "));
   const forbiddenNet = ["curl", "wget", "/dev/tcp", "netcat", "socat", "telnet", "Invoke-WebRequest"];
@@ -230,14 +249,9 @@ if (fs.existsSync(shPath)) {
   const foundWrite = forbiddenWrite.filter((f) => sh.includes(f));
   check("collect.sh contains no system-changing commands", foundWrite.length === 0, "found: " + foundWrite.join(", "));
   check("collect.sh writes moni-report.json", sh.includes("moni-report.json"));
-  let syntaxOk = false, syntaxDetail = "";
-  try {
-    execFileSync(bash, ["-n", shPath], { stdio: "pipe" });
-    syntaxOk = true;
-  } catch (e) { syntaxDetail = String((e && e.stderr) || e); }
-  check("collect.sh passes bash -n", syntaxOk, syntaxDetail.slice(0, 200));
+  validateBashScript(shPath);
 
-  if (process.platform === "linux") validateLiveCollector(shPath);
+  if (process.platform === "linux") validateLiveCollector(shPath, bash);
 }
 
 /* 8. viewer features: I18N symmetry, diff comparison, masked share export */
@@ -279,7 +293,6 @@ check("collect-mac.sh exists", fs.existsSync(macPath));
 if (fs.existsSync(macPath)) {
   const mac = fs.readFileSync(macPath, "utf8");
   check("collect-mac.sh has a bash shebang", mac.startsWith("#!/usr/bin/env bash") || mac.startsWith("#!/bin/bash"));
-  check("collect-mac.sh is executable", (fs.statSync(macPath).mode & 0o111) !== 0);
   const missingMacKeys = schemaKeys.filter((k) => !mac.includes(k));
   check("collect-mac.sh emits all schema keys", missingMacKeys.length === 0, "missing: " + missingMacKeys.join(", "));
   const forbiddenMacNet = ["curl", "wget", "/dev/tcp", "netcat", "socat", "telnet", "Invoke-WebRequest"];
@@ -289,12 +302,7 @@ if (fs.existsSync(macPath)) {
   const foundMacWrite = forbiddenMacWrite.filter((f) => mac.includes(f));
   check("collect-mac.sh contains no system-changing commands", foundMacWrite.length === 0, "found: " + foundMacWrite.join(", "));
   check("collect-mac.sh writes moni-report.json", mac.includes("moni-report.json"));
-  let macSyntaxOk = false, macSyntaxDetail = "";
-  try {
-    execFileSync(bash, ["-n", macPath], { stdio: "pipe" });
-    macSyntaxOk = true;
-  } catch (e) { macSyntaxDetail = String((e && e.stderr) || e); }
-  check("collect-mac.sh passes bash -n", macSyntaxOk, macSyntaxDetail.slice(0, 200));
+  validateBashScript(macPath);
 
   const macSamplePath = path.join(root, "tests", "sample-report-mac.json");
   check("tests/sample-report-mac.json exists", fs.existsSync(macSamplePath));
@@ -307,7 +315,7 @@ if (fs.existsSync(macPath)) {
       typeof macSample.collector === "string" && macSample.collector.includes("collect-mac.sh"));
   }
 
-  if (process.platform === "darwin") validateLiveCollector(macPath);
+  if (process.platform === "darwin") validateLiveCollector(macPath, bash);
 }
 check("README documents the macOS collector", readme.includes("collect-mac.sh"));
 

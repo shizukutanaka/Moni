@@ -25,3 +25,13 @@ jobs:
           node-version: "20"
       - name: Validate the macOS collector's generated report
         run: node tests/validate.js
+
+  validate-windows:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+      - name: Validate the Windows collector's generated report
+        run: node tests/validate.js
