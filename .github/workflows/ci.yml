@@ -35,3 +35,18 @@ jobs:
           node-version: "20"
       - name: Validate the Windows collector's generated report
         run: node tests/validate.js
+
+  desktop-smoke:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [macos-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+      - run: npm ci
+      - run: npm run test:desktop
