@@ -135,20 +135,25 @@ function validateReport(rep) {
   return errs;
 }
 
-function validateLiveCollector(scriptPath, executable, args = []) {
+const collectorOptions = { stdio: "ignore", timeout: 60000 };
+const runBashCollector = (script) => execFileSync(bash, [script], collectorOptions);
+
+function validateLiveCollector(scriptPath, run, collector = path.basename(scriptPath)) {
   const name = path.basename(scriptPath);
   const label = name + " live run produces a schema-valid report";
   const tmp = fs.mkdtempSync(path.join(os.tmpdir(), "moni-collect-"));
   try {
-    const script = path.join(tmp, name);
+    const scriptDir = path.join(tmp, "Moni (test & data)");
+    fs.mkdirSync(scriptDir);
+    const script = path.join(scriptDir, name);
     fs.copyFileSync(scriptPath, script);
-    execFileSync(executable, [...args, script], { stdio: "ignore", timeout: 60000 });
-    const json = fs.readFileSync(path.join(tmp, "moni-report.json"), "utf8");
+    run(script, tmp);
+    const json = fs.readFileSync(path.join(scriptDir, "moni-report.json"), "utf8");
     const live = JSON.parse(json.replace(/^\uFEFF/, ""));
     const errors = validateReport(live);
     check(label, errors.length === 0, errors.join("; "));
-    check("live report is real data from " + name,
-      live?.sampleData === false && typeof live.collector === "string" && live.collector.includes(name));
+    check(name + " report contains real data from " + collector,
+      live?.sampleData === false && typeof live.collector === "string" && live.collector.includes(collector));
   } catch (e) {
     // Parse errors can include report contents; log only the error type or code.
     check(label, false, String(e.code ?? e.signal ?? e.status ?? e.name));
@@ -216,17 +221,24 @@ const opens = (ps1.match(/\{/g) || []).length, closes = (ps1.match(/\}/g) || [])
 check("collect.ps1 braces balance", opens === closes, opens + " vs " + closes);
 const po = (ps1.match(/\(/g) || []).length, pc = (ps1.match(/\)/g) || []).length;
 check("collect.ps1 parentheses balance", po === pc, po + " vs " + pc);
-if (process.platform === "win32") {
-  validateLiveCollector(ps1Path, "powershell.exe",
-    ["-NoProfile", "-NonInteractive", "-ExecutionPolicy", "Bypass", "-File"]);
-}
 
 /* 5. collect.bat */
-const bat = fs.readFileSync(path.join(root, "collect.bat"));
+const batPath = path.join(root, "collect.bat");
+const bat = fs.readFileSync(batPath);
 const batText = bat.toString("latin1");
 check("collect.bat is ASCII-only", bat.every((b) => b < 128));
 check("collect.bat calls collect.ps1", batText.includes("collect.ps1"));
 check("collect.bat has a pause", /pause/.test(batText));
+if (process.platform === "win32") {
+  validateLiveCollector(batPath, (script, cwd) => {
+    fs.copyFileSync(ps1Path, path.join(path.dirname(script), "collect.ps1"));
+    // cmd strips the outer quotes with /s; NUL lets the launcher finish its pause.
+    const command = '""' + path.relative(cwd, script) + '" < NUL"';
+    execFileSync("cmd.exe", ["/d", "/s", "/c", command], {
+      ...collectorOptions, cwd, windowsVerbatimArguments: true
+    });
+  }, "collect.ps1");
+}
 
 /* 6. README */
 const readme = fs.readFileSync(path.join(root, "README.md"), "utf8");
@@ -251,7 +263,7 @@ if (fs.existsSync(shPath)) {
   check("collect.sh writes moni-report.json", sh.includes("moni-report.json"));
   validateBashScript(shPath);
 
-  if (process.platform === "linux") validateLiveCollector(shPath, bash);
+  if (process.platform === "linux") validateLiveCollector(shPath, runBashCollector);
 }
 
 /* 8. viewer features: I18N symmetry, diff comparison, masked share export */
@@ -315,7 +327,7 @@ if (fs.existsSync(macPath)) {
       typeof macSample.collector === "string" && macSample.collector.includes("collect-mac.sh"));
   }
 
-  if (process.platform === "darwin") validateLiveCollector(macPath, bash);
+  if (process.platform === "darwin") validateLiveCollector(macPath, runBashCollector);
 }
 check("README documents the macOS collector", readme.includes("collect-mac.sh"));
 
