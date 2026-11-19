@@ -33,7 +33,7 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: "20"
-      - name: Validate the Windows collector's generated report
+      - name: Run the Windows launcher and validate its report
         run: node tests/validate.js
 
   desktop-smoke:
